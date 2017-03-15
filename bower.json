@@ -1,0 +1,23 @@
+{
+  "name": "autosaloon",
+  "description": "A Vue.js project",
+  "main": "",
+  "authors": [
+    "AlexQuidditch <alexquidditch@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "normalize-css": "^5.0.0",
+    "Waves": "waves#^0.7.5",
+    "flickity": "^2.0.5"
+  }
+}
