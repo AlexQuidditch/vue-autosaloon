@@ -1,7 +1,7 @@
 <template>
 	<div id="wrapper" class="wrapper">
 		<Heads/>
-		<transition name="fade" mode="out-in" appear>
+		<transition name="fade-slow" mode="out-in" appear>
 			<router-view></router-view>
 		</transition>
 		<Foots/>
@@ -78,6 +78,17 @@
 
 	.fade-enter,
 	.fade-leave-to {
+		opacity: 0
+	}
+	.fade-slow-enter-active {
+		transition: opacity .8s ease-in-out
+	}
+	.fade-slow-leave-active {
+		transition: opacity .45s ease-in-out
+	}
+
+	.fade-slow-enter,
+	.fade-slow-leave-to {
 		opacity: 0
 	}
 </style>
