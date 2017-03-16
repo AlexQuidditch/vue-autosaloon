@@ -1,6 +1,33 @@
 <template lang="html">
 	<div id="auto" class="tab-auto">
 		<h3 class="tab-auto__title">Список авто Chery</h3>
+		<transition name="fade" mode="out-in">
+			<div v-if="loaded" class="tab-auto__loader"></div>
+			<transition-group
+				tag="ul"
+				name="fade"
+				v-else="!loaded"
+				class="tab-auto__list"
+				>
+				<li	v-for="cheryItem in Chery"
+					class="tab-auto__list-item"
+					:key="cheryItem"
+					>
+					<h6
+						class="tab-auto__list-item-title"
+						>{{ cheryItem.model }}
+					</h6>
+					<img
+						:src="cheryItem.image"
+						alt=""
+						class="tab-auto__list-item-image">
+					<p
+						class="tab-auto__list-item-price"
+						>{{ cheryItem.price }} руб.
+					</p>
+				</li>
+			</transition-group>
+		</transition>
 	</div>
 
 </template>
@@ -10,7 +37,8 @@ export default {
 	name: 'chery',
 	data() {
 		return {
-			Chery: []
+			Chery: [],
+			loaded: !0
 		}
 	},
 	 beforeCreate() {
@@ -24,6 +52,7 @@ export default {
 				 	cheryData.push(data[key]);
 				 }
 				 this.Chery = cheryData;
+				 this.loaded = 0
 			});
    	}
 }
@@ -34,6 +63,7 @@ export default {
 @import "../../../scss/partials/_layout";
 @import "../../../scss/partials/_mixins";
 @import "../../../scss/partials/_variables";
+@import "../../../scss/SpinThatShit/loaders";
 
 	.tab-auto {
 		display: flex;
@@ -48,6 +78,9 @@ export default {
 		&__title {
 			font-size: 2rem;
 			color: $black
+		}
+		&__loader {
+			@include loader12;
 		}
 		&__list {
 			display: flex;

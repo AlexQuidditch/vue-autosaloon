@@ -1,42 +1,65 @@
 <template lang="html">
 	<div id="auto" class="tab-auto">
 		<h3 class="tab-auto__title">Список авто всех производителей</h3>
-		<transition-group tag="ul" name="fade" class="tab-auto__list" appear>
-			<li	v-for="toyotaItem in Toyota"
-				class="tab-auto__list-item"
-				:key="toyotaItem">
-				<h6
-					class="tab-auto__list-item-title"
-					>{{ toyotaItem.model }}
-				</h6>
-				<img
-					:src="toyotaItem.image"
-					alt=""
-					class="tab-auto__list-item-image">
-				<p
-					class="tab-auto__list-item-price"
-					>{{ toyotaItem.price }} руб.
-				</p>
-			</li>
-		</transition-group>
-		<transition-group tag="ul" class="tab-auto__list" name="fade" appear>
-			<li	v-for="nissanItem in Nissan"
-				class="tab-auto__list-item"
-				:key="nissanItem">
-				<h6
-					class="tab-auto__list-item-title"
-					>{{ nissanItem.model }}
-				</h6>
-				<img
-					:src="nissanItem.image"
-					alt=""
-					class="tab-auto__list-item-image">
-				<p
-					class="tab-auto__list-item-price"
-					>{{ nissanItem.price }} руб.
-				</p>
-			</li>
-		</transition-group>
+		<transition name="fade" mode="out-in">
+			<div v-if="loaded" class="tab-auto__loader"></div>
+			<transition-group
+				tag="ul"
+				name="fade"
+				v-else="!loaded"
+				class="tab-auto__list"
+				>
+				<li	v-for="cheryItem in Chery"
+					class="tab-auto__list-item"
+					:key="cheryItem"
+					>
+					<h6
+						class="tab-auto__list-item-title"
+						>{{ cheryItem.model }}
+					</h6>
+					<img
+						:src="cheryItem.image"
+						alt=""
+						class="tab-auto__list-item-image">
+					<p
+						class="tab-auto__list-item-price"
+						>{{ cheryItem.price }} руб.
+					</p>
+				</li>
+				<li	v-for="toyotaItem in Toyota"
+					class="tab-auto__list-item"
+					:key="toyotaItem">
+					<h6
+						class="tab-auto__list-item-title"
+						>{{ toyotaItem.model }}
+					</h6>
+					<img
+						:src="toyotaItem.image"
+						alt=""
+						class="tab-auto__list-item-image">
+					<p
+						class="tab-auto__list-item-price"
+						>{{ toyotaItem.price }} руб.
+					</p>
+				</li>
+				<li	v-for="nissanItem in Nissan"
+					class="tab-auto__list-item"
+					:key="nissanItem">
+					<h6
+						class="tab-auto__list-item-title"
+						>{{ nissanItem.model }}
+					</h6>
+					<img
+						:src="nissanItem.image"
+						alt=""
+						class="tab-auto__list-item-image">
+					<p
+						class="tab-auto__list-item-price"
+						>{{ nissanItem.price }} руб.
+					</p>
+				</li>
+			</transition-group>
+		</transition>
 	</div>
 
 </template>
@@ -46,12 +69,25 @@ export default {
 	name: 'all',
 	data() {
 		return {
-			Toyota: [],
 			Chery: [],
-			Nissan: []
+			Toyota: [],
+			Nissan: [],
+			loaded: !0
 		}
 	},
 	 beforeCreate() {
+		this.$http.get('chery.json')
+		 	.then(response => {
+	 	 		return response.json();
+			})
+			.then(data => {
+	  			const cheryData = [];
+	  			for (let key in data) {
+		 			cheryData.push(data[key]);
+	  			}
+	  			this.Chery = cheryData;
+	  			this.loaded = 0;
+			});
 	 	this.$http.get('toyota.json')
 			.then(response => {
 				return response.json();
@@ -62,19 +98,7 @@ export default {
 				 	ToyotaData.push(data[key]);
 				 }
 				 this.Toyota = ToyotaData;
-				 console.log(ToyotaData);
-			});
-	 	this.$http.get('chery.json')
-			.then(response => {
-				return response.json();
-			})
-			.then(data => {
-				 const cheryData = [];
-				 for (let key in data) {
-				 	cheryData.push(data[key]);
-				 }
-				 this.Chery = cheryData;
-				 console.log(cheryData);
+				 this.loaded = 0
 			});
 		this.$http.get('nissan.json')
 			.then(response => {
@@ -86,7 +110,7 @@ export default {
 				nissanData.push(data[key]);
 			 }
 				 this.Nissan = nissanData;
-				 console.log(nissanData);
+				 this.loaded = 0
 			});
    	}
 }
@@ -97,6 +121,7 @@ export default {
 @import "../../../scss/partials/_layout";
 @import "../../../scss/partials/_mixins";
 @import "../../../scss/partials/_variables";
+@import "../../../scss/SpinThatShit/loaders";
 
 	.tab-auto {
 		display: flex;
@@ -111,6 +136,9 @@ export default {
 		&__title {
 			font-size: 2rem;
 			color: $black
+		}
+		&__loader {
+			@include loader12;
 		}
 		&__list {
 			display: flex;
