@@ -1,16 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Resource from 'vue-resource'
-import Hello from '@/components/hello'
-import Main from '@/components/main'
-import Services from '@/components/services'
-import Catalogue from '@/components/catalogue'
-import About from '@/components/about'
+import hello from '@/components/hello'
+import main from '@/components/main'
+import services from '@/components/services'
+import catalogue from '@/components/catalogue'
+import about from '@/components/about'
 
 Vue.use(Router)
-Vue.use(Resource)
-
-Vue.http.options.root = 'https://autosaloon-293cd.firebaseio.com/'
 
 export default new Router({
 	mode: 'history',
@@ -19,27 +15,27 @@ export default new Router({
 		{
 			path: '/',
 			name: 'Main',
-			component: Main
+			component: main
 		},
 		{
 			path: '/services',
 			name: 'Services',
-			component: Services
+			component: services
 		},
 		{
 			path: '/catalogue',
 			name: 'Catalogue',
-			component: Catalogue
+			component: catalogue
 		},
 		{
 			path: '/about',
 			name: 'About',
-			component: About
+			component: about
 		},
 		{
 			path: '/hello',
 			name: 'Hello',
-			component: Hello
+			component: hello
 		}
 	]
 });
