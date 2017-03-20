@@ -4,10 +4,15 @@
 			<ul class="header-menu">
 				<div class="header-logo">
 					<router-link to="/">
-						<img src="../../static/assets/img/logo.png" alt="" class="header-logo__img">
+						<img
+							src="../../static/assets/img/logo.png"
+							alt=""
+							class="header-logo__img"
+							/>
 					</router-link>
 				</div>
-				<li v-for="headerMenuItem in headerMenu" class="header-menu__item">
+				<li v-for="headerMenuItem in headerMenu"
+					class="header-menu__item">
 					<router-link
 						:to="headerMenuItem.path"
 						class="header-menu__link"
@@ -20,7 +25,7 @@
 			<ul class="header-menu _buttons">
 				<li class="header-menu__item">
 					<button @click="" class="header-menu__link _buttons">
-						Записаться на тест-драйв
+						Консультация по кредиту
 					</button>
 				</li>
 				<li class="header-menu__item">
@@ -77,7 +82,9 @@
 		display: inline-block;
 		vertical-align: middle;
 		margin-right: 22px;
-		&__image {}
+		&__img {
+			height: $headerHeight * .7
+		}
 	}
 
 	.header-menu {

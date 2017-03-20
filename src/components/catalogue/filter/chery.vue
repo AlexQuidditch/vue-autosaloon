@@ -2,11 +2,9 @@
 	<div id="auto" class="tab-auto">
 		<h3 class="tab-auto__title">Список авто Chery</h3>
 		<transition name="fade" mode="out-in">
-			<div v-if="loaded" class="tab-auto__loader"></div>
 			<transition-group
 				tag="ul"
 				name="fade"
-				v-else="!loaded"
 				class="tab-auto__list"
 				>
 				<li	v-for="cheryItem in Chery"
@@ -37,24 +35,12 @@ export default {
 	name: 'chery',
 	data() {
 		return {
-			Chery: [],
-			loaded: !0
+			Chery: []
 		}
 	},
-	 beforeCreate() {
-	 	this.$http.get('chery.json')
-			.then(response => {
-				return response.json();
-			})
-			.then(data => {
-				 const cheryData = [];
-				 for (let key in data) {
-				 	cheryData.push(data[key]);
-				 }
-				 this.Chery = cheryData;
-				 this.loaded = 0
-			});
-   	}
+	beforeMount() {
+		this.Chery = this.$store.state.auto.chery;
+	}
 }
 </script>
 
@@ -90,7 +76,7 @@ export default {
 			width: 100%;
 		}
 		&__list-item {
-			size: 300px 200px;
+			size: 350px auto;
 			@include MDShadow-2;
 		}
 	}

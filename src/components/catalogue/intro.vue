@@ -4,7 +4,13 @@
 			<flickity ref="introSlider" :options="flickityOptions" class="intro-slider">
 				<div v-for="sliderItem in SliderIems" class="intro-slider__slide">
 					{{ sliderItem.title }}
-					<router-link :to="sliderItem.route" class="intro-slider__link" ripple-light>Перейти</router-link>
+					<router-link
+						:to="sliderItem.route"
+						class="intro-slider__link"
+						ripple-light
+						>
+						Перейти
+					</router-link>
 				</div>
 			</flickity>
 		</div>
@@ -28,17 +34,13 @@
 						route: '/services'
 					},
 					{
-						title: 'Toyota',
+						title: 'Changan',
 						route: '/catalogue'
 					},
 					{
-						title: 'Nissan',
+						title: 'Hawtai',
 						route: '/about'
-					},
-					{
-						title: 'Mercedes-Benz',
-						route: '/hello'
-					},
+					}
 				]
 			}
 		},
@@ -61,7 +63,9 @@
 	@import "../../scss/partials/_mixins";
 	@import "../../scss/partials/_variables";
 	.intro {
+		overflow: hidden;
 		padding: 50px 0;
+		margin-top: 60px;
 		.container_flex-column {
 			@include MDShadow-3;
 		}

@@ -1,5 +1,6 @@
 <template lang="html">
 	<main id="main" class="main">
+		<Intro/>
 		<Filters/>
 	</main>
 </template>

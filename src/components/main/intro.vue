@@ -1,132 +1,113 @@
 <template lang="html">
 	<section id="Intro" class="intro">
 		<div class="container_flex-column">
-			<flickity ref="introSlider" :options="flickityOptions" class="intro-slider">
-				<div v-for="sliderItem in SliderIems" class="intro-slider__slide">
-					{{ sliderItem.title }}
-					<router-link :to="sliderItem.route" class="intro-slider__link" ripple-light>Перейти</router-link>
-				</div>
-			</flickity>
+			<div class="intro-text">
+				<h1 class="intro-text__title">
+					{{ title }}
+				</h1>
+				<h2 class="intro-text__sub-title">
+					{{ subtitle }}
+				</h2>
+			</div>
+			<div class="intro-buttons">
+				<button
+					class="intro-buttons__button"
+					v-scroll-to="{
+						el: '#tabs',
+						offset: -60,
+						duration: 950
+						}"
+					>
+					Каталог
+				</button>
+				<button
+					class="intro-buttons__button _alert"
+					v-scroll-to="{
+						el: '#Testdrive',
+						offset: -60,
+						duration: 950
+						}"
+					>
+					Тест-драйв
+				</button>
+			</div>
 		</div>
 	</section>
 </template>
 
 <script>
-	import Flickity from 'vue-flickity'
 
 	export default {
 		name: 'intro',
 		data() {
 			return {
-				flickityOptions: {
-					cellSelector: '.intro-slider__slide',
-					wrapAround: true
-				},
-				SliderIems: [
-					{
-						title: 'Chery',
-						route: '/services'
-					},
-					{
-						title: 'Toyota',
-						route: '/catalogue'
-					},
-					{
-						title: 'Nissan',
-						route: '/about'
-					},
-					{
-						title: 'Mercedes-Benz',
-						route: '/hello'
-					},
-				]
+				title: '',
+				subtitle: '',
 			}
 		},
-		components: {
-			Flickity
-		},
-		methods: {
-			previous() {
-				this.$refs.introSlider.previous();
-			},
-			next() {
-				this.$refs.introSlider.next();
-			}
+		beforeMount() {
+			this.title = this.$store.state.intro.title
+			this.subtitle = this.$store.state.intro.subtitle
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	@import "../../scss/partials/_layout";
 	@import "../../scss/partials/_mixins";
 	@import "../../scss/partials/_variables";
+
 	.intro {
-		padding: 50px 0;
+		height: 100vh;
+		padding: 0;
+		margin: 0;
+		background-image: url('../../../static/assets/img/main_intro.jpg');
+		background-position: center center;
+    	background-color: rgba($blacked, .35);
+		background-blend-mode: color;
 		.container_flex-column {
-			@include MDShadow-3;
+			box-shadow: none
 		}
 	}
 
-	.intro-slider {
-		size: 100% 55vh;
-		background-color: $white;
-		&__slide {
-			position: relative;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			size: 100%;
-			padding: 20px;
-			font-size: 3rem
+	.intro-text {
+		text-align: center;
+		&__title {
+			font-size: 6rem;
+			color: $white;
+			text-shadow: 0 0 15px rgba($blacked, 0.75);
 		}
-		&__link {
-			position: absolute;
-			right: 0;
-			bottom: 0;
-			width: 300px;
-			padding: 20px 0;
-			text-align: center;
-			font-size: 1.5rem;
-			color: $white $red;
-			@include MDShadow-1;
+		&__sub-title {
+			margin-top: 3rem;
+			font-size: 2.5rem;
+			color: $white;
+			text-shadow: 0 0 15px rgba($blacked, 0.75);
 		}
-		.flickity-page-dots {
-			width: auto;
-			bottom: 0;
-			padding: 20px;
-			.dot {
-				opacity: 1;
-				size: 15px;
-				background: rgba($black, .35);
-				@include MDShadow-1;
-				transition:
-					background .3s ease-in-out,
-					box-shadow .3s ease-in-out;
-				&.is-selected {
-					background: rgba($black, .85);
-					@include MDShadow-2;
+	}
+
+	.intro-buttons {
+		margin-top: 4rem;
+		&__button {
+			size: 18rem 3.5rem;
+			margin: 0 3rem;
+			font-size: 1.35rem;
+			color: $white transparent;
+			border: solid 3px $white;
+			cursor: pointer;
+			transition:
+				color .3s ease-in-out,
+				background-color .3s ease-in-out;
+			&:hover {
+				color: $black $white;
+			}
+			&._alert {
+				color: $red;
+				border-color: $red;
+				&:hover {
+					color: $white $red;
 				}
 			}
 		}
-		.flickity-prev-next-button {
-			position: absolute;
-			top: 50%;
-			size: 70px;
-			background-color: $white;
-			cursor: pointer;
-			border: solid 1px rgba($black, .45);
-			border-radius: 50%;
-			& .arrow {
-				fill: $black
-			}
-			&.previous {
-				left: 0;
-				transform: translate(-50%,-50%)
-			}
-			&.next {
-				right: 0;
-				transform: translate(50%,-50%)
-			}
-		}
 	}
+
 </style>

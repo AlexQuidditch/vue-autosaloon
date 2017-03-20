@@ -1,29 +1,27 @@
 <template lang="html">
 	<div id="auto" class="tab-auto">
-		<h3 class="tab-auto__title">Список авто Toyota</h3>
+		<h3 class="tab-auto__title">Список авто Hawtai</h3>
 		<transition name="fade" mode="out-in">
-			<div v-if="loaded" class="tab-auto__loader"></div>
 			<transition-group
 				tag="ul"
 				name="fade"
-				v-else="!loaded"
 				class="tab-auto__list"
 				>
-				<li	v-for="toyotaItem in Toyota"
+				<li	v-for="hawtaiItem in Hawtai"
 					class="tab-auto__list-item"
-					:key="toyotaItem"
+					:key="hawtaiItem"
 					>
 					<h6
 						class="tab-auto__list-item-title"
-						>{{ toyotaItem.model }}
+						>{{ hawtaiItem.model }}
 					</h6>
 					<img
-						:src="toyotaItem.image"
+						:src="hawtaiItem.image"
 						alt=""
 						class="tab-auto__list-item-image">
 					<p
 						class="tab-auto__list-item-price"
-						>{{ toyotaItem.price }} руб.
+						>{{ hawtaiItem.price }} руб.
 					</p>
 				</li>
 			</transition-group>
@@ -34,29 +32,15 @@
 
 <script>
 export default {
-	name: 'toyota',
+	name: 'hawtai',
 	data() {
 		return {
-			Toyota: [],
-			loaded: !0
+			Hawtai: []
 		}
 	},
-	 beforeCreate() {
-	 	this.$http.get('toyota.json')
-			.then(response => {
-				return response.json();
-			})
-			.then(data => {
-				 const ToyotaData = [];
-				 for (let key in data) {
-				 	ToyotaData.push(data[key]);
-					console.log(`Proceed ${key}`);
-				 }
-				 this.Toyota = ToyotaData;
-				 this.loaded = 0;
-				 console.log('is fine');
-			});
-   	}
+	 beforeMount() {
+		 this.Hawtai = this.$store.state.auto.toyota;
+	 }
 }
 </script>
 
@@ -92,7 +76,7 @@ export default {
 			width: 100%;
 		}
 		&__list-item {
-			size: 300px 200px;
+			size: 350px auto;
 			@include MDShadow-2;
 		}
 	}

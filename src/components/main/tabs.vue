@@ -1,16 +1,16 @@
 <template lang="html">
 	<section id="tabs" class="tabs">
 		<div class="container_flex-column">
-			
+
 			<div class="tabs-container">
-				<button
+				<a
 					v-for="buttonItem in Buttons"
 					@click="toggleComponent(buttonItem)"
 					class="tabs-container__button"
 					ripple-light
 					>
 					{{ buttonItem.name }}
-				</button>
+				</a>
 			</div>
 
 			<div class="tabs-container">
@@ -37,23 +37,19 @@ export default {
 		return {
 			Buttons: [{
 					name: 'Автомобили',
-					component: 'auto',
-					isActive: 0
+					component: 'auto'
 				},
 				{
 					name: 'Марки',
-					component: 'marks',
-					isActive: 0
+					component: 'marks'
 				},
 				{
 					name: 'Новости',
-					component: 'news',
-					isActive: 0
+					component: 'news'
 				},
 				{
 					name: 'Акции',
-					component: 'promo',
-					isActive: 0
+					component: 'promo'
 				}
 			],
 			isSelected: 'Auto'

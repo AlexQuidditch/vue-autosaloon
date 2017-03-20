@@ -1,29 +1,25 @@
 <template lang="html">
 	<div id="auto" class="tab-auto">
-		<h3 class="tab-auto__title">Список авто Nissan</h3>
+		<h3 class="tab-auto__title">Список авто Changan</h3>
 		<transition name="fade" mode="out-in">
-			<div v-if="loaded" class="tab-auto__loader"></div>
 			<transition-group
 				tag="ul"
 				name="fade"
-				v-else="!loaded"
 				class="tab-auto__list"
 				>
-				<li	v-for="nissanItem in Nissan"
+				<li	v-for="changanItem in Changan"
 					class="tab-auto__list-item"
-					:key="nissanItem"
+					:key="changanItem"
 					>
-					<h6
-						class="tab-auto__list-item-title"
-						>{{ nissanItem.model }}
+					<h6	class="tab-auto__list-item-title">
+						{{ changanItem.model }}
 					</h6>
 					<img
-						:src="nissanItem.image"
+						:src="changanItem.image"
 						alt=""
 						class="tab-auto__list-item-image">
-					<p
-						class="tab-auto__list-item-price"
-						>{{ nissanItem.price }} руб.
+					<p class="tab-auto__list-item-price">
+						{{ changanItem.price }} руб.
 					</p>
 				</li>
 			</transition-group>
@@ -34,27 +30,15 @@
 
 <script>
 export default {
-	name: 'nissan',
+	name: 'changan',
 	data() {
 		return {
-			Nissan: [],
-			loaded: !0
+			Changan: []
 		}
 	},
-	 beforeCreate() {
-		this.$http.get('nissan.json')
-			.then(response => {
-				return response.json();
-			})
-			.then(data => {
-			 const nissanData = [];
-			 for (let key in data) {
-				nissanData.push(data[key]);
-			 }
-				 this.Nissan = nissanData;
-				 this.loaded = 0
-			});
-   	}
+	beforeMount() {
+		this.Changan = this.$store.state.auto.nissan;
+	}
 }
 </script>
 
@@ -90,7 +74,7 @@ export default {
 			width: 100%;
 		}
 		&__list-item {
-			size: 300px 200px;
+			size: 350px auto;
 			@include MDShadow-2;
 		}
 	}

@@ -10,7 +10,7 @@
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis, rem iure earum, voluptate, cum voluptates quaerat dicta culpa, beatae harum in sed saepe. Rerum ipsam, eveniet autem odio quia ratione?
 			</div>
 			<div class="footer-map">
-				<a href="https://yandex.ru/maps/?um=constructor%3AL7L4aUo4vl-3nhDfoZ9G005s57jf096v&amp;source=constructorStatic" target="_blank"><img src="https://api-maps.yandex.ru/services/constructor/1.0/static/?sid=L7L4aUo4vl-3nhDfoZ9G005s57jf096v&amp;width=380&amp;height=300&amp;lang=ru_RU&amp;sourceType=constructor" alt="" style="border: 0;" /></a>
+				<a href="https://yandex.ru/maps/?um=constructor%3AL7L4aUo4vl-3nhDfoZ9G005s57jf096v&amp;source=constructorStatic" target="_blank"><img src="https://api-maps.yandex.ru/services/constructor/1.0/static/?um=constructor%3AL7L4aUo4vl-3nhDfoZ9G005s57jf096v&amp;width=320&amp;height=300&amp;lang=ru_RU" alt="" style="border: 0;" /></a>
 			</div>
 		</div>
 	</footer>

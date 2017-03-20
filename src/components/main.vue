@@ -1,23 +1,28 @@
 <template lang="html">
-	
+
 	<main id="main" class="main">
-		
-		<intro/>
-	
+
+		<Intro/>
+
+		<Testdrive/>
+
 		<Tabs/>
-		
+
 	</main>
 
 </template>
 
 <script>
+
 import Intro from './main/intro'
 import Tabs from './main/tabs'
+import Testdrive from './main/form-test-drive';
 
 export default {
 	name: 'main',
 	components: {
 		Intro,
+		Testdrive,
 		Tabs
   },
 	mounted() {

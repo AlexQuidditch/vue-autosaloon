@@ -11,6 +11,7 @@
 					>
 					{{ buttonItem.name }}
 				</button>
+
 			</div>
 
 			<div class="tabs-container">
@@ -27,8 +28,8 @@
 
 <script>
 import Chery from './filter/chery'
-import Toyota from './filter/toyota'
-import Nissan from './filter/nissan'
+import Changan from './filter/changan'
+import Hawtai from './filter/hawtai'
 import All from './filter/all'
 
 export default {
@@ -38,23 +39,19 @@ export default {
 			Buttons: [
 				{
 					name: 'Все',
-					component: 'All',
-					isActive: 0
+					component: 'All'
 				},
 				{
 					name: 'Chery',
-					component: 'Chery',
-					isActive: 0
+					component: 'Chery'
 				},
 				{
-					name: 'Toyota',
-					component: 'Toyota',
-					isActive: 0
+					name: 'Hawtai',
+					component: 'Hawtai'
 				},
 				{
-					name: 'Nissan',
-					component: 'Nissan',
-					isActive: 0
+					name: 'Changan',
+					component: 'Changan'
 				}
 			],
 			isSelected: 'Chery'
@@ -62,8 +59,8 @@ export default {
 	},
 	components: {
 		Chery,
-		Toyota,
-		Nissan,
+		Changan,
+		Hawtai,
 		All
 	},
 	methods: {

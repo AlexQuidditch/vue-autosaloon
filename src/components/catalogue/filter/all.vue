@@ -2,11 +2,9 @@
 	<div id="auto" class="tab-auto">
 		<h3 class="tab-auto__title">Список авто всех производителей</h3>
 		<transition name="fade" mode="out-in">
-			<div v-if="loaded" class="tab-auto__loader"></div>
 			<transition-group
 				tag="ul"
 				name="fade"
-				v-else="!loaded"
 				class="tab-auto__list"
 				>
 				<li	v-for="cheryItem in Chery"
@@ -21,7 +19,7 @@
 						:src="cheryItem.image"
 						alt=""
 						class="tab-auto__list-item-image">
-					<p
+						<p
 						class="tab-auto__list-item-price"
 						>{{ cheryItem.price }} руб.
 					</p>
@@ -37,7 +35,7 @@
 						:src="toyotaItem.image"
 						alt=""
 						class="tab-auto__list-item-image">
-					<p
+						<p
 						class="tab-auto__list-item-price"
 						>{{ toyotaItem.price }} руб.
 					</p>
@@ -53,7 +51,7 @@
 						:src="nissanItem.image"
 						alt=""
 						class="tab-auto__list-item-image">
-					<p
+						<p
 						class="tab-auto__list-item-price"
 						>{{ nissanItem.price }} руб.
 					</p>
@@ -71,48 +69,14 @@ export default {
 		return {
 			Chery: [],
 			Toyota: [],
-			Nissan: [],
-			loaded: !0
+			Nissan: []
 		}
 	},
-	 beforeCreate() {
-		this.$http.get('chery.json')
-		 	.then(response => {
-	 	 		return response.json();
-			})
-			.then(data => {
-	  			const cheryData = [];
-	  			for (let key in data) {
-		 			cheryData.push(data[key]);
-	  			}
-	  			this.Chery = cheryData;
-	  			this.loaded = 0;
-			});
-	 	this.$http.get('toyota.json')
-			.then(response => {
-				return response.json();
-			})
-			.then(data => {
-				 const ToyotaData = [];
-				 for (let key in data) {
-				 	ToyotaData.push(data[key]);
-				 }
-				 this.Toyota = ToyotaData;
-				 this.loaded = 0
-			});
-		this.$http.get('nissan.json')
-			.then(response => {
-				return response.json();
-			})
-			.then(data => {
-			 const nissanData = [];
-			 for (let key in data) {
-				nissanData.push(data[key]);
-			 }
-				 this.Nissan = nissanData;
-				 this.loaded = 0
-			});
-   	}
+	beforeMount() {
+		this.Chery = this.$store.state.auto.chery;
+		this.Toyota = this.$store.state.auto.toyota;
+		this.Nissan = this.$store.state.auto.nissan;
+	}
 }
 </script>
 
@@ -148,7 +112,8 @@ export default {
 			width: 100%;
 		}
 		&__list-item {
-			size: 300px 200px;
+			size: 350px auto;
+			margin: 1rem 0;
 			@include MDShadow-2;
 		}
 	}
