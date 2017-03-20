@@ -9,6 +9,7 @@
 </template>
 
 <script>
+
 	import Heads from './components/header'
 	import Foots from './components/footer'
 
@@ -17,7 +18,11 @@
 		components: {
 			Heads,
 			Foots
-		}
+		},
+		// beforeCreate() {
+		// 	// this.$store.commit('hello'); // зовём мутацию
+		// 	this.$store.dispatch('hello'); // зовём действие
+		// }
 	}
 </script>
 
@@ -35,8 +40,7 @@
 	}
 
 	.main {
-		min-height: calc(100vh - 480px);
-		margin-top: $headerHeight;
+		min-height: calc(100vh - 400px);
 	}
 
 	.container {
@@ -49,7 +53,6 @@
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: center;
-		align-content: center;
 		align-items: center;
 		width: 100%;
 		max-width: $containersWidth;
@@ -61,7 +64,6 @@
 		display: flex;
 		flex-flow: column wrap;
 		justify-content: center;
-		align-content: center;
 		align-items: center;
 		width: 100%;
 		max-width: $containersWidth;
@@ -69,22 +71,25 @@
 		margin: 0 auto;
 	}
 
+	button {
+		cursor: pointer;
+	}
+
 	@include waves-light( $whited, $ripple-opacity);
 	@include waves-dark( $red, $ripple-opacity);
-	.fade-enter-active,
-	.fade-leave-active {
-		transition: opacity .3s ease-in-out
+
+	.fade-slow-enter-active,
+	.fade-slow-leave-active {
+		transition: opacity .85s ease
 	}
 
 	.fade-enter,
 	.fade-leave-to {
 		opacity: 0
 	}
-	.fade-slow-enter-active {
-		transition: opacity .8s ease-in-out
-	}
-	.fade-slow-leave-active {
-		transition: opacity .45s ease-in-out
+	.fade-enter-active,
+	.fade-leave-active {
+		transition: opacity .3s ease-in-out
 	}
 
 	.fade-slow-enter,
