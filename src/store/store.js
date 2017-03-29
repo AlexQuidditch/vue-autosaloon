@@ -9,6 +9,8 @@ import * as getters from './getters';
 
 import auto from './modules/autolist';
 import intro from './modules/intro';
+import testdrive from './modules/test-drive';
+import news from './modules/news';
 
 export const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
@@ -18,6 +20,7 @@ export const store = new Vuex.Store({
 	modules: {
 		intro,
 		auto,
-		intro
+		testdrive,
+		news
 	}
 });
