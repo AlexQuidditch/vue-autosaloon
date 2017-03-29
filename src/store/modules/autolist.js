@@ -1,38 +1,54 @@
 const state = {
 	chery: [{
-		image: "http://placehold.it/350x200",
-		model: "Twqdio 6",
-		price: "856 000 00"
+		image: "https://placehold.it/365x200",
+		model: "Twqqwdqwdqwdqdwddio 6",
+		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		price: "856 000 00",
+		route: 'main'
 	}, {
-		image: "http://placehold.it/350x200",
+		image: "https://placehold.it/365x200",
 		model: "Tiggo 5Xsa",
-		price: "812 000"
+		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		price: "812 000",
+		route: 'main'
 	}],
-	nissan: [{
-		image: "http://placehold.it/350x200",
+	hawtai: [{
+		image: "https://placehold.it/365x200",
 		model: "Tiggoqwdqd 5",
-		price: "800 000"
+		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		price: "800 000",
+		route: 'main'
 	}, {
-		image: "http://placehold.it/350x200",
+		image: "https://placehold.it/365x200",
 		model: "Tihyntnggo 6",
-		price: "856 000"
+		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		price: "856 000",
+		route: 'main'
 	}, {
-		image: "http://placehold.it/350x200",
+		image: "https://placehold.it/365x200",
 		model: "Tigretgggo 5X",
-		price: "812 000"
+		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		price: "812 000",
+		route: 'main'
 	}],
-	toyota: [{
-		image: "http://placehold.it/350x200",
+	changan: [{
+		image: "https://placehold.it/365x200",
 		model: "Tiggo 5",
-		price: "800 000"
+		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		price: "800 000",
+		route: 'main'
 	}, {
-		image: "http://placehold.it/350x200",
+		image: "https://placehold.it/365x200",
 		model: "Tiggo 6",
-		price: "856 000"
+		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		price: "856 000",
+		route: 'services'
 	}, {
-		image: "http://placehold.it/350x200",
+		image: "https://placehold.it/365x200",
 		model: "Tiggo 5X",
-		price: "812 000"
+		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		price: "812 000",
+		route: 'hello'
 	}]
 };
 
