@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import hello from '@/components/hello'
 import main from '@/components/main'
 import services from '@/components/services'
 import catalogue from '@/components/catalogue'
@@ -88,11 +87,6 @@ export default new Router({
 			name: 'about',
 			path: '/about',
 			component: about
-		},
-		{
-			name: 'hello',
-			path: '/hello',
-			component: hello
 		}
 	]
 });
