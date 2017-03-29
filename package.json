@@ -10,12 +10,15 @@
 		"build": "node build/build.js"
 	},
 	"dependencies": {
+		"v-mask": "latest",
 		"vue": "latest",
 		"vue-flickity": "latest",
+		"vue-quill-editor": "latest",
 		"vue-resource": "latest",
 		"vue-router": "latest",
 		"vue-scrollto": "latest",
 		"vue-select": "latest",
+		"vue-tables-2": "latest",
 		"vuejs-datepicker": "latest",
 		"vuex": "latest"
 	},
