@@ -24,7 +24,8 @@
 					<input
 						v-model="form.phone"
 						:placeholder="form.phonePlaceholder"
-						type="text"
+						v-mask=" '+7 (###) ###-##-##' "
+						type="phone"
 						class="testdrive-form__input"
 					>
 					<button
@@ -54,6 +55,7 @@
 </template>
 
 <script>
+
 import vSelect from "vue-select";
 import Datepicker from 'vuejs-datepicker';
 
@@ -67,19 +69,17 @@ export default {
 				phone: '',
 				date: new Date(),
 				dateFormat: 'D d MMM yyyy',
-				dateDisabled: { days: [0,6] },
+				dateDisabled: {
+					days: [ 0, 6 ]
+				},
 				car: {
 					value: '',
 					selected: null,
-					options: [
-						'Chery Tiggo 3',
-						'Chery Tiggo 5',
-						'Chery Tiggo X'
-					],
+					options: [],
 					placeholder: 'Желаемая модель авто'
 				},
 				namePlaceholder: 'Ваше имя',
-				phonePlaceholder: '+7 000 000 00 00',
+				phonePlaceholder: '+7 (000) 000-00-00',
 				datePlaceholder: 'Выберите желаемую дату'
 			}
 		}
@@ -87,6 +87,9 @@ export default {
 	components: {
 		vSelect,
 		Datepicker
+	},
+	beforeMount() {
+		this.form.car.options = this.$store.state.testdrive.options;
 	},
 	methods: {
 		testdrive() {
