@@ -1,35 +1,44 @@
 <template lang="html">
 	<section id="Intro" class="intro">
-		<div class="container_flex-column">
-			<div class="intro-text">
-				<h1 class="intro-text__title">
-					{{ title }}
-				</h1>
-				<h2 class="intro-text__sub-title">
-					{{ subtitle }}
-				</h2>
-			</div>
-			<div class="intro-buttons">
-				<button
-					class="intro-buttons__button"
-					v-scroll-to="{
-						el: '#tabs',
-						offset: -60,
-						duration: 950
-						}"
-					>
-					Каталог
-				</button>
-				<button
-					class="intro-buttons__button _alert"
-					v-scroll-to="{
-						el: '#Testdrive',
-						offset: -60,
-						duration: 950
-						}"
-					>
-					Тест-драйв
-				</button>
+		<flickity ref="flickity"
+			:options="flickityOptions"
+			class="intro-slider"
+			>
+			<div class="intro-slider__slide">1</div>
+    		<div class="intro-slider__slide">2</div>
+    		<div class="intro-slider__slide">3</div>
+    		<div class="intro-slider__slide">4</div>
+    		<div class="intro-slider__slide">5</div>
+		</flickity>
+
+		<div class="intro__overlay">
+			<div class="container _flex-column _j-center _a-center">
+				<div class="intro-text">
+					<h1 class="intro-text__title">{{ title }}</h1>
+					<h2 class="intro-text__sub-title">{{ subtitle }}</h2>
+				</div>
+				<div class="intro-buttons">
+					<button
+						class="intro-buttons__button"
+						v-scroll-to="{
+							el: '#tabs',
+							offset: -60,
+							duration: 950
+							}"
+						>
+						Каталог
+					</button>
+					<button
+						class="intro-buttons__button _alert"
+						v-scroll-to="{
+							el: '#Testdrive',
+							offset: -60,
+							duration: 950
+							}"
+						>
+						Тест-драйв
+					</button>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -37,13 +46,25 @@
 
 <script>
 
+	import Flickity from 'vue-flickity';
+
 	export default {
 		name: 'intro',
 		data() {
 			return {
 				title: '',
 				subtitle: '',
+				flickityOptions: {
+					selector: '.intro-slider__slide',
+					autoplay: 2500,
+                	prevNextButtons: 0,
+                	pageDots: 1,
+                	wrapAround: true
+            	}
 			}
+		},
+		components: {
+			Flickity
 		},
 		beforeMount() {
 			this.title = this.$store.state.intro.title
@@ -52,7 +73,8 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+
 	@import "../../scss/partials/_layout";
 	@import "../../scss/partials/_mixins";
 	@import "../../scss/partials/_variables";
@@ -61,12 +83,14 @@
 		height: 100vh;
 		padding: 0;
 		margin: 0;
-		background-image: url('../../../static/assets/img/main_intro.jpg');
 		background-position: center center;
-    	background-color: rgba($blacked, .35);
-		background-blend-mode: color;
 		.container_flex-column {
 			box-shadow: none
+		}
+		&__overlay {
+			position: absolute 0 auto auto 0;
+			size: 100%;
+	    	background-color: rgba($blacked, .35);
 		}
 	}
 
@@ -106,6 +130,61 @@
 				&:hover {
 					color: $white $red;
 				}
+			}
+		}
+	}
+
+	.intro-slider {
+		size: 100%;
+		background-color: $white;
+		&__slide {
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			size: 100%;
+			padding: 20px;
+			font-size: 3rem;
+			background-image: url('../../../static/assets/img/main_intro.jpg');
+			background-position: center center;
+		}
+		.flickity-page-dots {
+			z-index: 100;
+			width: auto;
+			bottom: 0;
+			padding: 20px;
+			.dot {
+				opacity: 1;
+				size: 15px;
+				background: rgba($red, .75);
+				@include MDShadow-1;
+				transition:
+					background .3s ease-in-out,
+					box-shadow .3s ease-in-out;
+				&.is-selected {
+					background: rgba($red, 1);
+					@include MDShadow-2;
+				}
+			}
+		}
+		.flickity-prev-next-button {
+			position: absolute;
+			top: 50%;
+			size: 70px;
+			background-color: $white;
+			cursor: pointer;
+			border: solid 1px rgba($black, .45);
+			border-radius: 50%;
+			& .arrow {
+				fill: $black
+			}
+			&.previous {
+				left: 0;
+				transform: translate(-50%,-50%)
+			}
+			&.next {
+				right: 0;
+				transform: translate(50%,-50%)
 			}
 		}
 	}

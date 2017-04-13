@@ -158,6 +158,7 @@ export default {
 		&__list-item-image {}
 		&__list-item-description {
 			padding: 0 1rem;
+			line-height: 1.5rem;
 		}
 		&__list-item-footer {
 			display: flex;

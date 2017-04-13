@@ -1,6 +1,6 @@
 <template lang="html">
 	<main id="main" class="main">
-		<Intro/>
+		<!-- <Intro/> -->
 		<Filters/>
 	</main>
 </template>

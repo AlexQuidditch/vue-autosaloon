@@ -1,23 +1,24 @@
 <template lang="html">
 	<section id="tabs" class="tabs">
-		<div class="container_flex-column">
+		<div class="container _flex-column">
 
 			<div class="tabs-container">
 				<button
-					v-for="buttonItem in Buttons"
-					@click="toggleComponent(buttonItem)"
+					v-for = "buttonItem in Buttons"
+					:key = "buttonItem.key"
+					@click = "toggleComponent(buttonItem.component)"
 					class="tabs-container__button"
+					type="button"
 					ripple-light
 					>
 					{{ buttonItem.name }}
 				</button>
-
 			</div>
 
 			<div class="tabs-container">
 				<transition name="fade" mode="out-in">
 					<keep-alive>
-						<component :is="isSelected"></component>
+						<component :is = "selectedComponent"></component>
 					</keep-alive>
 				</transition>
 			</div>
@@ -27,45 +28,45 @@
 </template>
 
 <script>
-import Chery from './filter/chery'
-import Changan from './filter/changan'
-import Hawtai from './filter/hawtai'
-import All from './filter/all'
+import chery from './filter/chery'
+import changan from './filter/changan'
+import hawtai from './filter/hawtai'
+import all from './filter/all'
 
 export default {
 	name: 'filters',
+	components: {
+		chery,
+		changan,
+		hawtai,
+		all
+	},
 	data() {
 		return {
+			selectedComponent: 'all',
 			Buttons: [
 				{
 					name: 'Все',
-					component: 'All'
+					component: 'all'
 				},
 				{
 					name: 'Chery',
-					component: 'Chery'
+					component: 'chery'
 				},
 				{
 					name: 'Hawtai',
-					component: 'Hawtai'
+					component: 'hawtai'
 				},
 				{
 					name: 'Changan',
-					component: 'Changan'
+					component: 'changan'
 				}
-			],
-			isSelected: 'Chery'
+			]
 		}
 	},
-	components: {
-		Chery,
-		Changan,
-		Hawtai,
-		All
-	},
 	methods: {
-		toggleComponent(buttonItem) {
-			this.isSelected = buttonItem.component;
+		toggleComponent(component) {
+			this.selectedComponent = component
 		}
 	}
 }

@@ -8,6 +8,7 @@ import chery from '@/components/catalogue/filter/chery'
 import changan from '@/components/catalogue/filter/changan'
 import hawtai from '@/components/catalogue/filter/hawtai'
 import about from '@/components/about';
+import blog from '@/components/about/blog';
 
 import tigga3 from '@/components/catalogue/chery/tigga3';
 
@@ -56,37 +57,24 @@ export default new Router({
 			component: tigga3
 		},
 		{
-			name: 'all',
-			path: '/all',
-			components: {
-				a: all
-			}
-		},
-		{
 			name: 'chery',
 			path: '/chery',
-			components: {
-				c: chery
-			}
+			component: chery
 		},
 		{
 			name: 'hawtai',
 			path: '/hawtai',
-			components: {
-				h: hawtai
-			}
+			component: hawtai
 		},
 		{
 			name: 'changan',
 			path: '/changan',
-			components: {
-				ch: changan
-			}
+			component: changan
 		},
 		{
 			name: 'about',
 			path: '/about',
-			component: about
+			component: blog
 		}
 	]
 });

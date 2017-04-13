@@ -1,6 +1,6 @@
 <template lang="html">
-	<section id="tabs" class="tabs">
-		<div class="container_flex-column">
+	<section class="tabs">
+		<div class="container _flex-row">
 
 			<div class="tabs-container">
 				<a
@@ -13,63 +13,53 @@
 				</a>
 			</div>
 
-			<div class="tabs-container">
-				<transition name="fade" mode="out-in">
-					<keep-alive>
-						<component :is="isSelected"></component>
-					</keep-alive>
-				</transition>
-			</div>
+			<transition name="fade" mode="out-in">
+				<keep-alive>
+					<component :is="isSelected"></component>
+				</keep-alive>
+			</transition>
 
 		</div>
 	</section>
 </template>
 
 <script>
-import Auto from './news/auto'
-import Marks from './news/marks'
-import News from './news/news'
-import Promo from './news/promo'
+	import Auto from './news/auto'
+	import Marks from './news/marks'
+	import News from './news/news'
+	import Promo from './news/promo'
 
-export default {
-	name: 'tabs',
-	data() {
-		return {
-			Buttons: [{
-					name: 'Автомобили',
-					component: 'auto'
-				},
-				{
-					name: 'Марки',
-					component: 'marks'
-				},
-				{
-					name: 'Новости',
-					component: 'news'
-				},
-				{
-					name: 'Акции',
-					component: 'promo'
-				}
-			],
-			isSelected: 'Auto'
-		}
-	},
-	components: {
-		Auto,
-		Marks,
-		News,
-		Promo
-	},
-	methods: {
-		toggleComponent(buttonItem) {
-			this.isSelected = buttonItem.component;
+	export default {
+		name: 'tabs',
+		data() {
+			return {
+				Buttons: [{
+						name: 'Новости',
+						component: 'news'
+					},
+					{
+						name: 'Акции',
+						component: 'promo'
+					}
+				],
+				isSelected: 'Auto'
+			}
+		},
+		components: {
+			Auto,
+			Marks,
+			News,
+			Promo
+		},
+		methods: {
+			toggleComponent(buttonItem) {
+				this.isSelected = buttonItem.component;
+			}
 		}
 	}
-}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 @import "../../scss/partials/_layout";
 @import "../../scss/partials/_mixins";
@@ -77,15 +67,21 @@ export default {
 
 .tabs {
 	padding: 50px 0;
+	.container_flex-row {
+		align-items: flex-start;
+	}
 }
 
 .tabs-container {
 	display: flex;
-	justify-content: space-between;
-	width: 80%;
+	flex-flow: column wrap;
+	justify-content: flex-start;
+	width: 25%;
+	padding: 25px 20px;
     &__button {
-        width: 200px;
+        width: 100%;
         padding: 10px 0;
+		margin: 5px 0;
         text-align: center;
         font-size: 1.3rem;
         color: $white $red;
@@ -96,4 +92,5 @@ export default {
 		}
     }
 }
+
 </style>

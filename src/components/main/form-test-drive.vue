@@ -1,9 +1,8 @@
 <template lang="html">
 	<section id="Testdrive" class="testdrive">
 		<h2 class="testdrive__title">{{ title }}</h2>
-		<div class="container_flex-column">
+		<div class="container _flex-column _j-c _a-center">
 			<form
-				action=""
 				@submit.stop.prevent="testdrive()"
 				class="testdrive-form">
 				<div class="testdrive-form__column">
@@ -13,6 +12,7 @@
 						:options="form.car.options"
 						:placeholder="form.car.placeholder"
 						class="testdrive-form__select"
+						required
 					>
 					</v-select>
 					<input
@@ -20,6 +20,8 @@
 						:placeholder="form.namePlaceholder"
 						type="text"
 						class="testdrive-form__input"
+						autocomplete="name"
+						required
 					>
 					<input
 						v-model="form.phone"
@@ -27,6 +29,8 @@
 						v-mask=" '+7 (###) ###-##-##' "
 						type="phone"
 						class="testdrive-form__input"
+						autocomplete="phone"
+						required
 					>
 					<button
 						type="submit"
@@ -47,7 +51,9 @@
 						:inline="true"
 						language="ru"
 						class="testdrive-form__datepicker"
-						></datepicker>
+						required
+						>
+					</datepicker>
 				</div>
 			</form>
 		</div>
@@ -63,7 +69,7 @@ export default {
 	name: 'testdrive',
 	data() {
 		return {
-			title: 'Заявка на тест-драйв',
+			title: 'Запись на тест-драйв',
 			form: {
 				name: '',
 				phone: '',
@@ -73,9 +79,9 @@ export default {
 					days: [ 0, 6 ]
 				},
 				car: {
-					value: '',
-					selected: null,
+					value: 'Chery Tiggo 3',
 					options: [],
+					selected: 'Chery Tiggo 3',
 					placeholder: 'Желаемая модель авто'
 				},
 				namePlaceholder: 'Ваше имя',
@@ -99,6 +105,11 @@ export default {
 				month: 'long',
 				year: 'numeric'
 			};
+			this.$swal(
+				'Заявка на тест-драйв отправлена!',
+				'С Вами свяжется менеджер, чтобы уточнить детали.',
+				'success'
+			);
 			console.log(
 `
 Имя: ${this.form.name}
@@ -140,7 +151,8 @@ export default {
 		&._flex {
 			display: flex;
 			justify-content: center;
-			align-items: center;
+			align-items: flex-start;
+			padding-top: 15px;
 		}
 	}
 	&__select {
@@ -150,6 +162,7 @@ export default {
 		color: $red transparent;
 		border: solid 3px $red;
 		cursor: pointer;
+		@include MDShadow-1;
 		.dropdown-toggle {
 			size: 100%;
 			border: none !important
@@ -160,6 +173,7 @@ export default {
 			size: 100% !important;
 			padding: 0.8rem !important;
 			font-size: 1rem !important;
+			color: $red !important;
 			border: none !important
 		}
 		.open-indicator {
@@ -181,7 +195,7 @@ export default {
 		font-size: 1rem;
 		color: $red transparent;
 		border: solid 3px $red;
-		cursor: pointer;
+		@include MDShadow-1;
 		transition:
 			color .3s ease-in-out,
 			background-color .3s ease-in-out;
@@ -193,18 +207,24 @@ export default {
 		}
 	}
 	&__datepicker {
-		.calendar {
+		@include MDShadow-1;
+		.vdp-datepicker__calendar {
 			size: 100%;
 		}
-		.calendar .cell.selected {
+		.vdp-datepicker__calendar .cell.selected {
 			transition:
 				color .2s ease-in-out,
 				background-color .2s ease-in-out;
 		}
-		.calendar .cell.selected,
-		.calendar .cell.selected.highlighted,
-		.calendar .cell.selected:hover {
+		.vdp-datepicker__calendar .cell.selected,
+		.vdp-datepicker__calendar .cell.selected.highlighted,
+		.vdp-datepicker__calendar .cell.selected:hover {
 			color: $white $red
+		}
+		.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
+		.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
+		.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover {
+			border-color: $red;
 		}
 	}
 }

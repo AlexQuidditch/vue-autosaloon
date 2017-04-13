@@ -8,6 +8,8 @@
 
 		<Tabs/>
 
+		<Quill-Editor/>
+
 	</main>
 
 </template>
@@ -17,13 +19,15 @@
 import Intro from './main/intro'
 import Tabs from './main/tabs'
 import Testdrive from './main/form-test-drive';
+import QuillEditor from './editor/editor';
 
 export default {
 	name: 'main',
 	components: {
 		Intro,
 		Testdrive,
-		Tabs
+		Tabs,
+		QuillEditor
   },
 	mounted() {
 		Waves.init();
@@ -31,6 +35,7 @@ export default {
 		Waves.attach('[ripple-light]', ['waves-light']);
 	}
 }
+
 </script>
 
 <style lang="scss">

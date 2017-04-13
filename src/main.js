@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import router from './router';
 import { store, intro } from './store/store';
@@ -10,15 +8,20 @@ import VueResource from 'vue-resource';
 import ScrollTo from 'vue-scrollto';
 import VueMask from 'v-mask';
 import { ClientTable, Event } from 'vue-tables-2';
+import VueSweetAlert from 'vue-sweetalert';
+
+import VueQuillEditor from 'vue-quill-editor';
 
 Vue.use(VueResource);
 Vue.use(ScrollTo);
 Vue.use(VueMask);
-Vue.use(ClientTable)
+Vue.use(ClientTable);
+Vue.use(VueSweetAlert);
 
-Vue.http.options.root = 'https://autosaloon-293cd.firebaseio.com/'
+Vue.use(VueQuillEditor);
 
-/* eslint-disable no-new */
+Vue.http.options.root = 'https://autosaloon-293cd.firebaseio.com'
+
 new Vue({
 	el: '#wrapper',
 	router,

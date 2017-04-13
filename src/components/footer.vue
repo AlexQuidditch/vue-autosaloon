@@ -1,6 +1,6 @@
 <template lang="html">
 	<footer id="footer" class="footer">
-		<div class="container_flex-row">
+		<div class="container _flex-row _j-between _a-start">
 			<div class="footer-information">
 				<p v-for="requisitesItem in Requisites" :key="requisitesItem.key" class="footer-information__requisites">
 					{{ requisitesItem }}
@@ -40,10 +40,6 @@
 		height: 400px;
 		padding: 40px 0;
 		background-color: $black;
-		.container_flex-row {
-			justify-content: space-between;
-			align-items: flex-start;
-		}
 	}
 
 	.footer-information {
