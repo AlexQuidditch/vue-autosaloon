@@ -14,7 +14,8 @@
 				<li v-for="headerMenuItem in headerMenu"
 					class="header-menu__item">
 					<router-link
-						:to="{ name: headerMenuItem.route }"
+						:to = "headerMenuItem.route "
+						replace
 						class="header-menu__link"
 						>
 						{{ headerMenuItem.name }}
@@ -26,7 +27,7 @@
 							class="header-menu__submenu-item"
 							>
 							<router-link
-								:to="{ name: headerSubMenuItem.route }"
+								:to = "headerSubMenuItem.route"
 								class="header-menu__submenu-link"
 								>
 								{{ headerSubMenuItem.name }}
@@ -35,6 +36,13 @@
 					</ul>
 				</li>
 			</ul>
+
+			<router-link
+				:to="{
+					name: 'tigga3'
+					}"
+				>Перейти по ссылке</router-link>
+
 			<ul class="header-menu _buttons">
 				<li class="header-menu__item">
 					<button @click="" class="header-menu__link _buttons">
@@ -56,53 +64,78 @@
 		name: 'header',
 		data() {
 			return {
-				headerMenu: [{
-					route: 'catalogue',
-					name: 'Автомобили',
-					headerSubMenu: [
-						{
-							route: 'tigga3',
-							name: 'Chery'
+				headerMenu: [
+					{
+						route: {
+							name: 'catalogue',
+        	            	query: {
+            	            	filter: 'all'
+	            	        }
 						},
-						{
-							route: 'catalogue',
-							name: 'Changan'
-						},
-						{
-							route: 'catalogue',
-							name: 'Hawtai'
-						}
-					]
-				}, {
-					route: 'services',
-					name: 'Сервис',
-					headerSubMenu: [
-						{
-							route: 'main',
-							name: 'ТО и ремонт'
-						},
-						{
-							route: 'main',
-							name: 'Запчасти'
-						}
-					]
-				}, {
-					route: 'services',
-					name: 'Услуги',
-					headerSubMenu: [
-						{
-							route: 'main',
-							name: 'Кредит'
-						},
-						{
-							route: 'services',
-							name: 'Кредит'
-						}
-					]
-				}, {
-					route: 'about',
-					name: 'О нас'
-				}]
+						name: 'Автомобили',
+						headerSubMenu: [
+							{
+								route: {
+									name: 'catalogue',
+			                    	query: {
+			                        	filter: 'chery'
+				                    }
+								},
+								name: 'Chery'
+							},
+							{
+								route: {
+									name: 'catalogue',
+			                    	query: {
+			                        	filter: 'changan'
+				                    }
+								},
+								name: 'Changan'
+							},
+							{
+								route: {
+									name: 'catalogue',
+			                    	query: {
+			                        	filter: 'hawtai'
+				                    }
+								},
+								name: 'Hawtai'
+							}
+						]
+					},
+					{
+						route: 'services',
+						name: 'Сервис',
+						headerSubMenu: [
+							{
+								route: 'main',
+								name: 'ТО и ремонт'
+							},
+							{
+								route: 'main',
+								name: 'Запчасти'
+							}
+						]
+					},
+					{
+						route: 'services',
+						name: 'Услуги',
+						headerSubMenu: [
+							{
+								route: 'main',
+								name: 'Кредит'
+							},
+							{
+								route: 'services',
+								name: 'Кредит'
+							}
+						]
+					},
+					{
+						route: 'about',
+						name: 'О нас'
+					}
+				]
 			}
 		}
 	}
@@ -114,11 +147,9 @@
 	@import "../scss/partials/_variables";
 	.header {
 		z-index: 900;
-		position: fixed;
-		top: 0;
-		left: 0;
+		position: fixed 0 auto auto 0;
 		size: 100% $headerHeight;
-		background-color: $headerMain;
+		@include gradient( 125deg , $black );
 		@include MDShadow-4;
 	}
 

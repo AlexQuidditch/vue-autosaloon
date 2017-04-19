@@ -16,7 +16,6 @@
   width: $size;
   height: $size;
   border-radius: 50%;
-  position: relative;
   animation: loader-circles $duration linear infinite;
   @if ($align == center) {
     margin: 0 auto;

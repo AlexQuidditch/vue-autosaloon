@@ -21,6 +21,8 @@ Vue.use(VueSweetAlert);
 Vue.use(VueQuillEditor);
 
 Vue.http.options.root = 'https://autosaloon-293cd.firebaseio.com'
+Vue.prototype.$auto = store.state.auto;
+Vue.prototype.$intro = store.state.intro;
 
 new Vue({
 	el: '#wrapper',

@@ -6,40 +6,43 @@
 				@submit.stop.prevent="testdrive()"
 				class="testdrive-form">
 				<div class="testdrive-form__column">
-					<v-select
-						v-model="form.car.value"
-						:value.sync="form.car.selected"
-						:options="form.car.options"
-						:placeholder="form.car.placeholder"
-						class="testdrive-form__select"
-						required
-					>
-					</v-select>
-					<input
-						v-model="form.name"
-						:placeholder="form.namePlaceholder"
-						type="text"
-						class="testdrive-form__input"
-						autocomplete="name"
-						required
-					>
-					<input
-						v-model="form.phone"
-						:placeholder="form.phonePlaceholder"
-						v-mask=" '+7 (###) ###-##-##' "
-						type="phone"
-						class="testdrive-form__input"
-						autocomplete="phone"
-						required
-					>
-					<button
-						type="submit"
-						name="button"
-						class="testdrive-form__submit"
-						ripple-light
+					<fieldset>
+						<legend>Заполните поля и выберите дату:</legend>
+						<v-select
+							v-model="form.car.value"
+							:value.sync="form.car.selected"
+							:options="form.car.options"
+							:placeholder="form.car.placeholder"
+							class="testdrive-form__select"
+							required
 						>
-						Отправить заявку
-					</button>
+						</v-select>
+						<input
+							v-model="form.name"
+							:placeholder="form.namePlaceholder"
+							type="text"
+							class="testdrive-form__input"
+							autocomplete="name"
+							required
+						>
+						<input
+							v-model="form.phone"
+							:placeholder="form.phonePlaceholder"
+							v-mask=" '\+7(###)###-##-##' "
+							type="phone"
+							class="testdrive-form__input"
+							autocomplete="phone"
+							required
+						>
+						<button
+							type="submit"
+							name="button"
+							class="testdrive-form__submit"
+							ripple-light
+							>
+							Отправить заявку
+						</button>
+					</fieldset>
 				</div>
 				<div class="testdrive-form__column _flex">
 					<datepicker
@@ -64,6 +67,7 @@
 
 import vSelect from "vue-select";
 import Datepicker from 'vuejs-datepicker';
+import telegram from './telegram-token.js';
 
 export default {
 	name: 'testdrive',
@@ -85,7 +89,7 @@ export default {
 					placeholder: 'Желаемая модель авто'
 				},
 				namePlaceholder: 'Ваше имя',
-				phonePlaceholder: '+7 (000) 000-00-00',
+				phonePlaceholder: '+7(000)000-00-00',
 				datePlaceholder: 'Выберите желаемую дату'
 			}
 		}
@@ -99,24 +103,28 @@ export default {
 	},
 	methods: {
 		testdrive() {
-			const dateOptions = {
+			let dateOptions = {
 				day: 'numeric',
 				weekday: 'long',
 				month: 'long',
 				year: 'numeric'
 			};
+			let message = `Новая заявка на тест-драйв:\n\nИмя: ${this.form.name}\nДата: ${this.form.date.toLocaleString('ru-RU', dateOptions)}\nТелефон: ${this.form.phone}\nМодель авто: ${this.form.car.value}`;
+			let request = {
+				token: telegram.token,
+				chat_id: '173161597',
+				// chat_id: '346029819',
+				text: message
+			};
+			this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.text}`)
+			// this.$http.post(`https://api.telegram.org/bot194320723:AAEQXLPr0UZdu0usuZGpHUXPvsHHcXIzFF0/sendMessage?chat_id=${request.chat_id}&text=${request.text}`)
+				.then( response => console.log(response) );
 			this.$swal(
 				'Заявка на тест-драйв отправлена!',
 				'С Вами свяжется менеджер, чтобы уточнить детали.',
 				'success'
 			);
-			console.log(
-`
-Имя: ${this.form.name}
-Дата: ${this.form.date.toLocaleString('ru-RU', dateOptions)}
-Телефон: ${this.form.phone}
-Модель авто: ${this.form.car.value}
-`);
+			console.log(message);
 			this.form.name = '';
 			this.form.date = new Date();
 			this.form.phone = '';
@@ -204,6 +212,7 @@ export default {
 		@include MDButton($white, $red) {
 			size: 100% 3.5rem;
 			margin: 1rem 0px;
+			margin-bottom: 0;
 		}
 	}
 	&__datepicker {

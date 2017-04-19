@@ -16,7 +16,7 @@
 					</h6>
 					<img
 						:src="cheryItem.image"
-						alt=""
+						:alt="cheryItem.model"
 						class="tab-auto__list-item-image"
 					/>
 					<p class="tab-auto__list-item-description">
@@ -43,7 +43,7 @@
 					</h6>
 					<img
 						:src="hawtaiItem.image"
-						alt=""
+						:alt="hawtaiItem.model"
 						class="tab-auto__list-item-image"
 					/>
 					<p class="tab-auto__list-item-description">
@@ -70,7 +70,7 @@
 					</h6>
 					<img
 						:src="changanItem.image"
-						alt=""
+						:alt="changanItem.model"
 						class="tab-auto__list-item-image"
 					/>
 					<p class="tab-auto__list-item-description">
@@ -106,9 +106,9 @@ export default {
 		}
 	},
 	beforeMount() {
-		this.Chery = this.$store.state.auto.chery;
-		this.Hawtai = this.$store.state.auto.hawtai;
-		this.Changan = this.$store.state.auto.changan;
+		this.Chery = this.$auto.chery;
+		this.Hawtai = this.$auto.hawtai;
+		this.Changan = this.$auto.changan;
 	}
 }
 </script>
@@ -146,6 +146,7 @@ export default {
 			flex-flow: column wrap;
 			size: 365px auto;
 			margin: 1rem 0;
+			background-color: $whited;
 			transition: box-shadow .3s ease-in-out;
 			@include MDShadow-1;
 			&:hover {
@@ -155,7 +156,11 @@ export default {
 		&__list-item-title {
 			line-height: 3rem;
 		}
-		&__list-item-image {}
+		&__list-item-image {
+			height: 200px;
+			padding: 0 1rem;
+			object-fit: contain;
+		}
 		&__list-item-description {
 			padding: 0 1rem;
 			line-height: 1.5rem;
@@ -166,7 +171,10 @@ export default {
 			align-items: center;
 			height: 3rem;
 		}
-		&__list-item-title,
+		&__list-item-title {
+			font-size: 1.5rem;
+			padding-left: 1rem;
+		}
 		&__list-item-price {
 			font-size: 1.25rem;
 			padding-left: 1rem;

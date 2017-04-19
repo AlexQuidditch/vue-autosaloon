@@ -1,19 +1,16 @@
 <template lang="html">
-	<main id="main" class="main">
-		<!-- <Intro/> -->
+	<main id="main" class="main _margin">
 		<Filters/>
 	</main>
 </template>
 
 <script>
 
-import Intro from './catalogue//intro'
 import Filters from './catalogue//filter'
 
 export default {
 	name: 'catalogue',
 	components: {
-		Intro,
 		Filters
 	},
 	mounted() {

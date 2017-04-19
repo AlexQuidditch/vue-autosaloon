@@ -7,7 +7,7 @@
 			<div class="intro-slider__slide">1</div>
     		<div class="intro-slider__slide">2</div>
     		<div class="intro-slider__slide">3</div>
-    		<div class="intro-slider__slide">4</div>
+    		<div class="intro-slider_a_slide">4</div>
     		<div class="intro-slider__slide">5</div>
 		</flickity>
 
@@ -18,16 +18,12 @@
 					<h2 class="intro-text__sub-title">{{ subtitle }}</h2>
 				</div>
 				<div class="intro-buttons">
-					<button
+					<router-link tag = "button"
 						class="intro-buttons__button"
-						v-scroll-to="{
-							el: '#tabs',
-							offset: -60,
-							duration: 950
-							}"
+						:to = "{ name: 'catalogue', query: { filter: 'all' } }"
 						>
-						Каталог
-					</button>
+						Каталог автомобилей
+					</router-link>
 					<button
 						class="intro-buttons__button _alert"
 						v-scroll-to="{
@@ -67,8 +63,8 @@
 			Flickity
 		},
 		beforeMount() {
-			this.title = this.$store.state.intro.title
-			this.subtitle = this.$store.state.intro.subtitle
+			this.title = this.$intro.title
+			this.subtitle = this.$intro.subtitle
 		}
 	}
 </script>

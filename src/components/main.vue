@@ -1,6 +1,6 @@
 <template lang="html">
 
-	<main id="main" class="main">
+	<main id="main" class="main _margin-none">
 
 		<Intro/>
 

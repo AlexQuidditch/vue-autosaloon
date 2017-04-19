@@ -43,7 +43,7 @@ export default {
 	},
 	data() {
 		return {
-			selectedComponent: 'all',
+			selectedComponent: this.$route.query.filter,
 			Buttons: [
 				{
 					name: 'Все',

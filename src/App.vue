@@ -56,6 +56,10 @@
 	}
 	.main {
 		min-height: calc(100vh - 400px);
+		margin-top: $headerHeight;
+		&._margin-none {
+			margin-top: 0;
+		}
 	}
 	.container {
 		width: $containersWidth;
@@ -80,6 +84,9 @@
 			&._j-end {
 				justify-content: flex-end;
 			}
+			&._j-around {
+				justify-content: space-around;
+			}
 			&._j-between {
 				justify-content: space-between;
 			}
@@ -102,10 +109,6 @@
 	@include waves-light( $whited, $ripple-opacity);
 	@include waves-dark( $red, $ripple-opacity);
 
-	.fade-slow-enter-active,
-	.fade-slow-leave-active {
-		transition: opacity .85s ease
-	}
 
 	.fade-enter,
 	.fade-leave-to {
@@ -116,8 +119,22 @@
 		transition: opacity .3s ease-in-out
 	}
 
+	.fade-slow-enter-active,
+	.fade-slow-leave-active {
+		transition: opacity .85s ease
+	}
 	.fade-slow-enter,
 	.fade-slow-leave-to {
 		opacity: 0
 	}
+
+	.fade-fast-enter,
+	.fade-fast-leave-to {
+		opacity: 0
+	}
+	.fade-fast-enter-active,
+	.fade-fast-leave-active {
+		transition: opacity .15s ease-in-out
+	}
+
 </style>

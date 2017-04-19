@@ -1,10 +1,10 @@
 const state = {
 	chery: [{
-		image: "https://placehold.it/365x200",
-		model: "Twqqwdqwdqwdqdwddio 6",
-		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		image: "../../../../static/assets/img/tigga3/tigga3_big.jpg",
+		model: "CHERY TIGGO 3",
+		description: 'Современный гоородской кроссовер, оснащённый инновационной мультимедийной системой CHERY CLOUDRIVE.',
 		price: "856 000 00",
-		route: 'main'
+		route: 'tigga3'
 	}, {
 		image: "https://placehold.it/365x200",
 		model: "Tiggo 5Xsa",
@@ -48,7 +48,7 @@ const state = {
 		model: "Tiggo 5X",
 		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 		price: "812 000",
-		route: 'hello'
+		route: ''
 	}]
 };
 

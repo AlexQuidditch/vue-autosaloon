@@ -57,6 +57,17 @@
     font-size: calculateRem($size);
 }
 
+@mixin gradient( $direction , $color ) {
+	background: linear-gradient(
+		$direction,
+		$color 0%, $color 60%,
+		rgba($color, .85) 60%, rgba($color, .80) 60%,
+		rgba($color, .80) 80%, rgba($color, .75) 65%
+	);
+}
+
+// Material Design Waves
+// http://materializecss.com/waves.html
 @mixin waves-dark($waves-dark-color, $waves-opacity) {
     .waves-effect.waves-dark .waves-ripple {
         background: rgba($waves-dark-color, $waves-opacity);
@@ -82,6 +93,8 @@
     }
 }
 
+// Material Design Buttons
+// http://materializecss.com/buttons.html
 @mixin MDButton($color, $backgroundColor) {
 	@content;
 	padding: 0 1rem;

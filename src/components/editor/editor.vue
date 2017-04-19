@@ -11,19 +11,22 @@
 				<quill-editor ref="blogEditor"
 					v-model="Editor.content"
 					:options="Editor.options"
+					@change="onEditorChange($event)"
 					>
 				</quill-editor>
 			</div>
-			<button @click = "sent()"
-				class="editor-container__button _send"
-				type="button"
-				ripple-light
-				>Отправить</button>
-			<button @click = "clear()"
-				class="editor-container__button _clear"
-				type="button"
-				ripple-light
-				>Очистить</button>
+			<transition-group name = "fade" tag = "div" class = "editor-container__footer">
+				<button v-if = "Editor.btnAllow" @click = "sent()" key = "sent"
+					class="editor-container__button _send"
+					type="button"
+					ripple-light
+					>Отправить</button>
+				<button v-if = "Editor.btnAllow" @click = "clear()" key = "clear"
+					class="editor-container__button _clear"
+					type="button"
+					ripple-light
+					>Очистить</button>
+			</transition-group>
 		</div>
 	</div>
 </template>
@@ -38,15 +41,16 @@
 	Quill.register('modules/imageDrop', ImageDrop);
 
 	export default {
+		name: 'editor',
 		data() {
 			return {
-				name: 'base-example',
 				title: 'Новый пост в блоге',
 				placeholder: 'Название поста...',
 				Editor: {
 					title: '',
 					time: new Date(),
 					content: '',
+					btnAllow: false,
 					options: {
 						placeholder: 'Текст нового поста...',
 						modules: {
@@ -59,12 +63,14 @@
 				}
 			}
 		},
-		watch: {
-			Editor() {
-				console.log(this.Editor.content.length);
-			}
-		},
 		methods: {
+			onEditorChange({ editor, html, text }) {
+				if ( html.length >=1 ) {
+					this.Editor.btnAllow = true
+				} else {
+					this.Editor.btnAllow = false
+				}
+			},
 			sent() {
 				let $data = this;
 				let dateOptions = {
@@ -151,6 +157,9 @@
 			outline: none;
 			transition: box-shadow .3s ease-in-out;
 		}
+		&__footer {
+			height: 72px;
+		}
 		&__button {
 			@include MDButton($white, $red) {
 				size: 12.5rem 2.5rem;
@@ -167,11 +176,6 @@
 		.ql-editor {
 			min-height: 20em;
 			font-size: 1rem;
-		}
-		.ql-blank {
-			&:focus {
-				@include MDShadow-1;
-			}
 		}
 	}
 
