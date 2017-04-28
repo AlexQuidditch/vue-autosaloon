@@ -24,10 +24,7 @@ import QuillEditor from './editor/editor';
 export default {
 	name: 'main',
 	components: {
-		Intro,
-		Testdrive,
-		Tabs,
-		QuillEditor
+		Intro , Testdrive , Tabs , QuillEditor
   },
 	mounted() {
 		Waves.init();

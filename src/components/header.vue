@@ -4,8 +4,7 @@
 			<ul class="header-menu">
 				<div class="header-logo">
 					<router-link to="/">
-						<img
-							src="../../static/assets/img/logo.png"
+						<img src="../../static/assets/img/logo.png"
 							alt=""
 							class="header-logo__img"
 						/>
@@ -14,35 +13,23 @@
 				<li v-for="headerMenuItem in headerMenu"
 					class="header-menu__item">
 					<router-link
-						:to = "headerMenuItem.route "
-						replace
+						:to = "headerMenuItem.route"
 						class="header-menu__link"
-						>
-						{{ headerMenuItem.name }}
-					</router-link>
+						>{{ headerMenuItem.text }}</router-link>
 					<ul class="header-menu__submenu">
-						<li
-							v-for="headerSubMenuItem in headerMenuItem.headerSubMenu"
-							:key="headerSubMenuItem.key"
+						<li	v-for="( headerSubMenuItem , index ) in headerMenuItem.headerSubMenu"
+							:key="index"
 							class="header-menu__submenu-item"
+							:tabindex="index + 1"
 							>
 							<router-link
 								:to = "headerSubMenuItem.route"
 								class="header-menu__submenu-link"
-								>
-								{{ headerSubMenuItem.name }}
-							</router-link>
+								>{{ headerSubMenuItem.text }}</router-link>
 						</li>
 					</ul>
 				</li>
 			</ul>
-
-			<router-link
-				:to="{
-					name: 'tigga3'
-					}"
-				>Перейти по ссылке</router-link>
-
 			<ul class="header-menu _buttons">
 				<li class="header-menu__item">
 					<button @click="" class="header-menu__link _buttons">
@@ -67,73 +54,73 @@
 				headerMenu: [
 					{
 						route: {
-							name: 'catalogue',
+							path: '/catalogue',
         	            	query: {
             	            	filter: 'all'
 	            	        }
 						},
-						name: 'Автомобили',
+						text: 'Автомобили',
 						headerSubMenu: [
 							{
 								route: {
-									name: 'catalogue',
+									path: '/catalogue',
 			                    	query: {
 			                        	filter: 'chery'
 				                    }
 								},
-								name: 'Chery'
+								text: 'Chery'
 							},
 							{
 								route: {
-									name: 'catalogue',
+									path: '/catalogue',
 			                    	query: {
 			                        	filter: 'changan'
 				                    }
 								},
-								name: 'Changan'
+								text: 'Changan'
 							},
 							{
 								route: {
-									name: 'catalogue',
+									path: '/catalogue',
 			                    	query: {
 			                        	filter: 'hawtai'
 				                    }
 								},
-								name: 'Hawtai'
+								text: 'Hawtai'
 							}
 						]
 					},
 					{
-						route: 'services',
-						name: 'Сервис',
+						route: '/services',
+						text: 'Сервис',
 						headerSubMenu: [
 							{
-								route: 'main',
-								name: 'ТО и ремонт'
+								route: '/',
+								text: 'ТО и ремонт'
 							},
 							{
-								route: 'main',
-								name: 'Запчасти'
+								route: '/',
+								text: 'Запчасти'
 							}
 						]
 					},
 					{
-						route: 'services',
-						name: 'Услуги',
+						route: '/services',
+						text: 'Услуги',
 						headerSubMenu: [
 							{
-								route: 'main',
-								name: 'Кредит'
+								route: '/',
+								text: 'Кредит'
 							},
 							{
-								route: 'services',
-								name: 'Кредит'
+								route: '/services',
+								text: 'Кредит'
 							}
 						]
 					},
 					{
-						route: 'about',
-						name: 'О нас'
+						route: '/about',
+						text: 'О нас'
 					}
 				]
 			}
@@ -142,9 +129,11 @@
 </script>
 
 <style lang="scss">
+
 	@import "../scss/partials/_layout";
 	@import "../scss/partials/_mixins";
 	@import "../scss/partials/_variables";
+
 	.header {
 		z-index: 900;
 		position: fixed 0 auto auto 0;
@@ -216,7 +205,7 @@
 			color: $white $black;
 			cursor: pointer;
 			transition: background-color .3s ease-in-out;
-			&:hover {
+			&:focus , &:active , &:hover {
 				background-color: mix($white, $black, 5%);
 			}
 		}

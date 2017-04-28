@@ -49,9 +49,7 @@ export default {
 		}
 	},
 	 beforeMount() {
-		 this.Hawtai = this.$store.state.auto.hawtai;
+		 this.Hawtai = this.$auto.hawtai;
 	 }
 }
 </script>
-
-<style lang="scss"></style>

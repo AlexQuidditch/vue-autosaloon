@@ -50,9 +50,7 @@ export default {
 		}
 	},
 	beforeMount() {
-		this.Chery = this.$store.state.auto.chery;
+		this.Chery = this.$auto.chery;
 	}
 }
 </script>
-
-<style lang="scss"></style>

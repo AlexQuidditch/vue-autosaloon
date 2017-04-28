@@ -1,23 +1,24 @@
 <template>
 	<div id="wrapper" class="wrapper">
-		<Heads/>
+		<s-header/>
 		<transition name="fade-slow" mode="out-in" appear>
 			<router-view></router-view>
 		</transition>
-		<Foots/>
+		<s-footer/>
+		<button-up/>
 	</div>
 </template>
 
 <script>
 
-	import Heads from './components/header'
-	import Foots from './components/footer'
+	import sHeader from './components/header';
+	import sFooter from './components/footer';
+	import buttonUp from './components/button-up';
 
 	export default {
 		name: 'app',
 		components: {
-			Heads,
-			Foots
+			sHeader , sFooter , buttonUp
 		},
 		beforeCreate() {
 			this.$store.commit('hello'); // зовём мутацию

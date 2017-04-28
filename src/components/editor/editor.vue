@@ -3,7 +3,7 @@
 		<div class="editor-container">
 			<h2 class="editor-container__title">{{ title }}</h2>
 			<input v-model = "Editor.title"
-				:placeholder = "placeholder"
+				:placeholder = "Editor.placeholder"
 				class="editor-container__input"
 				type="text"
 			/>
@@ -17,14 +17,12 @@
 			</div>
 			<transition-group name = "fade" tag = "div" class = "editor-container__footer">
 				<button v-if = "Editor.btnAllow" @click = "sent()" key = "sent"
-					class="editor-container__button _send"
+					class="editor-container__button _send waves-effect waves-light"
 					type="button"
-					ripple-light
 					>Отправить</button>
 				<button v-if = "Editor.btnAllow" @click = "clear()" key = "clear"
-					class="editor-container__button _clear"
+					class="editor-container__button _clear waves-effect waves-light"
 					type="button"
-					ripple-light
 					>Очистить</button>
 			</transition-group>
 		</div>
@@ -34,31 +32,31 @@
 <script>
 
 	import Quill from 'quill';
-	import { ImageResize } from 'quill-image-resize-module';
-	import { ImageDrop } from 'quill-image-drop-module';
+	// import { ImageResize } from 'quill-image-resize-module';
+	// import { ImageDrop } from 'quill-image-drop-module';
 
-	Quill.register('modules/imageResize', ImageResize);
-	Quill.register('modules/imageDrop', ImageDrop);
+	// Quill.register('modules/imageResize', ImageResize);
+	// Quill.register('modules/imageDrop', ImageDrop);
 
 	export default {
 		name: 'editor',
 		data() {
 			return {
 				title: 'Новый пост в блоге',
-				placeholder: 'Название поста...',
 				Editor: {
 					title: '',
+					placeholder: 'Название поста...',
 					time: new Date(),
 					content: '',
 					btnAllow: false,
 					options: {
 						placeholder: 'Текст нового поста...',
-						modules: {
-							imageDrop: true,
-							imageResize: {
-								displaySize: true
-							}
-						}
+						// modules: {
+						// 	imageDrop: true,
+						// 	imageResize: {
+						// 		displaySize: true
+						// 	}
+						// }
 					}
 				}
 			}

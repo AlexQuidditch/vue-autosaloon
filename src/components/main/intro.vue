@@ -7,7 +7,7 @@
 			<div class="intro-slider__slide">1</div>
     		<div class="intro-slider__slide">2</div>
     		<div class="intro-slider__slide">3</div>
-    		<div class="intro-slider_a_slide">4</div>
+    		<div class="intro-slider__slide">4</div>
     		<div class="intro-slider__slide">5</div>
 		</flickity>
 

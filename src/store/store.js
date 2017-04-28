@@ -3,14 +3,15 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-import * as actions from './actions';
-import * as mutations from './mutations';
-import * as getters from './getters';
+import * as actions from './actions.js';
+import * as mutations from './mutations.js';
+import * as getters from './getters.js';
 
-import auto from './modules/autolist';
-import intro from './modules/intro';
-import testdrive from './modules/test-drive';
-import news from './modules/news';
+import filter from './modules/filter.js';
+import auto from './modules/autolist.js';
+import intro from './modules/intro.js';
+import testdrive from './modules/test-drive.js';
+import news from './modules/news.js';
 
 export const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
@@ -18,9 +19,6 @@ export const store = new Vuex.Store({
 	mutations,
 	getters,
 	modules: {
-		intro,
-		auto,
-		testdrive,
-		news
+		intro , auto , testdrive , news , filter
 	}
 });

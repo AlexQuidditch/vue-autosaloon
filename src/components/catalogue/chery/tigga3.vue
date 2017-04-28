@@ -544,24 +544,14 @@
 		<section class="gallery" aria-label="Галерея">
 			<div class="container _flex-row _j-around _a-center">
 				<h2 class="gallery__title">Галерея</h2>
-				<iframe class="gallery__video"
-					src="https://www.youtube.com/embed/u902_BROjbI?rel=0"
-					frameborder="0" allowfullscreen></iframe>
-				<iframe class="gallery__video"
-					src="https://www.youtube.com/embed/ooBTM8tWUco?rel=0"
-					frameborder="0" allowfullscreen></iframe>
-				<iframe class="gallery__video"
-					src="https://www.youtube.com/embed/u902_BROjbI?rel=0"
-					frameborder="0" allowfullscreen></iframe>
-				<iframe class="gallery__video"
-					src="https://www.youtube.com/embed/u902_BROjbI?rel=0"
-					frameborder="0" allowfullscreen></iframe>
-				<iframe class="gallery__video"
-					src="https://www.youtube.com/embed/ooBTM8tWUco?rel=0"
-					frameborder="0" allowfullscreen></iframe>
-				<iframe class="gallery__video"
-					src="https://www.youtube.com/embed/u902_BROjbI?rel=0"
-					frameborder="0" allowfullscreen></iframe>
+
+				<youtube v-for="videoItem in Videos" :key="videoItem.id"
+					:video-id="videoItem.id"
+					@playing = "playing()"
+					@paused = "paused()"
+					class = "gallery__video"
+				></youtube>
+
 			</div>
 
 		</section>
@@ -580,6 +570,14 @@
     	},
 		data() {
 			return {
+				Videos: [
+					{
+						id: 'u902_BROjbI',
+					},
+					{
+						id: 'ooBTM8tWUco',
+					}
+				],
 				product: {
 					title: 'ВАШ CHERY TIGGO 3',
 					subTitle: `ЯРКАЯ, ВЫРАЗИТЕЛЬНАЯ, СМЕЛАЯ ИНТЕРПРЕТАЦИЯ КЛАССИКИ`,
@@ -671,6 +669,14 @@
 					}
 				}
 			}
+		},
+		methods: {
+			paused(player) {
+				console.log('Paused');
+			},
+			playing(player) {
+				console.log('Playing');
+			}
 		}
 	}
 </script>
@@ -682,7 +688,6 @@
 	@import "../../../scss/partials/_variables";
 
 	.product {
-		width: 100%;
 		margin-top: 60px;
 		&__title {
 			margin-top: 2rem;
@@ -820,7 +825,7 @@
 	}
 	.gallery {
 		width: 100%;
-		margin-top: 60px;
+		margin: 60px 0;
 		&__title {
 			width: 100%;
 			margin-bottom: 3rem;
@@ -828,9 +833,12 @@
 			font-size: 3rem
 		}
 		&__video {
-			size: 40% 300px;
-			margin-bottom: 2rem;
-			@include MDShadow-2;
+			size: 45% 320px;
+			iframe {
+				size: 100%;
+				margin-bottom: 2rem;
+				@include MDShadow-2;
+			}
 		}
 	}
 

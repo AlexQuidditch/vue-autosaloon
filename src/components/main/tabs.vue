@@ -1,21 +1,18 @@
 <template lang="html">
 	<section class="tabs">
-		<div class="container _flex-row">
+		<div class="container _flex-row _j-between">
 
 			<div class="tabs-container">
-				<a
-					v-for="buttonItem in Buttons"
-					@click="toggleComponent(buttonItem)"
+				<a v-for = "buttonItem in Buttons"
+					@click = "toggleComponent(buttonItem)"
 					class="tabs-container__button"
 					ripple-light
-					>
-					{{ buttonItem.name }}
-				</a>
+					>{{ buttonItem.name }}</a>
 			</div>
 
 			<transition name="fade" mode="out-in">
 				<keep-alive>
-					<component :is="isSelected"></component>
+					<component :is = "isSelected"></component>
 				</keep-alive>
 			</transition>
 
@@ -33,7 +30,8 @@
 		name: 'tabs',
 		data() {
 			return {
-				Buttons: [{
+				Buttons: [
+					{
 						name: 'Новости',
 						component: 'news'
 					},
@@ -42,7 +40,7 @@
 						component: 'promo'
 					}
 				],
-				isSelected: 'Auto'
+				isSelected: 'promo'
 			}
 		},
 		components: {
@@ -76,8 +74,8 @@
 	display: flex;
 	flex-flow: column wrap;
 	justify-content: flex-start;
-	width: 25%;
-	padding: 25px 20px;
+	width: 20%;
+	padding: 25px 0;
     &__button {
         width: 100%;
         padding: 10px 0;

@@ -96,28 +96,28 @@
 </template>
 
 <script>
-export default {
-	name: 'all',
-	data() {
-		return {
-			Chery: [],
-			Hawtai: [],
-			Changan: []
+	export default {
+		name: 'all',
+		data() {
+			return {
+				Chery: [],
+				Hawtai: [],
+				Changan: []
+			}
+		},
+		beforeMount() {
+			this.Chery = this.$auto.chery;
+			this.Hawtai = this.$auto.hawtai;
+			this.Changan = this.$auto.changan;
 		}
-	},
-	beforeMount() {
-		this.Chery = this.$auto.chery;
-		this.Hawtai = this.$auto.hawtai;
-		this.Changan = this.$auto.changan;
 	}
-}
 </script>
 
 <style lang="scss">
 
-@import "../../../scss/partials/_layout";
-@import "../../../scss/partials/_mixins";
-@import "../../../scss/partials/_variables";
+	@import "../../../scss/partials/_layout";
+	@import "../../../scss/partials/_mixins";
+	@import "../../../scss/partials/_variables";
 
 	.tab-auto {
 		display: flex;
@@ -125,10 +125,7 @@ export default {
 		justify-content: center;
 		align-items: center;
 		size: 100% auto;
-		padding: 20px;
 		margin: 30px 0;
-		background-color: $white;
-		@include MDShadow-1;
 		&__title {
 			font-size: 2.5rem;
 			color: $black
@@ -136,7 +133,7 @@ export default {
 		&__list {
 			display: flex;
 			flex-flow: row wrap;
-			justify-content: space-around;
+			justify-content: space-between;
 			align-items: center;
 			width: 100%;
 			margin-top: 1rem;
@@ -144,7 +141,7 @@ export default {
 		&__list-item {
 			display: flex;
 			flex-flow: column wrap;
-			size: 365px auto;
+			size: 375px auto;
 			margin: 1rem 0;
 			background-color: $whited;
 			transition: box-shadow .3s ease-in-out;
@@ -157,7 +154,7 @@ export default {
 			line-height: 3rem;
 		}
 		&__list-item-image {
-			height: 200px;
+			size: 100% 200px;
 			padding: 0 1rem;
 			object-fit: contain;
 		}

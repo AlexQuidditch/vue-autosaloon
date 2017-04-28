@@ -1,44 +1,57 @@
 <template lang="html">
-	<section id="Testdrive" class="testdrive">
-		<h2 class="testdrive__title">{{ title }}</h2>
+	<section id="tech-service" class="tech-service">
+		<h2 class="tech-service__title">{{ title }}</h2>
 		<div class="container _flex-column _j-c _a-center">
-			<form @submit.stop.prevent="testdrive()"
-				class="testdrive-form">
-				<div class="testdrive-form__column">
+			<form @submit.stop.prevent="techService()"
+				class="service-form">
+				<div class="service-form__column">
 					<fieldset>
 						<legend>Заполните поля и выберите дату:</legend>
-						<v-select v-model="form.car.selected"
-							:options="form.car.options"
-							:placeholder="form.car.placeholder"
-							class="testdrive-form__select"
-							required
-						>
-						</v-select>
-						<input v-model="form.name"
-							:placeholder="form.namePlaceholder"
-							type="text"
-							autocomplete="name"
-							class="testdrive-form__input"
-							required
-						>
-						<input v-model="form.phone"
-							:placeholder="form.phonePlaceholder"
-							v-mask=" '\+7(###)###-##-##' "
-							type="phone"
-							autocomplete="phone"
-							class="testdrive-form__input"
-							required
-						>
+						<label class="service-form__input-row">
+							<i class="service-form__icon material-icons">person</i>
+							<input v-model="form.name"
+								:placeholder="form.namePlaceholder"
+								type="text"
+								autocomplete="name"
+								id="service-name"
+								class="service-form__input"
+								required
+							>
+						</label>
+						<label class="service-form__input-row">
+							<i class="service-form__icon material-icons">phone</i>
+							<input v-model="form.phone"
+								:placeholder="form.phonePlaceholder"
+								v-mask=" '+7(###)###-##-##' "
+								type="phone"
+								autocomplete="phone"
+								id="service-phone"
+								class="service-form__input"
+								required
+							>
+						</label>
+						<label class="service-form__input-row">
+							<i class="service-form__icon material-icons">build</i>
+							<textarea v-model="form.service.service"
+								:placeholder="form.service.servicePlaceholder"
+								type="text"
+								autocomplete="name"
+								id="service-build"
+								class="service-form__textarea"
+								required
+								>
+							</textarea>
+						</label>
 						<button	type="submit"
 							name="button"
-							class="testdrive-form__submit"
+							class="service-form__submit"
 							ripple-light
 							>
 							Отправить заявку
 						</button>
 					</fieldset>
 				</div>
-				<div class="testdrive-form__column _flex">
+				<div class="service-form__column _flex">
 					<datepicker v-model="form.date"
 						:format="form.dateFormat"
 						:placeholder="form.datePlaceholder"
@@ -46,7 +59,7 @@
 						:monday-first="true"
 						:inline="true"
 						language="ru"
-						class="testdrive-form__datepicker"
+						class="service-form__datepicker"
 						required
 						>
 					</datepicker>
@@ -60,48 +73,48 @@
 
 	import vSelect from "vue-select";
 	import Datepicker from 'vuejs-datepicker';
-	import telegram from './telegram-token.js';
+	import telegram from '../main/telegram-token.js';
 
 	export default {
-		name: 'testdrive',
-		data() {
+  		name: "tech-service",
+		components: {
+			Datepicker
+		},
+      	data() {
 			return {
-				title: 'Запись на тест-драйв',
+				title: 'Запись на ремонт',
 				form: {
 					name: '',
 					phone: '',
 					date: new Date(),
 					dateFormat: 'D d MMM yyyy',
-					dateDisabled: {
-						days: [ 0, 6 ]
-					},
-					car: {
-						options: [],
-						selected: '',
-						placeholder: 'Желаемая модель авто'
+					dateDisabled: {	days: [ 0, 6 ] },
+					service: {
+						service: '',
+						servicePlaceholder: 'Кратко опишите проблему'
 					},
 					namePlaceholder: 'Ваше имя',
-					phonePlaceholder: '+7(000)000-00-00',
+					phonePlaceholder: '8(000)000-00-00',
 					datePlaceholder: 'Выберите желаемую дату'
 				}
 			}
-		},
-		components: {
-			vSelect,
-			Datepicker
-		},
-		created() {
-			this.form.car.options = this.$testdrive.options;
-		},
+      	},
 		methods: {
-			testdrive() {
+			techService() {
 				let dateOptions = {
 					day: 'numeric',
 					weekday: 'long',
 					month: 'long',
 					year: 'numeric'
 				};
-				let message = `Новая заявка на тест-драйв:\n\nИмя: ${this.form.name}\nДата: ${this.form.date.toLocaleString('ru-RU', dateOptions)}\nТелефон: ${this.form.phone}\nМодель авто: ${this.form.car.value}`;
+				let message = `
+Новая заявка на тест-драйв:
+
+Имя: ${ this.form.name }
+Дата: ${ this.form.date.toLocaleString('ru-RU', dateOptions) }
+Телефон: ${ this.form.phone }
+Причина обращения: ${ this.form.service.service }
+`;
 				let request = {
 					token: telegram.token,
 					chat_id: '173161597',
@@ -111,14 +124,14 @@
 				this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.text}`)
 					.then( response => console.log(response) );
 				this.$swal(
-					'Заявка на тест-драйв отправлена!',
+					'Заявка на техобслуживание отправлена!',
 					'С Вами свяжется менеджер, чтобы уточнить детали.',
 					'success'
 				);
 				this.form.name = '';
 				this.form.date = new Date();
 				this.form.phone = '';
-				this.form.car.value = ''
+				this.form.service.service = ''
 			}
 		}
 	}
@@ -130,7 +143,7 @@
 	@import "../../scss/partials/_mixins";
 	@import "../../scss/partials/_variables";
 
-	.testdrive {
+	.tech-service {
 		padding: 50px 0;
 		&__title {
 			text-align: center;
@@ -138,7 +151,7 @@
 		}
 	}
 
-	.testdrive-form {
+	.service-form {
 		display: flex;
 		justify-content: space-between;
 		size: 80% auto;
@@ -150,58 +163,54 @@
 				display: flex;
 				justify-content: center;
 				align-items: flex-start;
+				padding-top: 15px;
 			}
 		}
-		&__select {
-			size: 100% 3.5rem;
-			margin: 1rem 0px;
-			font-size: 1rem;
-			color: $red transparent;
-			border: solid 3px $red;
+		&__input-row {
+			display: flex;
+			align-items: center;
+			margin: 1rem 0;
+			background-color: $red;
+			@include MDShadow-1;
+			&:nth-child(2) {
+				margin-top: 0;
+			}
+		}
+		$iconWidth: 15%;
+		&__icon {
+			width: $iconWidth;
+			text-align: center;
+			font-size: 2.5rem;
+			color: $whited;
+			text-shadow:
+					0 4px 5px rgba($blacked, 0.14),
+					0 1px 10px rgba($blacked, 0.12),
+					0 2px 4px rgba($blacked, 0.3);
 			cursor: pointer;
-			@include MDShadow-1;
-			.dropdown-toggle {
-				size: 100%;
-				border: none !important
-			}
-			.form-control {
-				position: absolute !important;
-				left: 0 !important;
-				size: 100% !important;
-				padding: 0.8rem !important;
-				font-size: 1rem !important;
-				color: $red !important;
-				border: none !important
-			}
-			.open-indicator {
-				display: none !important
-			}
-			.selected-tag {
-				size: 100% !important;
-				margin: 0 !important;
-				padding: 0.8rem !important;
-				font-size: 1rem !important;
-				color: $red transparent !important;
-				border: none !important
-			}
 		}
+		&__textarea,
 		&__input {
-			size: 100% 3.5rem;
+			size: ( 100% - $iconWidth ) 3.5rem;
 			padding: 0 1rem;
-			margin: 1rem 0px;
+			margin: 0;
 			font-size: 1rem;
-			color: $red transparent;
+			color: $red $whited;
 			border: solid 3px $red;
-			@include MDShadow-1;
 			transition:
 				color .3s ease-in-out,
 				background-color .3s ease-in-out;
+			&::placeholder {
+				color: rgba($black , .5)
+			}
+		}
+		&__textarea {
+			height: 6rem;
+			padding: 1rem;
+			resize: none;
 		}
 		&__submit {
 			@include MDButton($white, $red) {
 				size: 100% 3.5rem;
-				margin: 1rem 0px;
-				margin-bottom: 0;
 			}
 		}
 		&__datepicker {

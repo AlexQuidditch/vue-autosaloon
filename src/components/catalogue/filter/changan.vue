@@ -49,9 +49,7 @@ export default {
 		}
 	},
 	beforeMount() {
-		this.Changan = this.$store.state.auto.changan;
+		this.Changan = this.$auto.changan;
 	}
 }
 </script>
-
-<style lang="scss"></style>
