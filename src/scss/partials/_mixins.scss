@@ -60,8 +60,9 @@
 @mixin gradient( $direction , $color ) {
 	background: linear-gradient(
 		$direction,
-		$color 0%, $color 60%,
-		rgba($color, .85) 60%, rgba($color, .80) 60%,
+		rgba($color, .95) 0%, rgba($color, .95) 15%,
+		$color 15%, $color 60%,
+		rgba($color, .85) 59%, rgba($color, .80) 60%,
 		rgba($color, .80) 80%, rgba($color, .75) 65%
 	);
 }

@@ -43,7 +43,11 @@
 			size: $size;
 			margin: 2vh;
 			transform: translateX( calc(100% + 3vh) );
-		};
+		}
+		@include MDShadow-3;
+		&:active {
+			@include MDShadow-4;
+		}
 		&._visible {
 			transform: translateX(0);
 		}

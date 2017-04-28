@@ -165,7 +165,7 @@
 			align-items: center;
 			size: auto 100%;
 			padding: 0 22px;
-			font-size: 1.25rem;
+			font-size: 1.15rem;
 			color: $white;
 			cursor: pointer;
 			transition: color .1s ease-in-out;

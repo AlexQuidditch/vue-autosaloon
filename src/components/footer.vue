@@ -19,8 +19,6 @@
 					ripple-light >
 					<i class="footer-adress__btn-icon material-icons">{{ buttonItem.icon }}</i>{{ buttonItem.text }}
 				</a>
-				<a @pointereover = "log(event)"
-					href="#">Кнопка</a>
 			</div>
 		</div>
 	</footer>
