@@ -1,18 +1,23 @@
 <template lang="html">
 	<section id="tech-service" class="tech-service">
 		<h2 class="tech-service__title">{{ title }}</h2>
-		<div class="container _flex-column _j-c _a-center">
+		<div class="container _flex-row _j-between _a-start">
+			<article class="service-info">
+				<h3 class="service-info__title">{{ Info.title }}</h3>
+				<p v-html="Info.content" class="service-info__content"></p>
+			</article>
 			<form @submit.stop.prevent="techService()"
 				class="service-form">
 				<div class="service-form__column">
 					<fieldset>
-						<legend>Заполните поля и выберите дату:</legend>
+						<legend class="service-form__legend">Заполните поля и выберите дату:</legend>
 						<label class="service-form__input-row">
 							<i class="service-form__icon material-icons">person</i>
 							<input v-model="form.name"
 								:placeholder="form.namePlaceholder"
 								type="text"
 								autocomplete="name"
+								pattern="[A-Za-zА-Яа-яЁё]"
 								id="service-name"
 								class="service-form__input"
 								required
@@ -22,7 +27,7 @@
 							<i class="service-form__icon material-icons">phone</i>
 							<input v-model="form.phone"
 								:placeholder="form.phonePlaceholder"
-								v-mask=" '+7(###)###-##-##' "
+								v-mask=" '+7 (###) ###-##-##' "
 								type="phone"
 								autocomplete="phone"
 								id="service-phone"
@@ -46,8 +51,7 @@
 							name="button"
 							class="service-form__submit"
 							ripple-light
-							>
-							Отправить заявку
+							>Отправить заявку
 						</button>
 					</fieldset>
 				</div>
@@ -71,18 +75,19 @@
 
 <script>
 
-	import vSelect from "vue-select";
 	import Datepicker from 'vuejs-datepicker';
 	import telegram from '../main/telegram-token.js';
 
 	export default {
   		name: "tech-service",
-		components: {
-			Datepicker
-		},
+		components: { Datepicker },
       	data() {
 			return {
-				title: 'Запись на ремонт',
+				title: 'Запись на сервисное обслуживание',
+				Info: {
+					title: 'Ремонт и обслуживание любого авто.',
+					content: 'Быстрая и качественная диагностика. Команда профессионалов, индивидуальный подход.<br /> Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br /><br /> Doloremque eveniet facere, optio ex qui hic impedit. Deserunt expedita, commodi repudiandae, cum asperiores dolor autem numquam sed nam, provident, esse ad?'
+				},
 				form: {
 					name: '',
 					phone: '',
@@ -94,44 +99,54 @@
 						servicePlaceholder: 'Кратко опишите проблему'
 					},
 					namePlaceholder: 'Ваше имя',
-					phonePlaceholder: '8(000)000-00-00',
+					phonePlaceholder: '+7 (000) 000-00-00',
 					datePlaceholder: 'Выберите желаемую дату'
 				}
 			}
       	},
 		methods: {
 			techService() {
-				let dateOptions = {
+				const dateOptions = {
 					day: 'numeric',
 					weekday: 'long',
 					month: 'long',
 					year: 'numeric'
 				};
-				let message = `
-Новая заявка на тест-драйв:
+				const message = `
+	Новая заявка на тест-драйв:
 
-Имя: ${ this.form.name }
-Дата: ${ this.form.date.toLocaleString('ru-RU', dateOptions) }
-Телефон: ${ this.form.phone }
-Причина обращения: ${ this.form.service.service }
-`;
-				let request = {
+	Имя: ${ this.form.name }
+	Дата: ${ this.form.date.toLocaleString('ru-RU', dateOptions) }
+	Телефон: ${ this.form.phone }
+	Причина обращения: ${ this.form.service.service }
+	`;
+				const request = {
 					token: telegram.token,
 					chat_id: '173161597',
 					// chat_id: telegram.chat_id,
 					text: message
 				};
 				this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.text}`)
-					.then( response => console.log(response) );
-				this.$swal(
-					'Заявка на техобслуживание отправлена!',
-					'С Вами свяжется менеджер, чтобы уточнить детали.',
-					'success'
-				);
-				this.form.name = '';
-				this.form.date = new Date();
-				this.form.phone = '';
-				this.form.service.service = ''
+					.then( response => {
+						console.info(response);
+						this.$swal(
+							'Заявка на техобслуживание отправлена!',
+							'С Вами свяжется менеджер, чтобы уточнить детали.',
+							'success'
+						);
+						this.form.name = '';
+						this.form.date = new Date();
+						this.form.phone = '';
+						this.form.service.service = ''
+					})
+					.catch( error => {
+						console.error(error);
+						this.$swal(
+							'Упс...',
+							'Что-то пошло не так!',
+							'error'
+						);
+					});
 			}
 		}
 	}
@@ -144,20 +159,42 @@
 	@import "../../scss/partials/_variables";
 
 	.tech-service {
-		padding: 50px 0;
+		padding: 10vh 0;
+		padding-top: 40vh;
+		background-image: url('../../../static/assets/img/service_intro.jpg');
+		background-attachment: fixed;
+		background-position: center;
+		background-size: cover;
 		&__title {
 			text-align: center;
-			font-size: 2.75rem
+			font-size: 3rem;
+			color: $white;
+		}
+	}
+
+	.service-info {
+		width: 50%;
+		margin-top: 100px;
+		padding: 2rem;
+		background-color: $white;
+		@include MDShadow-2;
+		&__title {
+			font-size: 1.75rem;
+		}
+		&__content {
+			font-size: 1.25rem;
+			line-height: 1.75rem;
 		}
 	}
 
 	.service-form {
 		display: flex;
+		flex-flow: column;
 		justify-content: space-between;
-		size: 80% auto;
-		margin-top: 3rem;
+		size: 40% auto;
+		margin-top: 10vh;
 		&__column {
-			width: 45%;
+			width: 100%;
 			flex-basis: 45%;
 			&._flex {
 				display: flex;
@@ -175,6 +212,9 @@
 			&:nth-child(2) {
 				margin-top: 0;
 			}
+		}
+		&__legend {
+			color: $white
 		}
 		$iconWidth: 15%;
 		&__icon {

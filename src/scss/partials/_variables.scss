@@ -1,17 +1,16 @@
 // Global colors
 
 $white: #ecf0f1;
-$black: rgba(#2c3e50, 0.9);
+$black: lighten(#2c3e50, 5%);
 $grey: #9e9e9e;
 
-$red: rgba(#e74c3c, 0.9);
+$red: lighten(#e74c3c, 5%);
 $green: #1abc9c;
 $blue: #2c8be3;
 $moloko: #E5E8EE;
-$gray: #333333;
 
 $whited: #fff;
-$blacked: #000;
+$blacked: #333;
 
 $ripple-opacity: 0.4;
 

@@ -33,10 +33,10 @@
 
 	import Quill from 'quill';
 	// import { ImageResize } from 'quill-image-resize-module';
-	// import { ImageDrop } from 'quill-image-drop-module';
+	import { ImageDrop } from 'quill-image-drop-module';
 
 	// Quill.register('modules/imageResize', ImageResize);
-	// Quill.register('modules/imageDrop', ImageDrop);
+	Quill.register('modules/imageDrop', ImageDrop);
 
 	export default {
 		name: 'editor',
@@ -51,12 +51,12 @@
 					btnAllow: false,
 					options: {
 						placeholder: 'Текст нового поста...',
-						// modules: {
-						// 	imageDrop: true,
-						// 	imageResize: {
-						// 		displaySize: true
-						// 	}
-						// }
+						modules: {
+							imageDrop: true,
+							// imageResize: {
+							// 	displaySize: true
+							// }
+						}
 					}
 				}
 			}
@@ -84,7 +84,7 @@
 					content: $data.Editor.content
 				};
 				this.$http.post('posts.json', post )
-					.then(response => {
+					.then( response => {
 						$data.Editor.title = ''
 						$data.Editor.content = ''
 						$data.$swal(
@@ -92,7 +92,8 @@
 							'Пост добавлен, посмотрите в блоге.',
 							'success'
 						)
-					}, error => {
+					})
+					.catch( error => {
 						$data.$swal(
 							'Что-то пошло не так...',
 							'Попробуйте ещё раз!',

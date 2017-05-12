@@ -4,11 +4,11 @@
 			:options="flickityOptions"
 			class="intro-slider"
 			>
-			<div class="intro-slider__slide">1</div>
-    		<div class="intro-slider__slide">2</div>
+			<div class="intro-slider__slide"></div>
+    		<!-- <div class="intro-slider__slide">2</div>
     		<div class="intro-slider__slide">3</div>
     		<div class="intro-slider__slide">4</div>
-    		<div class="intro-slider__slide">5</div>
+    		<div class="intro-slider__slide">5</div> -->
 		</flickity>
 
 		<div class="intro__overlay">
@@ -21,6 +21,7 @@
 					<router-link tag = "button"
 						class="intro-buttons__button"
 						:to = "{ name: 'catalogue', query: { filter: 'all' } }"
+						ripple-dark
 						>
 						Каталог автомобилей
 					</router-link>
@@ -31,6 +32,7 @@
 							offset: -60,
 							duration: 950
 							}"
+						ripple-light
 						>
 						Тест-драйв
 					</button>
@@ -46,10 +48,11 @@
 
 	export default {
 		name: 'intro',
+		components: { Flickity },
 		data() {
 			return {
-				title: '',
-				subtitle: '',
+				title: 'Автосалон Ангар',
+				subtitle: 'Официальный дилер марок Chery, Changan, Hawtai.',
 				flickityOptions: {
 					selector: '.intro-slider__slide',
 					autoplay: 2500,
@@ -58,13 +61,6 @@
                 	wrapAround: true
             	}
 			}
-		},
-		components: {
-			Flickity
-		},
-		beforeMount() {
-			this.title = this.$intro.title
-			this.subtitle = this.$intro.subtitle
 		}
 	}
 </script>
@@ -86,7 +82,7 @@
 		&__overlay {
 			position: absolute 0 auto auto 0;
 			size: 100%;
-	    	background-color: rgba($blacked, .35);
+	    	background-color: rgba( $blacked , .65 );
 		}
 	}
 

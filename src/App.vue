@@ -1,11 +1,12 @@
-<template>
+<template lang="html">
 	<div id="wrapper" class="wrapper">
-		<s-header/>
+		<s-header></s-header>
 		<transition name="fade-slow" mode="out-in" appear>
 			<router-view></router-view>
 		</transition>
-		<s-footer/>
-		<button-up/>
+		<s-footer></s-footer>
+		<button-up></button-up>
+		<overlay></overlay>
 	</div>
 </template>
 
@@ -14,29 +15,13 @@
 	import sHeader from './components/header';
 	import sFooter from './components/footer';
 	import buttonUp from './components/button-up';
+	import overlay from './components/overlay';
 
 	export default {
 		name: 'app',
-		components: {
-			sHeader , sFooter , buttonUp
-		},
-		beforeCreate() {
-			this.$store.commit('hello'); // зовём мутацию
-			this.$store.dispatch('hello'); // зовём действие
-		},
-		created() {
-			this.$store.commit('hello'); // зовём мутацию
-			this.$store.dispatch('hello'); // зовём действие
-		},
-		beforeMount() {
-			this.$store.commit('hello'); // зовём мутацию
-			this.$store.dispatch('hello'); // зовём действие
-		},
-		mounted() {
-			this.$store.commit('hello'); // зовём мутацию
-			this.$store.dispatch('hello'); // зовём действие
-		}
+		components: { sHeader , sFooter , buttonUp , overlay }
 	}
+
 </script>
 
 <style lang="scss">
@@ -109,7 +94,6 @@
 
 	@include waves-light( $whited, $ripple-opacity);
 	@include waves-dark( $red, $ripple-opacity);
-
 
 	.fade-enter,
 	.fade-leave-to {

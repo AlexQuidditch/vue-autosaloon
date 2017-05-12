@@ -1,10 +1,7 @@
 <template lang="html">
-	<main id="main" class="main">
-		<section class="services">
-			<h2 class="services__title">{{ title }}</h2>
-		</section>
-		<s-repair></s-repair>
+	<main v-once id="main" class="main">
 		<s-service></s-service>
+		<s-repair></s-repair>
 	</main>
 </template>
 
@@ -15,28 +12,15 @@
 
 	export default {
 		name: 'services',
-		components: {
-			sRepair , sService
-		},
-		data() {
-			return {
-				title: 'Услуги'
-			}
-		}
+		components: { sRepair , sService }
 	}
+
 </script>
 
 <style lang="scss">
-	@import "../scss/partials/_layout";
-	@import "../scss/partials/_mixins";
-	@import "../scss/partials/_variables";
 
 	.services {
 		padding: 60px 0;
-		&__title {
-			width: 100%;
-			text-align: center;
-			font-size: 3rem;
-		}
 	}
+
 </style>

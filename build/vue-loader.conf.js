@@ -10,7 +10,7 @@ module.exports = {
 		extract: isProduction
 	}),
 	postcss: [
-		require('autoprefixer')({browsers: ['last 5 versions']}),
+		require('autoprefixer')(),
 		require('postcss-assets')(),
 		require('postcss-nested')(),
 		require('postcss-short')()

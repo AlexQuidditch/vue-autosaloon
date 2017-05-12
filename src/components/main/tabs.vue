@@ -21,6 +21,7 @@
 </template>
 
 <script>
+
 	import Auto from './news/auto'
 	import Marks from './news/marks'
 	import News from './news/news'
@@ -43,12 +44,7 @@
 				isSelected: 'promo'
 			}
 		},
-		components: {
-			Auto,
-			Marks,
-			News,
-			Promo
-		},
+		components: { Auto , Marks , News , Promo },
 		methods: {
 			toggleComponent(buttonItem) {
 				this.isSelected = buttonItem.component;
@@ -59,36 +55,36 @@
 
 <style lang="scss" scoped>
 
-@import "../../scss/partials/_layout";
-@import "../../scss/partials/_mixins";
-@import "../../scss/partials/_variables";
+	@import "../../scss/partials/_layout";
+	@import "../../scss/partials/_mixins";
+	@import "../../scss/partials/_variables";
 
-.tabs {
-	padding: 50px 0;
-	.container_flex-row {
-		align-items: flex-start;
-	}
-}
-
-.tabs-container {
-	display: flex;
-	flex-flow: column wrap;
-	justify-content: flex-start;
-	width: 20%;
-	padding: 25px 0;
-    &__button {
-        width: 100%;
-        padding: 10px 0;
-		margin: 5px 0;
-        text-align: center;
-        font-size: 1.3rem;
-        color: $white $red;
-		border: none;
-        @include MDShadow-2;
-		&._active {
-			background-color: blue
+	.tabs {
+		padding: 50px 0;
+		.container_flex-row {
+			align-items: flex-start;
 		}
-    }
-}
+	}
+
+	.tabs-container {
+		display: flex;
+		flex-flow: column wrap;
+		justify-content: flex-start;
+		width: 20%;
+		padding: 25px 0;
+	    &__button {
+	        width: 100%;
+	        padding: 10px 0;
+			margin: 5px 0;
+	        text-align: center;
+	        font-size: 1.3rem;
+	        color: $white $red;
+			border: none;
+	        @include MDShadow-2;
+			&._active {
+				background-color: blue
+			}
+	    }
+	}
 
 </style>

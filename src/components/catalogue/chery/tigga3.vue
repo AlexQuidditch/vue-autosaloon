@@ -1,5 +1,5 @@
 <template lang="html">
-	<main id="main" class="main">
+	<main v-once id="main" class="main">
 		<section class="product" role="product">
 			<div class="container _flex-column _a-center">
 				<h1 class="product__title">{{ product.title }}</h1>
@@ -565,9 +565,7 @@
 
 	export default {
 		name: "tigga3",
-		components: {
-    	    Flickity
-    	},
+		components: { Flickity },
 		data() {
 			return {
 				Videos: [
@@ -681,165 +679,4 @@
 	}
 </script>
 
-<style lang="scss">
-
-	@import "../../../scss/partials/_layout";
-	@import "../../../scss/partials/_mixins";
-	@import "../../../scss/partials/_variables";
-
-	.product {
-		margin-top: 60px;
-		&__title {
-			margin-top: 2rem;
-			text-align: center;
-			font-size: 3rem
-		}
-		&__subtitle {
-			text-align: center;
-			white-space: pre;
-			font-size: 1.5rem
-		}
-		&__image {
-			margin: 3rem 0px;
-		}
-	}
-	.first-table,
-	.second-table {
-		width: 100%;
-		text-align: center;
-		td, th {
-			width: 22%;
-			padding: 3px 0;
-			font-size: 18px;
-			line-height: 1.75;
-			border-bottom: solid 1px $black;
-			&:nth-child(1) {
-				text-align:	 left;
-				width: 35%;
-			}
-			&[colspan="2"] {
-				border-right: solid 1px $black;
-				border-left: solid 1px $black
-			}
-			&[colspan="4"] {
-				font-size: 20px;
-				line-height: 2;
-				font-weight: 400;
-			}
-		}
-	}
-	.first-table {
-		z-index: 200;
-		position: sticky $headerHeight auto auto;
-		padding-top: 1rem;
-		background-color: $whited;
-	}
-	.second-table {
-		margin-top: -2.5rem;
-		margin-bottom: 2rem;
-	}
-	.search {
-		width: 100%;
-		margin-top: 1rem;
-		&__fieldset {}
-		&__legend {}
-		&__input {
-			z-index: 100;
-			width: 100%;
-			padding: 0 1rem;
-			line-height: 3;
-			color: $red transparent;
-			border: solid 2px $red;
-			outline: none;
-			transition: box-shadow .3s ease-in-out;
-			&:focus {
-				@include MDShadow-1;
-			}
-		}
-	}
-	.product-slider {
-		size: 100%;
-		background-color: $whited;
-		.flickity-viewport {
-			min-height: 400px;
-		}
-		.flickity-slider {
-			display: flex;
-			align-items: center;
-		}
-		&__slide {
-			size: 350px auto;
-			margin: 0 20px;
-			@include MDShadow-1;
-		}
-		&__slide-image {
-			width: 100%;
-		}
-		&__slide-title {
-			padding: 10px;
-			padding-top: 5px;
-			margin: 0;
-			font-size: 14px;
-			font-weight: 400;
-			line-height: 1.5;
-		}
-		.flickity-page-dots {
-			z-index: 100;
-			width: auto;
-			bottom: 0;
-			padding: 10px;
-			.dot {
-				opacity: 1;
-				size: 15px;
-				background: rgba($red, .75);
-				@include MDShadow-1;
-				transition:
-					background .3s ease-in-out,
-					box-shadow .3s ease-in-out;
-				&.is-selected {
-					background: rgba($red, 1);
-					@include MDShadow-2;
-				}
-			}
-		}
-		.flickity-prev-next-button {
-			position: absolute;
-			top: 50%;
-			size: 50px;
-			background-color: $whited;
-			cursor: pointer;
-			border: solid 1px rgba($black, .45);
-			border-radius: 50%;
-			& .arrow {
-				fill: $black
-			}
-			&.previous {
-				left: 0;
-				transform: translate(-50%,-50%)
-			}
-			&.next {
-				right: 0;
-				transform: translate(50%,-50%)
-			}
-		}
-	}
-	.gallery {
-		width: 100%;
-		margin: 60px 0;
-		&__title {
-			width: 100%;
-			margin-bottom: 3rem;
-			text-align: center;
-			font-size: 3rem
-		}
-		&__video {
-			size: 45% 320px;
-			iframe {
-				size: 100%;
-				margin-bottom: 2rem;
-				@include MDShadow-2;
-			}
-		}
-	}
-
-</style>
+<style lang="scss" src="../../../scss/layout/car-page.scss"></style>

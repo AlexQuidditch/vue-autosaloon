@@ -3,4 +3,5 @@ node_modules/
 dist/
 static/bower_components
 telegram-token.js
+data.json
 npm-debug.log

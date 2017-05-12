@@ -1,14 +1,15 @@
 <template lang="html">
 	<section id="Testdrive" class="testdrive">
 		<h2 class="testdrive__title">{{ title }}</h2>
-		<div class="container _flex-column _j-c _a-center">
+		<div class="container _flex-column _j-start _a-center">
+			<p v-html="description" class="testdrive__description"></p>
 			<form @submit.stop.prevent="testdrive()"
 				class="testdrive-form">
 				<div class="testdrive-form__column">
 					<fieldset>
 						<legend>Заполните поля и выберите дату:</legend>
 						<v-select v-model="form.car.selected"
-							:options="form.car.options"
+							:options="Options"
 							:placeholder="form.car.placeholder"
 							class="testdrive-form__select"
 							required
@@ -20,15 +21,15 @@
 							autocomplete="name"
 							class="testdrive-form__input"
 							required
-						>
+						/>
 						<input v-model="form.phone"
 							:placeholder="form.phonePlaceholder"
-							v-mask=" '\+7(###)###-##-##' "
+							v-mask=" '\+7 (###) ###-##-##' "
 							type="phone"
 							autocomplete="phone"
 							class="testdrive-form__input"
 							required
-						>
+						/>
 						<button	type="submit"
 							name="button"
 							class="testdrive-form__submit"
@@ -64,44 +65,47 @@
 
 	export default {
 		name: 'testdrive',
+		components: { vSelect , Datepicker },
 		data() {
 			return {
-				title: 'Запись на тест-драйв',
+				title: 'Запишитесь на тест-драйв!',
+				description: 'Отличная возможность испытать желаемую машину в действии! <br /> Оставьте заявку, и мы свяжемся с Вами.',
 				form: {
 					name: '',
 					phone: '',
 					date: new Date(),
 					dateFormat: 'D d MMM yyyy',
-					dateDisabled: {
-						days: [ 0, 6 ]
-					},
+					dateDisabled: { days: [ 0, 6 ] },
 					car: {
-						options: [],
-						selected: '',
+						selected: null,
 						placeholder: 'Желаемая модель авто'
 					},
 					namePlaceholder: 'Ваше имя',
-					phonePlaceholder: '+7(000)000-00-00',
+					phonePlaceholder: '+7 (000) 000-00-00',
 					datePlaceholder: 'Выберите желаемую дату'
 				}
 			}
 		},
-		components: {
-			vSelect,
-			Datepicker
-		},
-		created() {
-			this.form.car.options = this.$testdrive.options;
+		computed: {
+			Options() {
+				return this.$store.state.TestDrive.options
+			}
 		},
 		methods: {
 			testdrive() {
-				let dateOptions = {
+				const dateOptions = {
 					day: 'numeric',
 					weekday: 'long',
 					month: 'long',
 					year: 'numeric'
 				};
-				let message = `Новая заявка на тест-драйв:\n\nИмя: ${this.form.name}\nДата: ${this.form.date.toLocaleString('ru-RU', dateOptions)}\nТелефон: ${this.form.phone}\nМодель авто: ${this.form.car.value}`;
+				const message =
+`Новая заявка на тест-драйв:
+
+Имя: ${ this.form.name }
+Дата: ${ this.form.date.toLocaleString('ru-RU', dateOptions) }
+Телефон: ${ this.form.phone }
+Модель авто: ${ this.form.car.selected }`;
 				let request = {
 					token: telegram.token,
 					chat_id: '173161597',
@@ -109,16 +113,25 @@
 					text: message
 				};
 				this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.text}`)
-					.then( response => console.log(response) );
-				this.$swal(
-					'Заявка на тест-драйв отправлена!',
-					'С Вами свяжется менеджер, чтобы уточнить детали.',
-					'success'
-				);
-				this.form.name = '';
-				this.form.date = new Date();
-				this.form.phone = '';
-				this.form.car.value = ''
+					.then( response => {
+						this.$swal(
+							'Заявка на тест-драйв отправлена!',
+							'С Вами свяжется менеджер, чтобы уточнить детали.',
+							'success'
+						);
+						this.form.name = '';
+						this.form.date = new Date();
+						this.form.phone = '';
+						this.form.car.value = ''
+					})
+					.catch( error => {
+						console.error(error);
+						this.$swal(
+							'Упс...',
+							'Что-то пошло не так!',
+							'error'
+						)
+					});
 			}
 		}
 	}
@@ -131,10 +144,16 @@
 	@import "../../scss/partials/_variables";
 
 	.testdrive {
+		height: calc( 100vh - 60px );
 		padding: 50px 0;
 		&__title {
 			text-align: center;
 			font-size: 2.75rem
+		}
+		&__description {
+			text-align: center;
+			font-size: 1.5rem;
+			line-height: 1.5;
 		}
 	}
 
@@ -142,7 +161,7 @@
 		display: flex;
 		justify-content: space-between;
 		size: 80% auto;
-		margin-top: 3rem;
+		margin-top: 36px;
 		&__column {
 			width: 45%;
 			flex-basis: 45%;

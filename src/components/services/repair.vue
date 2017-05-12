@@ -2,15 +2,11 @@
 	<section id="repair" class="repair">
 		<div class="container _flex-row">
 			<h2 class="repair__title">{{ title }}</h2>
-			<!-- <div class="repair-text">
-				<h3 class="repair-text__heading">{{ Text.heading }}</h3>
-				<p class="repair-text__paragraph">{{ Text.paragraph }}</p>
-			</div> -->
 			<form @submit.stop.prevent = "send()"
 				class="repair-form"
 				>
 				<fieldset>
-					<legend>Заявка на запчасть:</legend>
+					<legend>Заполните форму ниже:</legend>
 					<div class="container _flex-column">
 						<label for="contact-me" class="detail">
 							<fieldset class="detail__fieldset">
@@ -70,7 +66,7 @@
 										<i class="detail__icon material-icons">phone</i>
 										<input v-model = "Form.phone"
 											:placeholder="Form.phonePlaceholder"
-											v-mask=" '\+7(###)###-##-##' "
+											v-mask=" '\+7 (###) ###-##-##' "
 											class="detail__input _contact-me"
 											type="text"
 											id="phone"
@@ -101,18 +97,14 @@
 		components: { vSelect },
       	data() {
 			return {
-				title: 'Repair',
-				Text: {
-					heading: 'поцажжыддьвьжйь',
-					paragraph: 'ыджьвйадцйттайтца'
-				},
+				title: 'Автозапчасти, комплектующие',
 				Form: {
 					detail: '',
 					detailPlaceholder: 'Название детали, которую Вы ищите...',
 					name: '',
 					namePlaceholder: 'Ваше имя',
 					phone: '',
-					phonePlaceholder: 'Ваш телефон',
+					phonePlaceholder: '+7 (000) 000-00-00',
 					manufactor: {
 						selected: '',
 						placeholder: 'Производитель:'
@@ -126,30 +118,47 @@
       	},
 		methods: {
 			send() {
-				let dateOptions = {
+				const dateOptions = {
 					day: 'numeric',
 					weekday: 'long',
 					month: 'long',
 					year: 'numeric'
 				};
-				let message = `Новая заявка на тест-драйв:\n\nИмя: ${this.Form.name}\nДата: ${this.Form.date.toLocaleString('ru-RU', dateOptions)}\nТелефон: ${this.Form.phone}\nМодель авто: ${this.Form.car.value}`;
-				let request = {
+				const message =
+`Новая заявка на техобслуживание:
+
+Имя: ${ this.Form.name }
+Дата: ${ this.Form.date.toLocaleString('ru-RU', dateOptions) }
+Телефон: ${ this.Form.phone }
+Модель авто: ${ this.Form.car.value }
+`;
+				const request = {
 					token: telegram.token,
 					chat_id: '173161597',
 					// chat_id: telegram.chat_id,
 					message
 				};
 				this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.message}`)
-					.then( response => console.log(response) );
-				this.$swal(
-					'Заявка на тест-драйв отправлена!',
-					'С Вами свяжется менеджер, чтобы уточнить детали.',
-					'success'
-				);
-				this.Form.name = '';
-				this.Form.date = new Date();
-				this.Form.phone = '';
-				this.Form.car.value = ''
+					.then( response => {
+						console.info(response);
+						this.$swal(
+							'Заявка на тест-драйв отправлена!',
+							'С Вами свяжется менеджер, чтобы уточнить детали.',
+							'success'
+						);
+						this.Form.name = '';
+						this.Form.date = new Date();
+						this.Form.phone = '';
+						this.Form.car.value = ''
+					})
+					.catch( error => {
+						console.error(response);
+						this.$swal(
+							'Упс...',
+							'Что-то пошло не так!',
+							'error'
+						);
+					});
 			}
 		},
 		mounted() {
@@ -173,7 +182,6 @@
 			font-size: 2rem;
 		}
 	}
-
 	.repair-text {
 		width: 50%;
 	}
@@ -222,7 +230,6 @@
 				width: 100%;
 			}
 		}
-		&__legend {}
 		&__input-row {
 			display: flex;
 			align-items: center;

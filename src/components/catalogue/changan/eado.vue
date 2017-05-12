@@ -1,0 +1,619 @@
+<template lang="html">
+	<main v-once id="main" class="main">
+		<section class="product" role="product">
+			<div class="container _flex-column _a-center">
+				<h1 class="product__title">{{ product.title }}</h1>
+				<img :src="product.img" :alt="product.title" class="product__image">
+				<h2 class="product__subtitle">{{ product.subTitle }}</h2>
+				<flickity ref="slider"
+					:options="flickityOptions"
+					class="product-slider">
+					<div v-for="slideItem in Slides" :key="slideItem.key"
+						class="product-slider__slide">
+						<img :src=" slideItem.img + '.png' "
+							class="product-slider__slide-image"
+						/>
+					</div>
+				</flickity>
+				<table class="first-table" aria-label="Комплектация и цены">
+					<tr>
+						<th>Комплектация</th>
+						<td>1,6 MТ COMFORT</td>
+						<td>1,6 MТ LUXE</td>
+						<td>1,6 АТ LUXE</td>
+					</tr>
+					<tr>
+						<td>Розничная цена, руб.</td>
+						<td>560 000</td>
+						<td>585 650</td>
+						<td>628 000</td>
+					</tr>
+				</table>
+
+				<label for="search" class="search">
+					<fieldset class="search__fieldset">
+						<legend class="search__legend">{{ Search.placeholder }}</legend>
+						<input v-model="Search.content"
+							:placeholder="Search.placeholder"
+							class="search__input"
+							type="text" id="search"
+						/>
+					</fieldset>
+				</label>
+
+				<table id="properties" class="second-table" aria-label="Технические характеристики">
+					<tbody>
+						<tr style="visibility: hidden;">
+							<td>Комплектация</td>
+							<td>1,6 MТ COMFORT</td>
+							<td>1,6 MТ LUXE</td>
+							<td>1,6 АТ LUXE</td>
+						</tr>
+						<tr>
+							<td>Двигатель</td>
+							<td></td>
+							<td>BlueCore 1.6L DOHC, DVVT</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Трансмиссия</td>
+							<td colspan="2">5 MT</td>
+							<td>4 AT</td>
+						</tr>
+						<tr>
+							<td>3 датчика парковки</td>
+							<td></td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Кожаная обивка сидений</td>
+							<td></td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Люк с электроприводом</td>
+							<td></td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Габаритные размеры и объемы</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Длина/Ширина/Высота (мм)</td>
+							<td></td>
+							<td>4 620 / 1 820 / 1 490</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Колесная база (мм)</td>
+							<td></td>
+							<td>2 660</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Колея передняя/задняя (мм)</td>
+							<td></td>
+							<td>1 550 / 1 569</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Размерность шин</td>
+							<td>195 / 65 R15</td>
+							<td>205 / 55 R16</td>
+							<td>205 / 55 R16</td>
+						</tr>
+						<tr>
+							<td>Запасное колесо</td>
+							<td></td>
+							<td>195 / 65 / R15 (стальное колесо)</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Объем багажного отделения (л)</td>
+							<td></td>
+							<td>510</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Объем топливного бака (л)</td>
+							<td></td>
+							<td>52</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Снаряженная масса (кг)</td>
+							<td colspan="2">1 323</td>
+							<td>1 325</td>
+						</tr>
+						<tr>
+							<td>Технические характеристики</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Максимальная мощность (л.с. (кВт) при об/мин)</td>
+							<td></td>
+							<td>113 (83) / 6 000</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Максимальный крутящий момент (Нм при об/мин)</td>
+							<td></td>
+							<td>152 / 4 000–5 000</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Расход топлива в смешанном цикле (л/100км)</td>
+							<td>7,2</td>
+							<td></td>
+							<td>7,6</td>
+						</tr>
+						<tr>
+							<td>Экологический класс</td>
+							<td></td>
+							<td>Euro IV</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Рулевое управление</td>
+							<td></td>
+							<td>ЕPS</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Система подвески</td>
+							<td colspan="3">Передняя — МакФерсон, независимая со стабилизатором поперечной устойчивости<br>Задняя — торсионная, полузависимая с гидравлическими телескопическими амортизаторами</td>
+						</tr>
+						<tr>
+							<td>Тормозная система</td>
+							<td></td>
+							<td>Передние и задние тормоза: дисковые</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Безопасность</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>ABS+ESP</td>
+							<td>+</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>ESP с функцией: ABS+EBD+TCS+ESP+HBA</td>
+							<td></td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Фронтальные подушки безопасности для водителя и переднего пассажира</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Ремни безопасности на передних сиденьях с преднатяжителем и ограничителями усилий</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Трехточечные ремни безопасности на задних сиденьях</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Сигнализация о непристегнутом ремне безопасности водителя</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Сигнализация о непристегнутом ремне безопасности переднего пассажира</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Иммобилайзер</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Тормозная система от TRW</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Система визуальной помощи при парковке</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Электрообогрев заднего стекла</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Задержка выключенния света фар — функция «проводи меня домой»</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Сигнализация о невыключенных фарах</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Сигнализация о незакрытых дверях (включая дверь багажника) </td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>ESP — система предупреждения автомобилей сзади об экстренном торможении</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>«Детский замок» в задних дверях</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Крепления для детского сиденья ISOFIX</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Комфорт</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Регулировка руля по высоте</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Энергопоглощающая рулевая колонка</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Регулировка водительского сиденья в 6 направлениях и регулируемые по высоте подголовники</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Регулировка сиденья переднего пассажира в 4 направлениях и регулируемые по высоте подголовники</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Подогрев передних сидений</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Ключ центрального замка с ДУ</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Кондиционер</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Аудиосистема</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Скрытые воздуховоды для заднего ряда</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>DVD</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>CD, поддержка MP3+WMA</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Радио с разъемом USB</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Камера заднего вида с динамической разметкой, помогающей парковаться</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>4 колонки</td>
+							<td>+</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>6 колонок</td>
+							<td></td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Экстерьер</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Высокопрочный кузов с зонами энергопоглощения</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Наружные зеркала заднего вида с электроприводом и электрообогревом</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Электростеклоподъемники всех дверей с функцией опускания онократным нажатием на двери водителя</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Передние и задние противотуманные фары</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Дневные ходовые огни</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Стальные колесные диски</td>
+							<td>+</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Лекгосплавные колесные диски</td>
+							<td></td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Интерьер</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Интерьер в темных тонах</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Тканевая обивка сидений</td>
+							<td>+</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Ультрапрочный каркас сидений</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Внутреннее зеркало заднего вида с антибликовым покрытием</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Рулевое колесо с кожаной обивкой</td>
+							<td></td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Управление аудиосистемой на руле</td>
+							<td></td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Карманы с подстаканниками во всех дверях</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Карман в спинке кресла переднего пассажира</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Передний центральный подлокотник с кожаной обивкой и сверхглубоким боксом</td>
+							<td></td>
+							<td></td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Задний центральный подлокотник с подстаканниками</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+						<tr>
+							<td>Футляр для очков</td>
+							<td>+</td>
+							<td>+</td>
+							<td>+</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</section>
+		<section class="gallery" aria-label="Галерея">
+			<div class="container _flex-row _j-around _a-center">
+				<h2 class="gallery__title">Галерея</h2>
+
+				<youtube v-for="videoItem in Videos" :key="videoItem.id"
+					:video-id="videoItem.id"
+					@playing = "playing()"
+					@paused = "paused()"
+					class = "gallery__video"
+					>
+				</youtube>
+
+			</div>
+
+		</section>
+
+	</main>
+</template>
+
+<script>
+
+	import Flickity from 'vue-flickity';
+
+	export default {
+		name: "EADO",
+		components: { Flickity },
+		data() {
+			return {
+				Videos: [
+					{
+						id: 'u902_BROjbI',
+					},
+					{
+						id: 'ooBTM8tWUco',
+					}
+				],
+				product: {
+					title: 'ВАШ CHANGAN EADO',
+					subTitle: 'Безопасный, вместительный, динамичный. Среднеразмерный седан.',
+					img: '../../../../static/assets/img/eado/eado_big.png'
+				},
+				Slides: [
+					{
+						img: '../../../../static/assets/img/eado/slider/detail_01'
+					},
+					{
+						img: '../../../../static/assets/img/eado/slider/detail_02'
+					},
+					{
+						img: '../../../../static/assets/img/eado/slider/detail_03'
+					},
+					{
+						img: '../../../../static/assets/img/eado/slider/detail_04'
+					},
+					{
+						img: '../../../../static/assets/img/eado/slider/detail_05'
+					},
+					{
+						img: '../../../../static/assets/img/eado/slider/detail_06'
+					},
+					{
+						img: '../../../../static/assets/img/eado/slider/detail_07'
+					},
+					{
+						img: '../../../../static/assets/img/eado/slider/detail_08'
+					},
+					{
+						img: '../../../../static/assets/img/eado/slider/detail_09'
+					}
+				],
+				flickityOptions: {
+					groupCells: 3,
+                	wrapAround: true,
+					autoPlay: 7500
+				},
+				Search: {
+					placeholder: 'Поиск по характеристикам...',
+					content: ''
+				}
+			}
+		},
+		watch: {
+			'Search.content': function() {
+				let filter, table, tr, td, i;
+				filter = this.Search.content.toUpperCase();
+				table = document.getElementById("properties");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[0];
+					if (td) {
+						if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}
+				}
+			}
+		},
+		methods: {
+			paused(player) {
+				console.log('Paused');
+			},
+			playing(player) {
+				console.log('Playing');
+			}
+		}
+	}
+</script>
+
+<style lang="scss" src="../../../scss/layout/car-page.scss"></style>

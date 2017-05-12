@@ -1,5 +1,5 @@
 <template lang="html">
-	<header id="header" class="header">
+	<header v-once id="header" class="header">
 		<div class="container _flex-row _j-between _a-center">
 			<ul class="header-menu">
 				<div class="header-logo">
@@ -12,8 +12,7 @@
 				</div>
 				<li v-for="headerMenuItem in headerMenu"
 					class="header-menu__item">
-					<router-link
-						:to = "headerMenuItem.route"
+					<router-link :to = "headerMenuItem.route"
 						class="header-menu__link"
 						>{{ headerMenuItem.text }}</router-link>
 					<ul class="header-menu__submenu">
@@ -22,8 +21,7 @@
 							class="header-menu__submenu-item"
 							:tabindex="index + 1"
 							>
-							<router-link
-								:to = "headerSubMenuItem.route"
+							<router-link :to = "headerSubMenuItem.route"
 								class="header-menu__submenu-link"
 								>{{ headerSubMenuItem.text }}</router-link>
 						</li>
@@ -32,14 +30,10 @@
 			</ul>
 			<ul class="header-menu _buttons">
 				<li class="header-menu__item">
-					<button @click="" class="header-menu__link _buttons">
-						Запись на тест-драйв
-					</button>
-				</li>
-				<li class="header-menu__item">
-					<button @click="" class="header-menu__link _buttons">
-						Контакты
-					</button>
+					<button @click="callTestDrive()"
+						class="header-menu__link _buttons"
+						ripple-light
+						>Запись на тест-драйв</button>
 				</li>
 			</ul>
 		</div>
@@ -55,36 +49,28 @@
 					{
 						route: {
 							path: '/catalogue',
-        	            	query: {
-            	            	filter: 'all'
-	            	        }
+        	            	query: { filter: 'all' }
 						},
 						text: 'Автомобили',
 						headerSubMenu: [
 							{
 								route: {
 									path: '/catalogue',
-			                    	query: {
-			                        	filter: 'chery'
-				                    }
+			                    	query: { filter: 'chery' }
 								},
 								text: 'Chery'
 							},
 							{
 								route: {
 									path: '/catalogue',
-			                    	query: {
-			                        	filter: 'changan'
-				                    }
+			                    	query: { filter: 'changan' }
 								},
 								text: 'Changan'
 							},
 							{
 								route: {
 									path: '/catalogue',
-			                    	query: {
-			                        	filter: 'hawtai'
-				                    }
+			                    	query: { filter: 'hawtai' }
 								},
 								text: 'Hawtai'
 							}
@@ -123,6 +109,18 @@
 						text: 'О нас'
 					}
 				]
+			}
+		},
+		methods: {
+			callTestDrive() {
+				this.$store.commit('modalOpen')
+			},
+			callContacts() {
+				this.$swal(
+					'Тут будет вызвана модалка с тест-драйвом',
+					'И прочее бла-бла-бла...',
+					'question'
+				)
 			}
 		}
 	}
@@ -173,11 +171,11 @@
 				color: $red
 			}
 			&._buttons {
-				width: auto;
-				padding: 0 22px;
-				background-color: transparent;
-				border: none;
-				cursor: pointer;
+				@include MDButton($white , $red) {
+					height: 40px;
+					margin: 10px 0;
+					margin-left: 1rem
+				}
 			}
 		}
 		&__submenu {

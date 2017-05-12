@@ -1,39 +1,11 @@
-export const hello = () => {
-	return console.log(
-		'Действие вызвано! '
-		+ new Date().getHours()
-		+ ':'
-		+ new Date().getMinutes()
-		+ ':'
-		+ new Date().getSeconds()
-		+ ':'
-		+ new Date().getMilliseconds()
-	);
+import api from './modules/api.js';
+
+export const getPosts = ( context , payload ) => {
+	return api.getPosts( payload )
+		.then( response => context.commit('setPosts', response))
+		.catch( error => console.error(error));
 };
 
-// import api from './utils/api.js';
-//
-// const actions = {
-//     getIncrementers (context) => {
-//         return api.get('/incrementers')
-//             .then((response) => context.commit('GET_INCREMENTERS', response))
-//             .catch((error) => context.commit('API_FAILURE', error));
-//     },
-//     createIncrementer (context, data) => {
-//         return api.post(data.url, data.request)
-//             .then((response) => context.commit('CREATE_INCREMENTER', response))
-//             .catch((error) => context.commit('API_FAILURE', error));
-//     },
-//     updateIncrementer (context, data) => {
-//         return api.patch(data.url, data.request)
-//             .then((response) => context.commit('UPDATE_INCREMENTER', response))
-//             .catch((error) => context.commit('API_FAILURE', error));
-//     },
-//     deleteIncrementer (context, url) => {
-//         return api.delete(url)
-//             .then((response) => context.commit('DELETE_INCREMENTER', response))
-//             .catch((error) => context.commit('API_FAILURE', error));
-//     }
-// };
-//
-// export default actions
+export const modalClose = ( context ) => {
+	return context.commit('modalClose')
+};

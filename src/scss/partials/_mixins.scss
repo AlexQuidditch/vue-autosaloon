@@ -114,33 +114,33 @@
 
 // Material Design Shadows
 // http://materializecss.com/shadow.html
-@mixin MDShadow-1 {
+@mixin MDShadow-1($color: $blacked) {
     box-shadow:
-            0 2px 2px 0 rgba($blacked, 0.14),
-            0 1px 5px 0 rgba($blacked, 0.12),
-            0 3px 1px -2px rgba($blacked, 0.2);
+            0 2px 2px 0 rgba($color, 0.14),
+            0 1px 5px 0 rgba($color, 0.12),
+            0 3px 1px -2px rgba($color, 0.2);
 }
-@mixin MDShadow-2 {
+@mixin MDShadow-2($color: $blacked) {
     box-shadow:
-            0 4px 5px 0 rgba($blacked, 0.14),
-            0 1px 10px 0 rgba($blacked, 0.12),
-            0 2px 4px -1px rgba($blacked, 0.3);
+            0 4px 5px 0 rgba($color, 0.14),
+            0 1px 10px 0 rgba($color, 0.12),
+            0 2px 4px -1px rgba($color, 0.3);
 }
-@mixin MDShadow-3 {
+@mixin MDShadow-3($color: $blacked) {
     box-shadow:
-            0 6px 10px 0 rgba($blacked, 0.14),
-            0 1px 18px 0 rgba($blacked, 0.12),
-            0 3px 5px -1px rgba($blacked, 0.3);
+            0 6px 10px 0 rgba($color, 0.14),
+            0 1px 18px 0 rgba($color, 0.12),
+            0 3px 5px -1px rgba($color, 0.3);
 }
-@mixin MDShadow-4 {
+@mixin MDShadow-4($color: $blacked) {
     box-shadow:
-            0 8px 10px 1px rgba($blacked, 0.14),
-            0 3px 14px 2px rgba($blacked, 0.12),
-            0 5px 5px -3px rgba($blacked, 0.3);
+            0 8px 10px 1px rgba($color, 0.14),
+            0 3px 14px 2px rgba($color, 0.12),
+            0 5px 5px -3px rgba($color, 0.3);
 }
-@mixin MDShadow-5 {
+@mixin MDShadow-5($color: $blacked) {
     box-shadow:
-            0 16px 24px 2px rgba($blacked, 0.14),
-            0 6px 30px 5px rgba($blacked, 0.12),
-            0 8px 10px -5px rgba($blacked, 0.3);
+            0 16px 24px 2px rgba($color, 0.14),
+            0 6px 30px 5px rgba($color, 0.12),
+            0 8px 10px -5px rgba($color, 0.3);
 }

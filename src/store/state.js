@@ -1,0 +1,154 @@
+export default {
+	Autolist: {
+		chery: [
+			{
+				image: "../../../../static/assets/img/tigga2/tigga2_big.jpg",
+				model: "CHERY TIGGO 2",
+				description: 'Стильный дизайн, уверенность на дороге и за пределами трассы. Tiggo 2 - это ответ на все вопросы повседневной изни.',
+				price: "759 900",
+				route: 'tigga2'
+			},
+			{
+				image: "../../../../static/assets/img/tigga3/tigga3_big.jpg",
+				model: "CHERY TIGGO 3",
+				description: 'Современный городской кроссовер, оснащённый инновационной мультимедийной системой CHERY CLOUDRIVE.',
+				price: "817 000",
+				route: 'tigga3'
+			},
+			{
+				image: "../../../../static/assets/img/tigga5/tigga5_big.jpg",
+				model: "CHERY TIGGO 5",
+				description: 'Он словно тигр, готовый в любую секунду сорваться с места для покорения городских джунглей.',
+				price: "972 900",
+				route: 'tigga5'
+			}
+		],
+		hawtai: [
+			{
+				image: "https://placehold.it/365x200",
+				model: "Tiggoqwdqd 5",
+				description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+				price: "800 000",
+				route: 'main'
+			},
+			{
+				image: "https://placehold.it/365x200",
+				model: "Tihyntnggo 6",
+				description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+				price: "856 000",
+				route: 'main'
+			},
+			{
+				image: "https://placehold.it/365x200",
+				model: "Tigretgggo 5X",
+				description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+				price: "812 000",
+				route: 'main'
+			}
+		],
+		changan: [
+			{
+				image: "../../../../static/assets/img/cs35/cs35_big.png",
+				model: "CS35",
+				description: 'Компактный, стильный и экономичный кроссовер на все случаи жизни',
+				price: "799 900",
+				route: 'cs35'
+			},
+			{
+				image: "../../../../static/assets/img/eado/eado_big.png",
+				model: "EADO",
+				description: 'Безопасный, вместительный, динамичный среднеразмерный седан.',
+				price: "560 000",
+				route: 'eado'
+			},
+			{
+				image: "../../../../static/assets/img/raeton/raeton_big.png",
+				model: "RAETON",
+				description: 'Комфортабельный, бесшумный, мощный cедан бизнес-класса',
+				price: "1 339 000",
+				route: 'raeton'
+			}
+		]
+	},
+	Filter: {
+		categories: [
+			'Аксессуары' ,
+			'Двигатель' ,
+			'Кондиционер' ,
+			'Кузов' ,
+			'Салон' ,
+			'Система ДВС' ,
+			'Трансмиссия' ,
+			'Ходовая часть' ,
+			'Электрика' ,
+			'Электрика ДВС'
+		]
+	},
+	TestDrive: {
+		isOpened: false,
+		options: [
+			'Chery Tiggo 2',
+			'Chery Tiggo 3',
+			'Chery Tiggo 5',
+			'Changan CS35',
+			'Changan EADO',
+			'Changan RAETON',
+		]
+	},
+	News: {
+		news: [
+			{
+				title: 'Новая модель Chery',
+				description: 'Короткое описание новости',
+				text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+				route: ''
+			},
+			{
+				title: 'Новая модель Chery',
+				description: 'Короткое описание новости',
+				text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+				route: ''
+			},
+			{
+				title: 'Новая модель Chery',
+				description: 'Короткое описание новости',
+				text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+				route: ''
+			},
+			{
+				title: 'Новая модель Chery',
+				description: 'Короткое описание новости',
+				text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+				route: ''
+			}
+		],
+		actions: [
+			{
+				title: 'Скидка 10% на всё!',
+				description: 'Короткое описание акции',
+				text: 'Текст про скидку, и то-сё, детали',
+				route: 'main'
+			},
+			{
+				title: 'Скидка 10% на всё!',
+				description: 'Короткое описание акции',
+				text: 'Текст про скидку, и то-сё, детали',
+				route: 'main'
+			},
+			{
+				title: 'Скидка 10% на всё!',
+				description: 'Короткое описание акции',
+				text: 'Текст про скидку, и то-сё, детали',
+				route: 'main'
+			},
+			{
+				title: 'Скидка 10% на всё!',
+				description: 'Короткое описание акции',
+				text: 'Текст про скидку, и то-сё, детали',
+				route: 'main'
+			}
+		]
+	},
+	Posts: [],
+	PostsIsLoaded: false
+};
