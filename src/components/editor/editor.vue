@@ -85,8 +85,10 @@
 				};
 				this.$http.post('posts.json', post )
 					.then( response => {
-						$data.Editor.title = ''
-						$data.Editor.content = ''
+						$data.Editor = {
+							title: '',
+							content: ''
+						};
 						$data.$swal(
 							'Ура!',
 							'Пост добавлен, посмотрите в блоге.',
@@ -111,7 +113,8 @@
 					cancelButtonColor: '#e74c3c',
 					confirmButtonText: 'Да, удалить черновик',
 					cancelButtonText: 'Отмена'
-				}).then( () => {
+				})
+				.then( () => {
 					this.$swal(
 						'Удалено!',
 						'Черновик очищен.',
@@ -126,7 +129,7 @@
 			editor() {
 				return this.$refs.blogEditor.quillEditor
 			}
-		},
+		}
 	}
 </script>
 

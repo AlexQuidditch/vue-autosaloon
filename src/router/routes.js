@@ -61,7 +61,7 @@ const catalogueHawtai = resolve => {
 };
 
 
-export const routes = [
+export default [
 	{
 		name: 'main',
 		path: '/',
@@ -127,4 +127,4 @@ export const routes = [
 		path: '/about',
 		component: blog
 	}
-]
+];

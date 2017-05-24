@@ -24,17 +24,11 @@
 				<table class="first-table _col-5" aria-label="Комплектация и цены">
 					<tr>
 						<th>Комплектация</th>
-						<th>Standart MT</th>
-						<th>Comfort MT</th>
-						<th>Comfort CVT</th>
-						<th>Luxury CVT</th>
+						<th v-for="priceItem in Prices" :key="priceItem.key">{{ priceItem.title }}</th>
 					</tr>
 					<tr>
 						<td>Розничная цена, руб.</td>
-						<td>972 900 **</td>
-						<td>1 049 900</td>
-						<td>1 119 900</td>
-						<td>1 179 000</td>
+						<th v-for="priceItem in Prices" :key="priceItem.key">{{ priceItem.price }}</th>
 					</tr>
 				</table>
 
@@ -983,6 +977,11 @@
 					placeholder: 'Поиск по комплектации...',
 					content: ''
 				}
+			}
+		},
+		computed: {
+			Prices() {
+				return this.$store.state.Cars.chery.tiggo5
 			}
 		},
 		watch: {

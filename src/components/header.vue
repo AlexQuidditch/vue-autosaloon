@@ -1,11 +1,11 @@
 <template lang="html">
 	<header v-once id="header" class="header">
-		<div class="container _flex-row _j-between _a-center">
+		<div class="container _wide _flex-row _j-between _a-center">
 			<ul class="header-menu">
 				<div class="header-logo">
 					<router-link to="/">
 						<img src="../../static/assets/img/logo.png"
-							alt=""
+							alt="логотип"
 							class="header-logo__img"
 						/>
 					</router-link>
@@ -136,7 +136,7 @@
 		z-index: 900;
 		position: fixed 0 auto auto 0;
 		size: 100% $headerHeight;
-		@include gradient( 125deg , $black );
+		@include gradient( 125deg , $white );
 		@include MDShadow-4;
 	}
 
@@ -164,7 +164,7 @@
 			size: auto 100%;
 			padding: 0 22px;
 			font-size: 1.15rem;
-			color: $white;
+			color: $black;
 			cursor: pointer;
 			transition: color .1s ease-in-out;
 			&._active {
@@ -200,11 +200,11 @@
 			display: inline-block;
 			size: 100%;
 			padding: 10px 20px;
-			color: $white $black;
+			color: $black $white;
 			cursor: pointer;
 			transition: background-color .3s ease-in-out;
 			&:focus , &:active , &:hover {
-				background-color: mix($white, $black, 5%);
+				background-color: mix($black , $white , 5%);
 			}
 		}
 	}

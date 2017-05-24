@@ -70,14 +70,14 @@
 	.footer {
 		height: 400px;
 		padding: 40px 0;
-		@include gradient( 125deg , $black );
+		@include gradient( 125deg , $white );
 	}
 	.footer-information {
 		flex-basis: 45%;
 		margin-right: 1rem;
 		&__requisites {
 			margin: 0.5rem 0;
-			color: $white;
+			color: $blacked;
 			line-height: 1.5;
 			&:nth-child(even) {
 				margin: 0.5rem 0;
@@ -95,7 +95,7 @@
 	}
 	.footer-contacts {
 		flex-basis: 25%;
-		color: $white;
+		color: $blacked;
 	}
 	.footer-adress {
 		display: flex;
@@ -103,7 +103,7 @@
 		justify-content: center;
 		height: 100%;
 		flex-basis: 25%;
-		color: $white;
+		color: $blacked;
 		&__btn {
 			@include MDButton($white, $red) {
 				display: flex;

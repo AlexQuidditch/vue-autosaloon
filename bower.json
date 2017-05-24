@@ -18,6 +18,6 @@
   "devDependencies": {
     "normalize-css": "^5.0.0",
     "Waves": "waves#^0.7.5",
-    "flickity": "^2.0.5"
+    "flickity": "^2.0.5",
   }
 }

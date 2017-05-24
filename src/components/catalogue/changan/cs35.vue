@@ -18,17 +18,11 @@
 				<table class="first-table _col-5" aria-label="Комплектация и цены">
 					<tr>
 						<th>Комплектация</th>
-						<td>1,6 MТ COMFORT</td>
-						<td>1,6 MТ LUXE</td>
-						<td>1,6 АТ COMFORT</td>
-						<td>1,6 АТ LUXE</td>
+						<th v-for="priceItem in Prices" :key="priceItem.key">{{ priceItem.title }}</th>
 					</tr>
 					<tr>
 						<td>Розничная цена, руб.</td>
-						<td>799 900</td>
-						<td>835 900</td>
-						<td>885 900</td>
-						<td>925 920</td>
+						<th v-for="priceItem in Prices" :key="priceItem.key">{{ priceItem.price }}</th>
 					</tr>
 				</table>
 
@@ -47,10 +41,7 @@
 					<tbody>
 						<tr style="visibility: hidden;">
 							<td>Комплектация</td>
-							<td>1,6 MТ COMFORT</td>
-							<td>1,6 MТ LUXE</td>
-							<td>1,6 АТ COMFORT</td>
-							<td>1,6 АТ LUXE</td>
+							<th v-for="priceItem in Prices" :key="priceItem.key">{{ priceItem.title }}</th>
 						</tr>
 						<tr>
 							<td>Двигатель</td>
@@ -726,13 +717,10 @@
 							<td>+</td>
 						</tr>
 						<tr>
-							<td colspan="5"></td>
+							<td class="_borderless" colspan="5">Changan Automobile оставляет за собой право развивать (изменять) и менять конфигурацию модели Changan CS 35</td>
 						</tr>
 						<tr>
-							<td colspan="5">Changan Automobile оставляет за собой право развивать (изменять) и менять конфигурацию модели Changan CS 35</td>
-						</tr>
-						<tr>
-							<td><small>* Данные завода изготовителя</small></td>
+							<td class="_borderless"><small>* Данные завода изготовителя</small></td>
 						</tr>
 					</tbody>
 				</table>
@@ -833,6 +821,11 @@
 					placeholder: 'Поиск по характеристикам...',
 					content: ''
 				}
+			}
+		},
+		computed: {
+			Prices() {
+				return this.$store.state.Cars.changan.cs35
 			}
 		},
 		watch: {

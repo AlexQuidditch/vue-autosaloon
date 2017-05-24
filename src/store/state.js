@@ -72,15 +72,15 @@ export default {
 	},
 	Filter: {
 		categories: [
-			'Аксессуары' ,
-			'Двигатель' ,
-			'Кондиционер' ,
-			'Кузов' ,
-			'Салон' ,
-			'Система ДВС' ,
-			'Трансмиссия' ,
-			'Ходовая часть' ,
-			'Электрика' ,
+			'Аксессуары',
+			'Двигатель',
+			'Кондиционер',
+			'Кузов',
+			'Салон',
+			'Система ДВС',
+			'Трансмиссия',
+			'Ходовая часть',
+			'Электрика',
 			'Электрика ДВС'
 		]
 	},
@@ -150,5 +150,98 @@ export default {
 		]
 	},
 	Posts: [],
-	PostsIsLoaded: false
+	PostsIsLoaded: false,
+	Cars: {
+		chery: {
+			tiggo2: [
+				{
+					title: 'Comfort MT',
+					price: '395 188'
+				},
+				{
+					title: 'Luxury MT',
+					price: '499 088'
+				},
+				{
+					title: 'Luxury CVT',
+					price: '599 088'
+				}
+			],
+			tiggo3: [
+				{
+					title: 'Comfort MT',
+					price: '395 188'
+				},
+				{
+					title: 'Luxury MT',
+					price: '499 088'
+				},
+				{
+					title: 'Luxury CVT',
+					price: '599 088'
+				}
+			],
+			tiggo5: [
+				{
+					title: 'Standart MT',
+					price: '972 900 **'
+				},
+				{
+					title: 'Comfort MT',
+					price: '1 049 900'
+				},
+				{
+					title: 'Comfort CVT',
+					price: '1 119 900'
+				},
+				{
+					title: 'Luxury CVT',
+					price: '1 179 000'
+				}
+			]
+		},
+		changan: {
+			cs35: [
+				{
+					title: 'MТ COMFORT',
+					price: '799 900'
+				},
+				{
+					title: 'MТ LUXE',
+					price: '835 900'
+				},
+				{
+					title: 'АТ COMFORT',
+					price: '885 900'
+				},
+				{
+					title: 'АТ LUXE',
+					price: '925 920'
+				}
+			],
+			eado: [
+				{
+					title: 'MТ COMFORT',
+					price: '560 000'
+				},
+				{
+					title: 'MТ LUXE',
+					price: '585 650'
+				},
+				{
+					title: 'АТ LUXE',
+					price: '628 000'
+				}
+			],
+			raeton: [
+				{
+					title: 'АТ LUXE',
+					price: '1 339 000'
+				}
+			]
+		},
+		hawtai: {
+
+		}
+	}
 };

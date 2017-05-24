@@ -1,7 +1,7 @@
 <template lang="html">
 	<div id="wrapper" class="wrapper">
 		<s-header></s-header>
-		<transition name="fade-slow" mode="out-in" appear>
+		<transition name="fade-slow" mode="out-in" appear class="main">
 			<router-view></router-view>
 		</transition>
 		<s-footer></s-footer>
@@ -34,7 +34,9 @@
 
 	html , body {
 		size: 100%;
-		touch-action: manipulation
+		background-color: $whited;
+		touch-action: manipulation;
+		-webkit-tap-highlight-color: transparent;
 	}
 	.wrapper {
 		@include font-smoothing;
@@ -51,6 +53,9 @@
 		width: $containersWidth;
 		height: 100%;
 		margin: 0 auto;
+		&._wide {
+			width: $containersWidth + 100px
+		}
 		&._flex-row {
 			display: flex;
 			flex-flow: row wrap;

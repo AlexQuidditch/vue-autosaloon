@@ -12,7 +12,7 @@
 		</flickity>
 
 		<div class="intro__overlay">
-			<div class="container _flex-column _j-center _a-center">
+			<div class="container _flex-column _j-end _a-start">
 				<div class="intro-text">
 					<h1 class="intro-text__title">{{ title }}</h1>
 					<h2 class="intro-text__sub-title">{{ subtitle }}</h2>
@@ -52,7 +52,7 @@
 		data() {
 			return {
 				title: 'Автосалон Ангар',
-				subtitle: 'Официальный дилер марок Chery, Changan, Hawtai.',
+				subtitle: 'Официальный дилер марок Chery, Changan, Hawtai в г. Ачинске',
 				flickityOptions: {
 					selector: '.intro-slider__slide',
 					autoplay: 2500,
@@ -72,41 +72,43 @@
 	@import "../../scss/partials/_variables";
 
 	.intro {
-		height: 100vh;
+		height: calc( 100vh - 60px );
 		padding: 0;
 		margin: 0;
 		background-position: center center;
-		.container_flex-column {
-			box-shadow: none
-		}
 		&__overlay {
 			position: absolute 0 auto auto 0;
 			size: 100%;
-	    	background-color: rgba( $blacked , .65 );
+	    	background-color: rgba( $blacked , .75 );
+			.container {
+				padding-bottom: 200px;
+			}
 		}
 	}
 
 	.intro-text {
-		text-align: center;
+		width: 50%;
 		&__title {
-			font-size: 6rem;
+			font-size: 4rem;
 			color: $white;
 			text-shadow: 0 0 15px rgba($blacked, 0.75);
 		}
 		&__sub-title {
-			margin-top: 3rem;
-			font-size: 2.5rem;
+			margin-top: 1rem;
+			font-size: 2rem;
+			line-height: 1.5;
 			color: $white;
 			text-shadow: 0 0 15px rgba($blacked, 0.75);
 		}
 	}
 
 	.intro-buttons {
-		margin-top: 4rem;
+		margin-top: 3rem;
 		&__button {
-			size: 18rem 3.5rem;
-			margin: 0 3rem;
-			font-size: 1.35rem;
+			size: 16rem 3rem;
+			margin: 0;
+			margin-right: 3rem;
+			font-size: 1.2rem;
 			color: $white transparent;
 			border: solid 3px $white;
 			cursor: pointer;
@@ -117,11 +119,8 @@
 				color: $black $white;
 			}
 			&._alert {
-				color: $red;
+				color: $white $red;
 				border-color: $red;
-				&:hover {
-					color: $white $red;
-				}
 			}
 		}
 	}

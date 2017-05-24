@@ -1,14 +1,14 @@
 <template lang="html">
 	<section class="tabs">
-		<div class="container _flex-row _j-between">
-
-			<div class="tabs-container">
-				<a v-for = "buttonItem in Buttons"
+		<div class="container _flex-column _j-between">
+			<h2 class="tabs__title">Новое в автосалоне</h2>
+			<nav class="tabs-container">
+				<button v-for = "buttonItem in Buttons"
 					@click = "toggleComponent(buttonItem)"
 					class="tabs-container__button"
 					ripple-light
-					>{{ buttonItem.name }}</a>
-			</div>
+					>{{ buttonItem.name }}</button>
+			</nav>
 
 			<transition name="fade" mode="out-in">
 				<keep-alive>
@@ -29,6 +29,7 @@
 
 	export default {
 		name: 'tabs',
+		components: { Auto , Marks , News , Promo },
 		data() {
 			return {
 				Buttons: [
@@ -44,7 +45,6 @@
 				isSelected: 'promo'
 			}
 		},
-		components: { Auto , Marks , News , Promo },
 		methods: {
 			toggleComponent(buttonItem) {
 				this.isSelected = buttonItem.component;
@@ -61,29 +61,24 @@
 
 	.tabs {
 		padding: 50px 0;
-		.container_flex-row {
-			align-items: flex-start;
+		&__title {
+			margin-bottom: 2rem;
+			text-align: center;
+			font-size: 3rem;
+			line-height: 1.5;
 		}
 	}
 
 	.tabs-container {
 		display: flex;
-		flex-flow: column wrap;
 		justify-content: flex-start;
-		width: 20%;
-		padding: 25px 0;
 	    &__button {
-	        width: 100%;
-	        padding: 10px 0;
-			margin: 5px 0;
-	        text-align: center;
-	        font-size: 1.3rem;
-	        color: $white $red;
-			border: none;
-	        @include MDShadow-2;
-			&._active {
-				background-color: blue
-			}
+	        @include MDButton($white, $red) {
+	            size: 200px auto;
+				margin-right: 2rem;
+				padding: 0;
+	            line-height: 3rem;
+	        };
 	    }
 	}
 

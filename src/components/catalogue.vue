@@ -17,7 +17,7 @@
 			Waves.attach('[ripple-light]', ['waves-light']);
 		}
 	}
-	
+
 </script>
 
 <style lang="scss">
@@ -47,7 +47,7 @@
 		&__list-item {
 			display: flex;
 			flex-flow: row wrap;
-			size: 375px auto;
+			size: 350px auto;
 			margin: 1rem 0;
 			background-color: $whited;
 			transition: box-shadow .3s ease-in-out;
@@ -57,7 +57,7 @@
 			}
 		}
 		&__list-item-title {
-			line-height: 3rem;
+			line-height: 3.5rem;
 		}
 		&__list-item-image {
 			size: 100% 200px;

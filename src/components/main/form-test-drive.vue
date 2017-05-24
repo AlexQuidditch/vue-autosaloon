@@ -6,7 +6,7 @@
 			<form @submit.stop.prevent="testdrive()"
 				class="testdrive-form">
 				<div class="testdrive-form__column">
-					<fieldset>
+					<fieldset class="testdrive-form__fieldset">
 						<legend>Заполните поля и выберите дату:</legend>
 						<v-select v-model="form.car.selected"
 							:options="Options"
@@ -145,14 +145,15 @@
 
 	.testdrive {
 		height: calc( 100vh - 60px );
-		padding: 50px 0;
+		padding: 40px 0;
+		background-image: url('../../../static/assets/img/test-drive.jpg');
 		&__title {
 			text-align: center;
-			font-size: 2.75rem
+			font-size: 2.5rem
 		}
 		&__description {
 			text-align: center;
-			font-size: 1.5rem;
+			font-size: 1.25rem;
 			line-height: 1.5;
 		}
 	}
@@ -175,7 +176,7 @@
 			size: 100% 3.5rem;
 			margin: 1rem 0px;
 			font-size: 1rem;
-			color: $red transparent;
+			color: $red $whited;
 			border: solid 3px $red;
 			cursor: pointer;
 			@include MDShadow-1;
@@ -209,7 +210,7 @@
 			padding: 0 1rem;
 			margin: 1rem 0px;
 			font-size: 1rem;
-			color: $red transparent;
+			color: $red $whited;
 			border: solid 3px $red;
 			@include MDShadow-1;
 			transition:

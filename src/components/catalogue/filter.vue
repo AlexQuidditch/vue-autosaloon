@@ -66,6 +66,7 @@
 	@import "../../scss/partials/_variables";
 
 	.tabs {
+		min-height: 100vh;
 		padding: 50px 0;
 	}
 

@@ -18,11 +18,11 @@
 				<table class="first-table" aria-label="Комплектация и цены">
 					<tr>
 						<th>Комплектация</th>
-						<td>1,8T АТ LUXE</td>
+						<th v-for="priceItem in Prices" :key="priceItem.key">{{ priceItem.title }}</th>
 					</tr>
 					<tr>
-						<td>Розничная цена</td>
-						<td>1 339 000</td>
+						<td>Розничная цена, руб.</td>
+						<th v-for="priceItem in Prices" :key="priceItem.key">{{ priceItem.price }}</th>
 					</tr>
 				</table>
 
@@ -440,6 +440,11 @@
 					placeholder: 'Поиск по характеристикам...',
 					content: ''
 				}
+			}
+		},
+		computed: {
+			Prices() {
+				return this.$store.state.Cars.changan.raeton
 			}
 		},
 		watch: {

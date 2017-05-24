@@ -15,11 +15,11 @@
       	data() {
 			return { isVisible: false }
       	},
-		mounted() {
+		created() {
 			window.onscroll = () => {
-				let buttonUp = document.getElementById('button-up');
+				const buttonUp = document.getElementById('button-up');
 				let scrolled = window.pageYOffset || document.documentElement.scrollTop;
-				if (scrolled > 700) {
+				if (scrolled > 350) {
 					buttonUp.classList.add('_visible')
 				} else {
 					buttonUp.classList.remove('_visible')
@@ -36,7 +36,7 @@
 	@import "../scss/partials/_variables";
 
 	.button-up {
-		$size: 90px;
+		$size: 75px;
 		@include MDButton( $whited , $red ) {
 			z-index: 900;
 			position: fixed auto 0 0 auto;

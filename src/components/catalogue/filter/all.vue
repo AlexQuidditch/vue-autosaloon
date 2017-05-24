@@ -2,8 +2,7 @@
 	<section id="auto" class="tab-auto">
 		<h3 class="tab-auto__title">Модельный ряд всех производителей</h3>
 		<transition name="fade" mode="out-in">
-			<transition-group
-				tag="ul"
+			<transition-group tag="ul"
 				class="tab-auto__list"
 				>
 				<catalogue-item	v-for = "cheryItem in Chery" :key = "cheryItem.model"

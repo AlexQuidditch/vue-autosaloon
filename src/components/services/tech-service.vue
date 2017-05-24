@@ -179,11 +179,11 @@
 		background-color: $white;
 		@include MDShadow-2;
 		&__title {
-			font-size: 1.75rem;
+			font-size: 1.5rem;
 		}
 		&__content {
-			font-size: 1.25rem;
-			line-height: 1.75rem;
+			font-size: 1rem;
+			line-height: 1.5rem;
 		}
 	}
 
@@ -220,7 +220,7 @@
 		&__icon {
 			width: $iconWidth;
 			text-align: center;
-			font-size: 2.5rem;
+			font-size: 2rem;
 			color: $whited;
 			text-shadow:
 					0 4px 5px rgba($blacked, 0.14),
