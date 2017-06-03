@@ -1,130 +1,106 @@
-import main from '@/components/main'
-import services from '@/components/services'
+import main from '@/components/main.vue';
 
-import catalogue from '@/components/catalogue'
+const service = () => import( '@/components/service.vue' );
+const services = () => import( '@/components/services.vue' );
+const catalogue = () => import( '@/components/catalogue.vue' );
+const about = () => import( '@/components/about.vue' );
+const blog = () => import( '@/components/about/blog.vue' );
 
-import about from '@/components/about';
-import blog from '@/components/about/blog';
+const catalogueChery = () => import( '@/components/catalogue/filter/chery.vue' );
+const Tigga2 = () => import( '@/components/catalogue/chery/tigga2.vue' );
+const Tigga3 = () => import( '@/components/catalogue/chery/tigga3.vue' );
+const Tigga5 = () => import( '@/components/catalogue/chery/tigga5.vue' );
 
-const catalogueChery = resolve => {
-	require.ensure(['@/components/catalogue/filter/chery'], () => {
-		resolve(require('@/components/catalogue/filter/chery'));
-	});
-};
+const catalogueChangan = () => import( '@/components/catalogue/filter/changan.vue' );
+const cs35 = () => import( '@/components/catalogue/changan/cs35.vue' );
+const eado = () => import( '@/components/catalogue/changan/eado.vue' );
+const raeton = () => import( '@/components/catalogue/changan/raeton.vue' );
 
-const Tigga2 = resolve => {
-	require.ensure(['@/components/catalogue/chery/tigga2'], () => {
-		resolve(require('@/components/catalogue/chery/tigga2'));
-	});
-};
-
-const Tigga3 = resolve => {
-	require.ensure(['@/components/catalogue/chery/tigga3'], () => {
-		resolve(require('@/components/catalogue/chery/tigga3'));
-	});
-};
-
-const Tigga5 = resolve => {
-	require.ensure(['@/components/catalogue/chery/tigga5'], () => {
-		resolve(require('@/components/catalogue/chery/tigga5'));
-	});
-};
-
-const catalogueChangan = resolve => {
-	require.ensure(['@/components/catalogue/filter/changan'], () => {
-		resolve(require('@/components/catalogue/filter/changan'));
-	});
-};
-
-const cs35 = resolve => {
-	require.ensure(['@/components/catalogue/changan/cs35'], () => {
-		resolve(require('@/components/catalogue/changan/cs35'));
-	});
-};
-
-const eado = resolve => {
-	require.ensure(['@/components/catalogue/changan/eado'], () => {
-		resolve(require('@/components/catalogue/changan/eado'));
-	});
-};
-
-const raeton = resolve => {
-	require.ensure(['@/components/catalogue/changan/raeton'], () => {
-		resolve(require('@/components/catalogue/changan/raeton'));
-	});
-};
-
-const catalogueHawtai = resolve => {
-	require.ensure(['@/components/catalogue/filter/hawtai'], () => {
-		resolve(require('@/components/catalogue/filter/hawtai'));
-	});
-};
-
+const catalogueHawtai = () => import( '@/components/catalogue/filter/hawtai.vue' );
 
 export default [
 	{
 		name: 'main',
 		path: '/',
-		component: main
+		component: main,
+		meta: { scrollToTop: true }
+	},
+	{
+		name: 'service',
+		path: '/service',
+		component: service,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'services',
 		path: '/services',
-		component: services
+		component: services,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'catalogue',
 		path: '/catalogue',
-		component: catalogue
+		component: catalogue,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'chery',
 		path: '/catalogue/chery',
-		component: catalogueChery
+		component: catalogueChery,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'tigga2',
 		path: '/catalogue/chery/tigga2',
-		component: Tigga2
+		component: Tigga2,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'tigga3',
 		path: '/catalogue/chery/tigga3',
-		component: Tigga3
+		component: Tigga3,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'tigga5',
 		path: '/catalogue/chery/tigga5',
-		component: Tigga5
+		component: Tigga5,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'changan',
 		path: '/catalogue/changan',
-		component: catalogueChangan
+		component: catalogueChangan,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'cs35',
 		path: '/catalogue/changan/cs35',
-		component: cs35
+		component: cs35,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'eado',
 		path: '/catalogue/changan/eado',
-		component: eado
+		component: eado,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'raeton',
 		path: '/catalogue/changan/raeton',
-		component: raeton
+		component: raeton,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'hawtai',
 		path: '/catalogue/hawtai',
-		component: catalogueHawtai
+		component: catalogueHawtai,
+		meta: { scrollToTop: true }
 	},
 	{
 		name: 'about',
 		path: '/about',
-		component: blog
+		component: blog,
+		meta: { scrollToTop: true }
 	}
 ];
