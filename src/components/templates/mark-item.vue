@@ -1,6 +1,5 @@
 <template lang="html">
 	<li class="mark">
-		<h4 class="mark__title">{{ name }}</h4>
 		<img :src="picture" :alt="name" class="mark__picture" />
 		<router-link :to="{ path: '/catalogue', query: { filter : route }}"
 			class="mark__link"
@@ -26,12 +25,9 @@
 	    flex-flow: column wrap;
 		justify-content: space-between;
 		align-items: center;
-	    size: 350px 300px;
+	    size: auto 200px;
 	    margin: 1rem 0;
 	    background-color: $whited;
-		&:first-child {
-			width: 250px
-		}
 		@include MQ(Pp) {
 			width: 100%
 		}
@@ -40,14 +36,17 @@
 	        line-height: 3rem;
 	    }
 	    &__picture {
-	    	size: auto 75px;
+	    	size: auto 100px;
 	        object-fit: contain;
+			@include MQ(Pp) {
+				max-width: 90%;
+			}
 	    }
 	    &__link {
 	        @include MDButton($white, $red) {
-	            size: 200px auto;
+	            size: 150px 2.5rem;
 	            text-align: center;
-	            line-height: 3rem;
+	            line-height: 2.5rem;
 	        };
 	    }
 	}

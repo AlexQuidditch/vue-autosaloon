@@ -13,6 +13,10 @@
 
 		<div class="intro__overlay">
 			<div class="container _flex-column _j-end _a-start">
+				<img src="../../../static/assets/img/logo_small.png"
+					alt="логотип автосалона Ангар"
+					 class="intro-image"
+					 />
 				<div class="intro-text">
 					<h1 class="intro-text__title">{{ title }}</h1>
 					<h2 class="intro-text__sub-title">{{ subtitle }}</h2>
@@ -26,12 +30,12 @@
 						Каталог автомобилей
 					</router-link>
 					<button
-						class="intro-buttons__button _alert"
 						v-scroll-to="{
 							el: '#Testdrive',
 							offset: -60,
 							duration: 950
-							}"
+						}"
+						class="intro-buttons__button _alert"
 						ripple-light
 						>
 						Тест-драйв
@@ -77,21 +81,35 @@
 		margin: 0;
 		background-position: center center;
 		&__overlay {
-			position: absolute 0 auto auto 0;
-			size: 100%;
-	    	background-color: rgba( $blacked , .75 );
+			position: absolute $headerHeight auto auto 0;
+			size: 100% calc( 100% - 70px );
 			.container {
+				position: relative;
 				padding-bottom: 200px;
+				@include MQ(Pp) {
+					padding: inherit;
+					padding-top: $headerHeight;
+					&._j-end {
+						justify-content: center;
+					}
+				}
 			}
 		}
 	}
 
 	.intro-text {
 		width: 50%;
+		@include MQ(Pp) {
+			width: 100%;
+			text-align: center;
+		}
 		&__title {
 			font-size: 4rem;
 			color: $white;
 			text-shadow: 0 0 15px rgba($blacked, 0.75);
+			@include MQ(Pp) {
+				font-size: 3rem
+			}
 		}
 		&__sub-title {
 			margin-top: 1rem;
@@ -99,10 +117,30 @@
 			line-height: 1.5;
 			color: $white;
 			text-shadow: 0 0 15px rgba($blacked, 0.75);
+			@include MQ(Pp) {
+				font-size: 1.35rem
+			}
+		}
+	}
+
+	.intro-image {
+		opacity: .9;
+		position: absolute;
+		top: 50%;
+		right: 0;
+		width: 350px;
+		padding: 20px;
+		background-color: $white;
+		border-radius: 50%;
+		@include MDShadow-4($white);
+		transform: translateY(-25%);
+		@include MQ(Pp) {
+			display: none;
 		}
 	}
 
 	.intro-buttons {
+		width: 100%;
 		margin-top: 3rem;
 		&__button {
 			size: 16rem 3rem;
@@ -121,6 +159,10 @@
 			&._alert {
 				color: $white $red;
 				border-color: $red;
+			}
+			@include MQ(Pp) {
+				display: block;
+				margin: 0 auto 1rem auto;
 			}
 		}
 	}

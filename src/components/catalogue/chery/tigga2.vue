@@ -1,6 +1,6 @@
 <template lang="html">
-	<main v-once id="main" class="main">
-		<section class="product" role="product">
+	<main id="main" class="main">
+		<section v-once class="product" role="product">
 			<div class="container _flex-column _a-center">
 				<h1 class="product__title">{{ product.title }}</h1>
 				<img :src="product.img" :alt="product.title" class="product__image">
@@ -8,9 +8,10 @@
 				<flickity ref="slider"
 					:options="flickityOptions"
 					class="product-slider">
-					<div v-for="slideItem in Slides" :key="slideItem.key"
+					<div v-for="( slideItem , index ) in Slides" :key="slideItem.key"
 						class="product-slider__slide">
-						<img :src=" slideItem.img + '.jpg' "
+						<img @click = "openGallery(index)"
+							:src=" slideItem.img + '.jpg' "
 							:alt="slideItem.title"
 							:title="slideItem.title"
 							class="product-slider__slide-image"
@@ -547,6 +548,8 @@
 					</tbody>
 				</table>
 
+				<mobile-notation></mobile-notation>
+
 			</div>
 		</section>
 		<section class="gallery" aria-label="Галерея">
@@ -564,16 +567,26 @@
 
 		</section>
 
+		<transition name="fade">
+			<gallery-overlay v-if="galleryOverlayIsOpened"
+				@galleryClose="closeGallery()"
+				:Slides="Slides"
+				:index="slideIndex"
+				>
+			</gallery-overlay>
+		</transition>
 	</main>
 </template>
 
 <script>
 
 	import Flickity from 'vue-flickity';
+	import mobileNotation from '../../templates/mobile-notation';
+	import galleryOverlay from '../../templates/gallery-overlay';
 
 	export default {
-		name: "tigga3",
-		components: { Flickity },
+		name: "tigga2",
+		components: { Flickity , mobileNotation , galleryOverlay },
 		data() {
 			return {
 				Videos: [
@@ -586,7 +599,7 @@
 				],
 				product: {
 					title: 'ВАШ CHERY TIGGO 2',
-					subTitle: ``,
+					subTitle: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.`,
 					img: '../../../../static/assets/img/tigga2/tigga2_big.jpg'
 				},
 				Slides: [
@@ -675,6 +688,8 @@
 						title: 'LED дневные ходовые огни'
 					}
 				],
+				galleryOverlayIsOpened: false,
+				slideIndex: 0,
 				flickityOptions: {
 					groupCells: 3,
                 	wrapAround: true,
@@ -692,7 +707,7 @@
 		},
 		computed: {
 			Prices() {
-				return this.$store.state.Cars.chery.tiggo2
+				return this.$state.Cars.chery.tiggo2
 			}
 		},
 		watch: {
@@ -735,6 +750,13 @@
 			},
 			playing(player) {
 				console.log('Playing');
+			},
+			openGallery(index) {
+				this.slideIndex = index;
+				this.galleryOverlayIsOpened = true;
+			},
+			closeGallery() {
+				this.galleryOverlayIsOpened = false;
 			}
 		}
 	}

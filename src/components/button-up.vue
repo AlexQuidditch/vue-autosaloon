@@ -54,6 +54,9 @@
 		&__icon {
 			font-size: $size / 1.25;
 		}
+		@include MQ(Pp) {
+			margin: 18px;
+		}
 	}
 
 </style>

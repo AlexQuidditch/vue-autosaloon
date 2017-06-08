@@ -25,7 +25,7 @@
 				Marks: [
 					{
 						name: 'Chery',
-						picture: '../../../static/assets/img/marks/chery-logo.png',
+						picture: '../../../static/assets/img/marks/chery-logo.svg',
 						route: 'chery'
 					},
 					{

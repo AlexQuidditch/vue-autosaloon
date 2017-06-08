@@ -9,8 +9,6 @@
 
 		<Tabs></Tabs>
 
-		<Quill-Editor></Quill-Editor>
-
 	</main>
 </template>
 
@@ -20,11 +18,10 @@
 	import Marks from './main/marks.vue';
 	import Tabs from './main/tabs';
 	import Testdrive from './main/form-test-drive';
-	import QuillEditor from './editor/editor';
-
+	
 	export default {
 		name: 'main',
-		components: { Intro , Marks , Testdrive , Tabs , QuillEditor },
+		components: { Intro , Marks , Testdrive , Tabs },
 		mounted() {
 			Waves.init();
 			Waves.attach('[ripple-dark]', ['waves-dark']);

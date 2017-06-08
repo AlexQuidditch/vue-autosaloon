@@ -1,26 +1,24 @@
 <template lang="html">
-	<header v-once id="header" class="header">
-		<div class="container _wide _flex-row _j-between _a-center">
+	<header id="header" class="header">
+		<div class="container _wide _flex-row _a-center">
+			<div class="header-logo">
+				<router-link to="/" class="header-logo__link">
+					<img :src="logoSrc"
+						alt="логотип"
+						class="header-logo__img"
+					/>
+				</router-link>
+			</div>
 			<ul class="header-menu">
-				<div class="header-logo">
-					<router-link to="/">
-						<img src="../../static/assets/img/logo.png"
-							alt="логотип"
-							class="header-logo__img"
-						/>
-					</router-link>
-				</div>
 				<li v-for="headerMenuItem in headerMenu"
 					class="header-menu__item">
 					<router-link :to = "headerMenuItem.route"
 						class="header-menu__link"
 						>{{ headerMenuItem.text }}</router-link>
 					<ul class="header-menu__submenu">
-						<li	v-for="( headerSubMenuItem , index ) in headerMenuItem.headerSubMenu"
-							:key="index"
-							class="header-menu__submenu-item"
-							:tabindex="index + 1"
-							>
+						<li	v-for="headerSubMenuItem in headerMenuItem.headerSubMenu"
+							:key="headerSubMenuItem.text"
+							class="header-menu__submenu-item">
 							<router-link :to = "headerSubMenuItem.route"
 								class="header-menu__submenu-link"
 								>{{ headerSubMenuItem.text }}</router-link>
@@ -28,6 +26,26 @@
 					</ul>
 				</li>
 			</ul>
+			<div class="header-menu__mobile-button" :class="{ 'open' : mobileIsOpened }">
+				<div v-show="!mobileIsOpened"
+					@click="openMobileMenu()"
+					class="header-menu__mobile-copy"
+					>МЕНЮ</div>
+				<ul class="header-menu _mobile">
+					<li v-for="headerMenuItem in headerMenu"
+						@click="closeMobileMenu()"
+						class="header-menu__item _mobile">
+						<router-link :to = "headerMenuItem.route"
+							class="header-menu__link _mobile"
+							>{{ headerMenuItem.text }}</router-link>
+					</li>
+					<li class="header-menu__item _mobile _close">
+						<button @click="closeMobileMenu()"
+							class="header-menu__link _buttons _close"
+							type="button">Закрыть</button>
+					</li>
+				</ul>
+			</div>
 			<ul class="header-menu _buttons">
 				<li class="header-menu__item">
 					<button @click="callTestDrive()"
@@ -45,6 +63,8 @@
 		name: 'header',
 		data() {
 			return {
+				logoSrc: '../../static/assets/svg/logo.svg',
+				mobileIsOpened: false,
 				headerMenu: [
 					{
 						route: {
@@ -77,26 +97,41 @@
 						]
 					},
 					{
-						route: '/services',
+						route: {
+							path: '/service',
+							query: { select: 'sRepair' }
+						},
 						text: 'Сервис',
 						headerSubMenu: [
 							{
-								route: '/',
+								route: {
+									path: '/service',
+			                    	query: { select: 'sService' }
+								},
 								text: 'ТО и ремонт'
 							},
 							{
-								route: '/',
+								route: {
+									path: '/service',
+									query: { select: 'sRepair' }
+								},
 								text: 'Запчасти'
 							}
 						]
 					},
 					{
-						route: '/services',
+						route: {
+							path: '/services',
+							query: { select: 'credit' }
+						},
 						text: 'Услуги',
 						headerSubMenu: [
 							{
-								route: '/',
-								text: 'Кредит'
+								route: {
+									path: '/services',
+									query: { select: 'credit' }
+								},
+								text: 'Авто-кредит'
 							},
 							{
 								route: '/services',
@@ -121,6 +156,12 @@
 					'И прочее бла-бла-бла...',
 					'question'
 				)
+			},
+			openMobileMenu() {
+				this.mobileIsOpened = true;
+			},
+			closeMobileMenu() {
+				this.mobileIsOpened = false
 			}
 		}
 	}
@@ -138,24 +179,71 @@
 		size: 100% $headerHeight;
 		@include gradient( 125deg , $white );
 		@include MDShadow-4;
+		@include MQ(Pp) {
+			position: static;
+			._flex-row {
+				flex-flow: row wrap;
+			}
+		}
 	}
 
 	.header-logo {
 		display: inline-block;
 		vertical-align: middle;
 		margin-right: 22px;
+		@include MQ(Pp) {
+			margin-right: 0;
+		}
+		&__link {
+			display: block;
+			height: $headerHeight * .7;
+			@include MQ(Pp) {
+				size: auto 37.5px;
+			}
+		}
 		&__img {
-			height: $headerHeight * .7
+			height: 100%;
 		}
 	}
 
 	.header-menu {
 		z-index: 900;
 		display: flex;
-		align-items: center;
 		height: 100%;
+		@include MQ(Pp) {
+			display: none;
+		}
+		&._buttons {
+			position: absolute;
+			right: 0;
+		}
+		&._mobile {
+			display: none;
+			@include MQ(Pp) {
+				display: block;
+				overflow: hidden;
+				opacity: 0;
+				height: 0;
+				background-color: $whited;
+				transition: none;
+			}
+		}
 		&__item {
 			height: 100%;
+			&._mobile {
+				display: none;
+				@include MQ(Pp) {
+					display: block;
+					height: 65px;
+					line-height: 65px;
+				}
+			}
+			&._close {
+				@include MQ(Pp) {
+					height: 50px;
+					line-height: 50px;
+				}
+			}
 		}
 		&__link {
 			display: flex;
@@ -170,12 +258,65 @@
 			&._active {
 				color: $red
 			}
+			&._mobile {
+				display: none;
+				@include MQ(Pp) {
+					display: block;
+				}
+			}
 			&._buttons {
+
 				@include MDButton($white , $red) {
 					height: 40px;
 					margin: 10px 0;
-					margin-left: 1rem
+					padding: 0 1rem;
 				}
+			}
+			&._close {
+				size: 100% 50px;
+				margin: 0;
+			}
+		}
+		&__mobile-button {
+			display: none;
+			@include MQ(Pp) {
+				display: block;
+			    z-index: 900;
+				position: absolute 10px 10px auto auto;
+			    size: 135px 40px;
+			    font-size: 1rem;
+			    color: $whited $red;
+			    border: none;
+			    cursor: pointer;
+				@include MDShadow-2;
+			    will-change: transform, top, left, right;
+			    transition: .5s ease-in-out;
+				&.open {
+					overflow: hidden;
+					top: 50%;
+					right: 50%;
+					size: 250px 310px;
+					background-color: #FAFAFA;
+					border-radius: 5px;
+					cursor: default;
+					transform: translate( 50% , -50% );
+					@include MDShadow-4;
+					.header-menu._mobile {
+						opacity: 1;
+						transition: opacity 0.3s ease;
+						transition-delay: 0.5s;
+						height: 100%;
+					}
+				}
+			}
+		}
+		&__mobile-copy {
+			display: none;
+			@include MQ(Pp) {
+				display: block;
+				text-align: center;
+				line-height: 40px;
+				font-weight: 300;
 			}
 		}
 		&__submenu {

@@ -3,7 +3,7 @@
 		<div class="container _flex-column">
 
 			<div class="tabs-container">
-				<router-link v-for = "buttonItem in Buttons" :key = "buttonItem.key"
+				<router-link v-for = "buttonItem in Buttons" :key = "buttonItem.name"
 					tag = "button"
 					:to = "{ name: 'catalogue' , query: { filter: buttonItem.component } }"
 					class="tabs-container__button"
@@ -31,9 +31,7 @@
 
 	export default {
 		name: 'filters',
-		components: {
-			chery ,	changan , hawtai , all
-		},
+		components: { chery , changan , hawtai , all },
 		data() {
 			return {
 				Buttons: [
@@ -58,31 +56,3 @@
 		}
 	}
 </script>
-
-<style lang="scss">
-
-	@import "../../scss/partials/_layout";
-	@import "../../scss/partials/_mixins";
-	@import "../../scss/partials/_variables";
-
-	.tabs {
-		min-height: 100vh;
-		padding: 50px 0;
-	}
-
-	.tabs-container {
-		display: flex;
-		justify-content: space-between;
-		width: 100%;
-	    &__button {
-	        width: 200px;
-	        padding: 10px 0;
-	        text-align: center;
-	        font-size: 1.3rem;
-	        color: $white $red;
-			border: none;
-	        @include MDShadow-2
-	    }
-	}
-
-</style>

@@ -89,10 +89,10 @@
 		},
 		computed: {
 			Options() {
-				return this.$store.state.TestDrive.options
+				return this.$state.TestDrive.options
 			},
 			isOpened() {
-				return this.$store.state.TestDrive.isOpened
+				return this.$state.TestDrive.isOpened
 			}
 		},
 		methods: {

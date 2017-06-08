@@ -30,7 +30,7 @@
 		components: { catalogueItem },
 		computed: {
 			Chery() {
-				return this.$store.state.Autolist.chery
+				return this.$store.state.Catalogue.chery
 			}
 		}
 	}

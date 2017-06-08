@@ -1,13 +1,14 @@
 <template lang="html">
-	<main id="main" class="main _services">
+	<main id="main" class="main _service">
 
 		<div class="container _flex-column">
-			<div class="tabs-container _start _services">
+			<div class="tabs-container _start _service">
 				<router-link v-for = "buttonItem in Buttons" :key = "buttonItem.name"
 					tag = "button"
 					:to = "{ query: { select: buttonItem.component } }"
-					class="tabs-container__button _services waves-effect waves-light"
+					class="tabs-container__button _service"
 					type="button"
+					ripple-light
 					>{{ buttonItem.name }}</router-link>
 			</div>
 		</div>
@@ -23,17 +24,22 @@
 
 <script>
 
-	import credit from './services/credit';
+	import sRepair from './service/repair';
+	import sService from './service/tech-service';
 
 	export default {
-		name: 'services',
-		components: { credit },
+		name: 'service',
+		components: { sRepair , sService },
 		data() {
 			return {
 				Buttons: [
 					{
-						name: 'Автокредитование',
-						component: 'credit'
+						name: 'Запчасти и комплектующие',
+						component: 'sRepair'
+					},
+					{
+						name: 'Ремонт и техобслуживание',
+						component: 'sService'
 					}
 				]
 			}
@@ -53,7 +59,7 @@
 	@import "../scss/partials/_mixins";
 	@import "../scss/partials/_variables";
 
-	.main._services {
+	.main._service {
 		background-image: url('../../static/assets/img/service_intro.jpg');
 		background-attachment: fixed;
 		background-position: center;
@@ -61,12 +67,11 @@
 	}
 
 	.tabs-container {
-		&._services {
+		&._service {
 			margin-top: 32px;
-
 		}
 		&__button {
-			&._services {
+			&._service {
 				width: auto;
 				padding-left: 32px;
 				padding-right: 32px;

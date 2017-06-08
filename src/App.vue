@@ -32,6 +32,9 @@
 
 	@import "./scss/layout/resets";
 
+	html {
+		font-family: 'Roboto', sans-serif;
+	}
 	html , body {
 		size: 100%;
 		background-color: $whited;
@@ -48,17 +51,32 @@
 		&._margin-none {
 			margin-top: 0;
 		}
+		@include MQ(Pp) {
+			min-height: 100vh;
+			margin: 0;
+		}
 	}
 	.container {
-		width: $containersWidth;
-		height: 100%;
+		position: relative;
+		max-width: $containersWidth;
+		size: 100%;
 		margin: 0 auto;
+		@include MQ(Pp) {
+			width: 90%;
+		}
 		&._wide {
-			width: $containersWidth + 100px
+			max-width: $containersWidth + 100px;
+			width: 100%;
+			@include MQ(Pp) {
+				width: 95%;
+			}
 		}
 		&._flex-row {
 			display: flex;
 			flex-flow: row wrap;
+			@include MQ(Pp) {
+				flex-flow: column wrap;
+			}
 		}
 		&._flex-column {
 			display: flex;
@@ -125,6 +143,33 @@
 	.fade-fast-enter-active,
 	.fade-fast-leave-active {
 		transition: opacity .15s ease-in-out
+	}
+
+	// Filters
+
+	.tabs {
+		min-height: 100vh;
+		padding: 50px 0;
+	}
+
+	.tabs-container {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		width: 100%;
+		&._start {
+			justify-content: flex-start;
+		}
+	    &__button {
+	    	@include MDButton($white , $red) {
+				size: 200px 40px;
+				line-height: 40px;
+	    	};
+			@include MQ(Pp) {
+				size: 49% 40px;
+				margin: 1% 0;
+			}
+		}
 	}
 
 </style>

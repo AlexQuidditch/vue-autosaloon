@@ -13,7 +13,7 @@
 		components: { modalTestdrive },
       	computed: {
       		isVisible() {
-      			return this.$store.state.TestDrive.isOpened
+      			return this.$state.TestDrive.isOpened
       		}
       	},
 		created() {

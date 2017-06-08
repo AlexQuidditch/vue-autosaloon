@@ -1,19 +1,17 @@
 <template lang="html">
-	<main v-once id="main" class="main">
+	<main id="main" class="main">
 		<section class="product" role="product">
 			<div class="container _flex-column _a-center">
 				<h1 class="product__title">{{ product.title }}</h1>
-				<img :src="product.img"
-					:alt="product.title"
-					class="product__image"
-				/>
+				<img :src="product.img" :alt="product.title" class="product__image" />
 				<h2 class="product__subtitle">{{ product.subTitle }}</h2>
 				<flickity ref="slider"
 					:options="flickityOptions"
 					class="product-slider">
-					<div v-for="slideItem in Slides" :key="slideItem.key"
+					<div v-for="( slideItem , index ) in Slides" :key="slideItem.key"
 						class="product-slider__slide">
-						<img :src=" slideItem.img + '.jpg' "
+						<img @click = "openGallery(index)"
+							:src=" slideItem.img + '.jpg' "
 							:alt="slideItem.title"
 							:title="slideItem.title"
 							class="product-slider__slide-image"
@@ -47,10 +45,7 @@
 					<tbody>
 						<tr style="visibility: hidden;">
 							<th>Технические характеристики Tiggo 5 NEW</th>
-							<th>Standart MT</th>
-							<th>Comfort MT</th>
-							<th>Comfort CVT</th>
-							<th>Luxury CVT</th>
+							<th v-for="priceItem in Prices" :key="priceItem.key">{{ priceItem.title }}</th>
 						</tr>
 						<tr>
 							<td>Основные</td>
@@ -839,6 +834,7 @@
 		</section>
 		<section class="gallery" aria-label="Галерея">
 			<div class="container _flex-row _j-around _a-center">
+
 				<h2 class="gallery__title">Галерея</h2>
 
 				<youtube v-for="videoItem in Videos" :key="videoItem.id"
@@ -850,8 +846,16 @@
 				</youtube>
 
 			</div>
-
 		</section>
+
+		<transition name="fade">
+			<gallery-overlay v-if="galleryOverlayIsOpened"
+				@galleryClose="closeGallery()"
+				:Slides="Slides"
+				:index="slideIndex"
+				>
+			</gallery-overlay>
+		</transition>
 
 	</main>
 </template>
@@ -859,10 +863,11 @@
 <script>
 
 	import Flickity from 'vue-flickity';
+	import galleryOverlay from '../../templates/gallery-overlay';
 
 	export default {
 		name: "tigga5",
-		components: { Flickity },
+		components: { Flickity , galleryOverlay },
 		data() {
 			return {
 				Videos: [
@@ -964,6 +969,8 @@
 						title: 'Складывающиеся зеркала заднего вида с дистанционным управлением'
 					}
 				],
+				galleryOverlayIsOpened: false,
+				slideIndex: 0,
 				flickityOptions: {
 					groupCells: 3,
                 	wrapAround: true,
@@ -981,7 +988,7 @@
 		},
 		computed: {
 			Prices() {
-				return this.$store.state.Cars.chery.tiggo5
+				return this.$state.Cars.chery.tiggo5
 			}
 		},
 		watch: {
@@ -1024,6 +1031,13 @@
 			},
 			playing(player) {
 				console.log('Playing');
+			},
+			openGallery(index) {
+				this.slideIndex = index;
+				this.galleryOverlayIsOpened = true;
+			},
+			closeGallery() {
+				this.galleryOverlayIsOpened = false;
 			}
 		}
 	}

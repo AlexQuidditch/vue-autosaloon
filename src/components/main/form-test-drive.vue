@@ -8,28 +8,39 @@
 				<div class="testdrive-form__column">
 					<fieldset class="testdrive-form__fieldset">
 						<legend>Заполните поля и выберите дату:</legend>
-						<v-select v-model="form.car.selected"
-							:options="Options"
-							:placeholder="form.car.placeholder"
-							class="testdrive-form__select"
-							required
-						>
-						</v-select>
-						<input v-model="form.name"
-							:placeholder="form.namePlaceholder"
-							type="text"
-							autocomplete="name"
-							class="testdrive-form__input"
-							required
-						/>
-						<input v-model="form.phone"
-							:placeholder="form.phonePlaceholder"
-							v-mask=" '\+7 (###) ###-##-##' "
-							type="phone"
-							autocomplete="phone"
-							class="testdrive-form__input"
-							required
-						/>
+						<label class="testdrive-form__input-row">
+							<i class="testdrive-form__icon material-icons">directions_car</i>
+							<v-select v-model="Form.selectedCar"
+								:options="Options"
+								:placeholder="Placeholders.car"
+								class="testdrive-form__input"
+								required
+								>
+							</v-select>
+						</label>
+						<label for="name" class="testdrive-form__input-row">
+							<i class="testdrive-form__icon material-icons">person</i>
+							<input v-model="Form.name"
+								:placeholder="Placeholders.name"
+								class="testdrive-form__input"
+								type="text"
+								id="name"
+								autocomplete="name"
+								required
+							/>
+						</label>
+						<label for="phone" class="testdrive-form__input-row">
+							<i class="testdrive-form__icon material-icons">phone</i>
+							<input v-model="Form.phone"
+								:placeholder="Placeholders.phone"
+								v-mask=" '\+7 (###) ###-##-##' "
+								class="testdrive-form__input"
+								type="tel"
+								id="phone"
+								autocomplete="tel"
+								required
+							/>
+						</label>
 						<button	type="submit"
 							name="button"
 							class="testdrive-form__submit"
@@ -40,10 +51,9 @@
 					</fieldset>
 				</div>
 				<div class="testdrive-form__column _flex">
-					<datepicker v-model="form.date"
-						:format="form.dateFormat"
-						:placeholder="form.datePlaceholder"
-						:disabled="form.dateDisabled"
+					<datepicker v-model="Form.date"
+						:format="Datepicker.format"
+						:disabled="Datepicker.disabled"
 						:monday-first="true"
 						:inline="true"
 						language="ru"
@@ -68,27 +78,30 @@
 		components: { vSelect , Datepicker },
 		data() {
 			return {
+				sliderValue: 12,
 				title: 'Запишитесь на тест-драйв!',
 				description: 'Отличная возможность испытать желаемую машину в действии! <br /> Оставьте заявку, и мы свяжемся с Вами.',
-				form: {
+				Placeholders: {
+					car: 'Желаемая модель авто',
+					name: 'Ваше имя',
+					phone: '+7 (000) 000-00-00',
+					time: 'время с 10:00 до 18:30'
+				},
+				Form: {
+					selectedCar: null,
 					name: '',
 					phone: '',
-					date: new Date(),
-					dateFormat: 'D d MMM yyyy',
-					dateDisabled: { days: [ 0, 6 ] },
-					car: {
-						selected: null,
-						placeholder: 'Желаемая модель авто'
-					},
-					namePlaceholder: 'Ваше имя',
-					phonePlaceholder: '+7 (000) 000-00-00',
-					datePlaceholder: 'Выберите желаемую дату'
+					date: new Date()
+				},
+				Datepicker: {
+					format: 'D d MMM yyyy',
+					disabled: { days: [ 0, 6 ] }
 				}
 			}
 		},
 		computed: {
 			Options() {
-				return this.$store.state.TestDrive.options
+				return this.$state.TestDrive.options
 			}
 		},
 		methods: {
@@ -147,11 +160,18 @@
 		height: calc( 100vh - 60px );
 		padding: 40px 0;
 		background-image: url('../../../static/assets/img/test-drive.jpg');
+		background-position: center;
+		background-size: cover;
+		@include MQ(Pp) {
+			height: auto;
+		}
 		&__title {
+			color: $white;
 			text-align: center;
-			font-size: 2.5rem
+			font-size: 2.5rem;
 		}
 		&__description {
+			color: $white;
 			text-align: center;
 			font-size: 1.25rem;
 			line-height: 1.5;
@@ -163,23 +183,60 @@
 		justify-content: space-between;
 		size: 80% auto;
 		margin-top: 36px;
+		@include MQ(Pp) {
+			flex-flow: column wrap;
+			width: 100%;
+			margin-top: 0;
+		};
 		&__column {
 			width: 45%;
 			flex-basis: 45%;
+			@include MQ(Pp) {
+				width: 100%;
+				margin-top: 16px;
+			};
 			&._flex {
 				display: flex;
 				justify-content: center;
 				align-items: flex-start;
 			}
 		}
-		&__select {
+		&__input-row {
+			display: flex;
+			align-items: center;
+			margin: 1rem 0;
+			background-color: $red;
+			@include MDShadow-1
+		}
+		$iconWidth: 15%;
+		@include MQ(Pp) {
+			$iconWidth: 20%;
+		}
+		&__icon {
+			width: $iconWidth;
+			text-align: center;
+			font-size: 2rem;
+			line-height: 3rem;
+			color: $whited;
+			text-shadow:
+					0 4px 5px rgba($blacked, 0.14),
+					0 1px 10px rgba($blacked, 0.12),
+					0 2px 4px rgba($blacked, 0.3);
+			cursor: pointer;
+		}
+		&__input {
 			size: 100% 3.5rem;
-			margin: 1rem 0px;
+			padding: 0 1rem;
+			margin: 0;
 			font-size: 1rem;
 			color: $red $whited;
 			border: solid 3px $red;
-			cursor: pointer;
-			@include MDShadow-1;
+			transition:
+				color .3s ease-in-out,
+				background-color .3s ease-in-out;
+			&::placeholder {
+				color: rgba($black , .5)
+			}
 			.dropdown-toggle {
 				size: 100%;
 				border: none !important
@@ -205,23 +262,10 @@
 				border: none !important
 			}
 		}
-		&__input {
-			size: 100% 3.5rem;
-			padding: 0 1rem;
-			margin: 1rem 0px;
-			font-size: 1rem;
-			color: $red $whited;
-			border: solid 3px $red;
-			@include MDShadow-1;
-			transition:
-				color .3s ease-in-out,
-				background-color .3s ease-in-out;
-		}
 		&__submit {
 			@include MDButton($white, $red) {
 				size: 100% 3.5rem;
-				margin: 1rem 0px;
-				margin-bottom: 0;
+				margin: 0;
 			}
 		}
 		&__datepicker {

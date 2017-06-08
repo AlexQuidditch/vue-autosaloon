@@ -44,13 +44,13 @@
 		components: { catalogueItem },
 		computed: {
 			Chery() {
-				return this.$store.state.Autolist.chery
+				return this.$state.Catalogue.chery
 			},
 			Hawtai() {
-				return this.$store.state.Autolist.hawtai
+				return this.$state.Catalogue.hawtai
 			},
 			Changan() {
-				return this.$store.state.Autolist.changan
+				return this.$state.Catalogue.changan
 			}
 		}
 	}

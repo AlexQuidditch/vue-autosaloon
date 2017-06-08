@@ -1,14 +1,17 @@
 <template lang="html">
-	<section id="repair" class="repair">
-		<div class="container _flex-row">
-			<h2 class="repair__title">{{ title }}</h2>
+	<section v-once id="repair" class="repair">
+		<h2 class="repair__title">{{ title }}</h2>
+		<div class="container">
+			<p class="repair__pre-message">Мы так же предлагаем запчасти и комплектующие для авто любых производителей.</p>
+		</div>
+		<div class="container _flex-row _j-between">
 			<form @submit.stop.prevent = "send()"
 				class="repair-form"
 				>
 				<fieldset>
 					<legend>Заполните форму ниже:</legend>
 					<div class="container _flex-column">
-						<label for="contact-me" class="detail">
+						<div class="detail">
 							<fieldset class="detail__fieldset">
 								<legend class="detail__legend _contact-me">Ваш автомобиль:</legend>
 								<div class="container _flex-row _j-between">
@@ -34,7 +37,7 @@
 									</label>
 								</div>
 							</fieldset>
-						</label>
+						</div>
 						<label for="detail" class="detail">
 							<fieldset class="detail__fieldset">
 								<legend class="detail__legend">Введите искомую деталь:</legend>
@@ -47,7 +50,7 @@
 								/>
 							</fieldset>
 						</label>
-						<label for="contact-me" class="detail">
+						<div class="detail">
 							<fieldset class="detail__fieldset">
 								<legend class="detail__legend _contact-me">Как с Вами связаться?</legend>
 								<div class="container _flex-row _j-between">
@@ -68,22 +71,26 @@
 											:placeholder="Form.phonePlaceholder"
 											v-mask=" '\+7 (###) ###-##-##' "
 											class="detail__input _contact-me"
-											type="text"
+											type="tel"
 											id="phone"
+											autocomplete="tel"
 											required
 										/>
 									</label>
 								</div>
 							</fieldset>
-						</label>
+						</div>
 						<button class="repair-form__submit"
 							type="submit"
-							name="button"
 							ripple-light
-							>Отправить</button>
+							>Узнать наличие детали</button>
 					</div>
 				</fieldset>
 			</form>
+			<article class="repair-info">
+				<h3 class="repair-info__title">{{ Info.title }}</h3>
+				<p v-html="Info.content" class="repair-info__content"></p>
+			</article>
 		</div>
 	</section>
 </template>
@@ -98,6 +105,10 @@
       	data() {
 			return {
 				title: 'Автозапчасти, комплектующие',
+				Info: {
+					title: 'Оформите заявку!',
+					content: 'После этого с Вами свяжутся, и сообщат, есть ли искомое в наличии.<br /> Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br /><br /> Doloremque eveniet facere, optio ex qui hic impedit. Deserunt expedita, commodi repudiandae, cum asperiores dolor autem numquam sed nam, provident, esse ad?'
+				},
 				Form: {
 					detail: '',
 					detailPlaceholder: 'Название детали, которую Вы ищите...',
@@ -140,7 +151,6 @@
 				};
 				this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.message}`)
 					.then( response => {
-						console.info(response);
 						this.$swal(
 							'Заявка на тест-драйв отправлена!',
 							'С Вами свяжется менеджер, чтобы уточнить детали.',
@@ -177,37 +187,64 @@
 	.repair {
 		padding: 60px 0;
 		&__title {
-			width: 100%;
 			text-align: center;
-			font-size: 2rem;
+			font-size: 3rem;
+			color: $white;
+		}
+		&__pre-message {
+			margin-top: 2rem;
+			font-size: 1.5rem;
+			line-height: 1.5;
+			color: $white;
+		}
+		@include MQ(Pp) {
+			padding: 30px 0;
+			&__title {
+				text-align: center;
+				font-size: 2.5rem;
+				@include MQ(Pp) {
+					font-size: 2rem;
+				}
+			}
+			&__pre-message {
+				text-align: center;
+			}
 		}
 	}
 	.repair-text {
 		width: 50%;
 	}
+
+	.repair-info {
+		width: 37.5%;
+		margin-top: 3rem;
+		padding: 2rem;
+		background-color: $white;
+		@include MDShadow-2;
+		&__title {
+			font-size: 1.5rem;
+		}
+		&__content {
+			font-size: 1rem;
+			line-height: 1.5rem;
+		}
+		@include MQ(Pp) {
+			width: auto;
+			margin-top: 2rem
+		}
+	}
+
 	.repair-form {
 		size: 60% auto;
+		padding: 1rem;
 		margin-top: 3rem;
+		background-color: $white;
 		fieldset {
 			display: flex;
-			width: 98%;
 			margin: 0;
 			.container {
 				width: auto;
 			}
-		}
-		&__column {
-			width: 45%;
-			flex-basis: 45%;
-		}
-		&__input {
-			size: (94% / 2) 3.5rem;
-			margin: 1rem 0px;
-			padding: 0 1rem;
-			font-size: 1rem;
-			color: $red transparent;
-			border: solid 3px $red;
-			@include MDShadow-1;
 		}
 		&__submit {
 			@include MDButton($white, $red) {
@@ -219,11 +256,14 @@
 				color: $whited $grey
 			}
 		}
+		@include MQ(Pp) {
+			size: 100% auto;
+			padding: 8px;
+		}
 	}
 
 	.detail {
-		width: 100%;
-		margin: .5rem;
+		padding: .5rem 0;
 		&__fieldset {
 			margin: 0;
 			.container {
@@ -236,12 +276,17 @@
 			width: 48%;
 			background-color: $red;
 			@include MDShadow-1;
+			@include MQ(Pp) {
+				width: 100%;
+				margin: 4px 0;
+			}
 		}
 		$iconWidth: 20%;
 		&__icon {
 			width: $iconWidth;
 			text-align: center;
-			font-size: 2.5rem;
+			font-size: 2rem;
+			line-height: 3rem;
 			color: $whited;
 			text-shadow:
 					0 4px 5px rgba($blacked, 0.14),

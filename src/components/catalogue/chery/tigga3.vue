@@ -1,6 +1,6 @@
 <template lang="html">
-	<main v-once id="main" class="main">
-		<section class="product" role="product">
+	<main id="main" class="main">
+		<section v-once class="product" role="product">
 			<div class="container _flex-column _a-center">
 				<h1 class="product__title">{{ product.title }}</h1>
 				<img :src="product.img" :alt="product.title" class="product__image">
@@ -8,9 +8,10 @@
 				<flickity ref="slider"
 					:options="flickityOptions"
 					class="product-slider">
-					<div v-for="slideItem in Slides" :key="slideItem.key"
+					<div v-for="( slideItem , index ) in Slides" :key="slideItem.key"
 						class="product-slider__slide">
-						<img :src=" slideItem.img + '.jpg' "
+						<img @click = "openGallery(index)"
+							:src=" slideItem.img + '.jpg' "
 							:alt="slideItem.title"
 							:title="slideItem.title"
 							class="product-slider__slide-image"
@@ -552,16 +553,26 @@
 
 		</section>
 
+		<transition name="fade">
+			<gallery-overlay v-if="galleryOverlayIsOpened"
+				@galleryClose="closeGallery()"
+				:Slides="Slides"
+				:index="slideIndex"
+				>
+			</gallery-overlay>
+		</transition>
+
 	</main>
 </template>
 
 <script>
 
 	import Flickity from 'vue-flickity';
+	import galleryOverlay from '../../templates/gallery-overlay';
 
 	export default {
 		name: "tigga3",
-		components: { Flickity },
+		components: { Flickity , galleryOverlay },
 		data() {
 			return {
 				Videos: [
@@ -615,6 +626,8 @@
 						title: '8-ми дюймовый сенсорный HD-экран'
 					}
 				],
+				galleryOverlayIsOpened: false,
+				slideIndex: 0,
 				flickityOptions: {
 					groupCells: 3,
                 	wrapAround: true,
@@ -632,7 +645,7 @@
 		},
 		computed: {
 			Prices() {
-				return this.$store.state.Cars.chery.tiggo3
+				return this.$state.Cars.chery.tiggo3
 			}
 		},
 		watch: {
@@ -675,6 +688,13 @@
 			},
 			playing(player) {
 				console.log('Playing');
+			},
+			openGallery(index) {
+				this.slideIndex = index;
+				this.galleryOverlayIsOpened = true;
+			},
+			closeGallery() {
+				this.galleryOverlayIsOpened = false;
 			}
 		}
 	}

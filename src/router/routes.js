@@ -17,6 +17,7 @@ const eado = () => import( '@/components/catalogue/changan/eado.vue' );
 const raeton = () => import( '@/components/catalogue/changan/raeton.vue' );
 
 const catalogueHawtai = () => import( '@/components/catalogue/filter/hawtai.vue' );
+const boliger = () => import( '@/components/catalogue/hawtai/boliger.vue' );
 
 export default [
 	{
@@ -98,9 +99,19 @@ export default [
 		meta: { scrollToTop: true }
 	},
 	{
+		name: 'boliger',
+		path: '/catalogue/hawtai/boliger',
+		component: boliger,
+		meta: { scrollToTop: true }
+	},
+	{
 		name: 'about',
 		path: '/about',
 		component: blog,
 		meta: { scrollToTop: true }
+	},
+	{
+		path: '*',
+		redirect: '/'
 	}
 ];

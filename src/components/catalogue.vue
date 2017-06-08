@@ -35,7 +35,11 @@
 		margin: 30px 0;
 		&__title {
 			font-size: 2.5rem;
-			color: $black
+			color: $black;
+			@include MQ(Pp) {
+				text-align: center;
+				font-size: 2rem;
+			}
 		}
 		&__list {
 			display: flex;

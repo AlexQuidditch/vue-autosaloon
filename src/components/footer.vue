@@ -70,11 +70,19 @@
 	.footer {
 		height: 400px;
 		padding: 40px 0;
-		@include gradient( 125deg , $white );
+		background-color: $white;
+		@include MQ(Pp) {
+			height: auto;
+			padding-bottom: 100px;
+		}
 	}
 	.footer-information {
 		flex-basis: 45%;
 		margin-right: 1rem;
+		@include MQ(Pp) {
+			width: 100%;
+			margin: 0;
+		}
 		&__requisites {
 			margin: 0.5rem 0;
 			color: $blacked;
@@ -96,6 +104,9 @@
 	.footer-contacts {
 		flex-basis: 25%;
 		color: $blacked;
+		@include MQ(Pp) {
+			width: 100%;
+		}
 	}
 	.footer-adress {
 		display: flex;
@@ -104,6 +115,10 @@
 		height: 100%;
 		flex-basis: 25%;
 		color: $blacked;
+		@include MQ(Pp) {
+			width: 100%;
+			margin-top: 16px;
+		}
 		&__btn {
 			@include MDButton($white, $red) {
 				display: flex;

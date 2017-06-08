@@ -1,5 +1,5 @@
 <template lang="html">
-	<main id="main" class="main">
+	<main id="main" class="main _about">
 		<transition name="fade" mode="out-in">
 			<div v-if="!PostsIsLoaded" key = "loading" class="loader">
 				<div class="loader__spinner"></div>
@@ -8,8 +8,9 @@
 			<transition-group v-else
 				name="fade-fast"
 				tag = "div"
-				class="container"
+				class="blog container"
 				>
+				<h2 class="blog__title" key="title" >Новости автосалона</h2>
 				<blog-post v-for = "blogItem in Blogs" :key="blogItem.time"
 					:title = "blogItem.title"
 					:time = "blogItem.time"
@@ -33,10 +34,10 @@
 		},
 		computed: {
 			Blogs() {
-				return this.$store.state.Posts
+				return this.$state.Posts
 			},
 			PostsIsLoaded() {
-				return this.$store.state.PostsIsLoaded
+				return this.$state.PostsIsLoaded
 			}
 		}
 	}
@@ -51,9 +52,21 @@
 
 	@import "../../scss/SpinThatShit/loaders.scss";
 
-	.blog {
-		margin-top: 80px;
+	.main._about {
+		padding: 40px 0;
 	}
+
+	.blog {
+		&__title {
+			text-align: center;
+			font-size: 2.5rem;
+			color: $black;
+			@include MQ(Pp) {
+				font-size: 2rem;
+			}
+		}
+	}
+
 	.loader {
 		display: flex;
 		flex-flow: column wrap;

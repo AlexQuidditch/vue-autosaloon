@@ -1,5 +1,5 @@
 <template lang="html">
-	<section id="tech-service" class="tech-service">
+	<section v-once id="tech-service" class="tech-service">
 		<h2 class="tech-service__title">{{ title }}</h2>
 		<div class="container _flex-row _j-between _a-start">
 			<article class="service-info">
@@ -29,9 +29,9 @@
 								:placeholder="form.phonePlaceholder"
 								v-mask=" '+7 (###) ###-##-##' "
 								type="phone"
-								autocomplete="phone"
 								id="service-phone"
 								class="service-form__input"
+								autocomplete="tel"
 								required
 							>
 						</label>
@@ -77,6 +77,7 @@
 
 	import Datepicker from 'vuejs-datepicker';
 	import telegram from '../main/telegram-token.js';
+
 
 	export default {
   		name: "tech-service",
@@ -128,7 +129,6 @@
 				};
 				this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.text}`)
 					.then( response => {
-						console.info(response);
 						this.$swal(
 							'Заявка на техобслуживание отправлена!',
 							'С Вами свяжется менеджер, чтобы уточнить детали.',
@@ -159,16 +159,21 @@
 	@import "../../scss/partials/_variables";
 
 	.tech-service {
-		padding: 10vh 0;
-		padding-top: 40vh;
-		background-image: url('../../../static/assets/img/service_intro.jpg');
-		background-attachment: fixed;
-		background-position: center;
-		background-size: cover;
+		padding: 60px 0;
 		&__title {
 			text-align: center;
 			font-size: 3rem;
 			color: $white;
+		}
+		@include MQ(Pp) {
+			padding: 30px 0;
+			&__title {
+				text-align: center;
+				font-size: 2.5rem;
+				@include MQ(Pp) {
+					font-size: 2rem;
+				}
+			}
 		}
 	}
 
@@ -185,14 +190,17 @@
 			font-size: 1rem;
 			line-height: 1.5rem;
 		}
+		@include MQ(Pp) {
+			width: auto;
+		};
 	}
 
 	.service-form {
-		display: flex;
-		flex-flow: column;
-		justify-content: space-between;
 		size: 40% auto;
-		margin-top: 10vh;
+		margin-top: 60px;
+		@include MQ(Pp) {
+			width: auto;
+		};
 		&__column {
 			width: 100%;
 			flex-basis: 45%;
@@ -221,6 +229,7 @@
 			width: $iconWidth;
 			text-align: center;
 			font-size: 2rem;
+			line-height: 3rem;
 			color: $whited;
 			text-shadow:
 					0 4px 5px rgba($blacked, 0.14),

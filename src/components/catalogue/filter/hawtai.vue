@@ -30,7 +30,7 @@
 		components: { catalogueItem },
 		computed: {
 			Hawtai() {
-				return this.$store.state.Autolist.hawtai
+				return this.$store.state.Catalogue.hawtai
 			}
 		}
 	}

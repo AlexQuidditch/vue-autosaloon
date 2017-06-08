@@ -1,5 +1,5 @@
 export default {
-	Autolist: {
+	Catalogue: {
 		chery: [
 			{
 				image: "../../../../static/assets/img/tigga2/tigga2_big.jpg",
@@ -25,25 +25,11 @@ export default {
 		],
 		hawtai: [
 			{
-				image: "https://placehold.it/365x200",
-				model: "Tiggoqwdqd 5",
-				description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-				price: "800 000",
-				route: 'main'
-			},
-			{
-				image: "https://placehold.it/365x200",
-				model: "Tihyntnggo 6",
-				description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-				price: "856 000",
-				route: 'main'
-			},
-			{
-				image: "https://placehold.it/365x200",
-				model: "Tigretgggo 5X",
-				description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-				price: "812 000",
-				route: 'main'
+				image: "../../../../static/assets/img/boliger/bolinger_big.png",
+				model: "BOLIGER",
+				description: 'Люксовый китайский внедорожник, способный удивлять.',
+				price: "939 800",
+				route: 'boliger'
 			}
 		],
 		changan: [
@@ -241,7 +227,16 @@ export default {
 			]
 		},
 		hawtai: {
-
+			boliger: [
+				{
+					title: 'Luxe MT',
+					price: '939 800'
+				},
+				{
+					title: 'Luxe AT',
+					price: '989 800'
+				}
+			]
 		}
 	}
 };

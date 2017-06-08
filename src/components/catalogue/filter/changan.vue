@@ -30,7 +30,7 @@
 		components: { catalogueItem },
 		computed: {
 			Changan() {
-				return this.$store.state.Autolist.changan
+				return this.$store.state.Catalogue.changan
 			}
 		}
 	}
