@@ -501,6 +501,8 @@
 					</tbody>
 				</table>
 
+				<mobile-notation></mobile-notation>
+
 			</div>
 		</section>
 		<section class="gallery" aria-label="Галерея">
@@ -535,10 +537,11 @@
 
 	import Flickity from 'vue-flickity';
 	import galleryOverlay from '../../templates/gallery-overlay';
+	import mobileNotation from '../../templates/mobile-notation';
 
 	export default {
 		name: "EADO",
-		components: { Flickity , galleryOverlay },
+		components: { Flickity , galleryOverlay , mobileNotation },
 		data() {
 			return {
 				Videos: [

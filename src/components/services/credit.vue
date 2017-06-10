@@ -1,12 +1,12 @@
 <template lang="html">
 	<section id="credit" class="credit">
-		<h1 class="credit__title">{{ Content.headTitle }}</h1>
+		<h1 class="credit__title">{{ Content.title }}</h1>
+		<h3 v-html="Content.subTitle" class="credit-info__title html ql-editor"></h3>
 		<div class="container _flex-row _j-between">
 			<article class="credit-info">
-				<h3 class="credit-info__title">{{ Content.infoTitle }}</h3>
-				<p v-html="Content.infoContent" class="credit-info__content"></p>
+				<div v-html="Content.content" class="credit-info__content html ql-editor"></div>
 			</article>
-			<form @submit.stop.prevent="testdrive()"
+			<form @submit.stop.prevent="send()"
 				class="credit-form">
 				<fieldset class="credit-form__fieldset">
 					<legend class="credit-form__legend">Заполните поля ниже:</legend>
@@ -43,6 +43,7 @@
 							required
 						/>
 					</label>
+					<p class="credit-form__hint">Во сколько Вам перезвонить?</p>
 					<label for="select" class="credit-form__input-row">
 						<i class="credit-form__icon material-icons">access_time</i>
 						<range-slider v-model="Form.time"
@@ -56,8 +57,7 @@
 					</label>
 					<button	type="submit"
 						name="button"
-						class="credit-form__submit"
-						ripple-light
+						class="credit-form__submit waves-effect waves-light"
 						>Отправить заявку</button>
 				</fieldset>
 
@@ -71,17 +71,14 @@
 	import vSelect from "vue-select";
 	import RangeSlider from 'vue-range-slider';
 	import 'vue-range-slider/dist/vue-range-slider.scss';
+	import telegram from '../main/telegram-token.js';
+	import { dateOptions } from '../requestOptions.js';
 
 	export default {
 		name: 'credit',
 		components: { vSelect , RangeSlider },
 		data() {
 			return {
-				Content: {
-					headTitle: 'Кредит на автомобиль из нашего салона',
-					infoTitle: 'Получите консультацию кредитного специалиста.',
-					infoContent: 'Наш специалист поможет Вам подобрать подходящий кредит на оптимальных для Вас условиях. <br /><br /> Мы сотрудничаем со следующими банками: Русфинанс Банк, ЮниКредитБанк, Альфа-Банк, Совкомбанк.'
-				},
 				Placeholders: {
 					car: 'Желаемая модель авто',
 					name: 'Ваше имя',
@@ -99,11 +96,48 @@
 		computed: {
 			Options() {
 				return this.$state.TestDrive.options
+			},
+			Content() {
+				return this.$state.Services.credit
 			}
 		},
 		methods: {
-			testdrive() {
-				console.log(this.Form);
+			send() {
+				const message =
+`Новая заявка на рассчёт кредита:
+
+Имя: ${ this.Form.name }
+Телефон: ${ this.Form.phone }
+Модель авто: ${ this.Form.selectedCar }
+Перезвонить в: ${ this.Form.time }:00`;
+				let request = {
+					token: telegram.token,
+					chat_id: '173161597',
+					// chat_id: telegram.chat_id,
+					text: message
+				};
+				this.$store.dispatch( 'telegramMessage' , request )
+					.then( response => {
+						this.$swal(
+							'Заявка на рассчёт кредита отправлена!',
+							'С Вами свяжется менеджер, чтобы уточнить детали.',
+							'success'
+						);
+						this.Form = {
+							selectedCar: null,
+							name: '',
+							phone: '',
+							time: new Date().getHours()
+						};
+					})
+					.catch( error => {
+						console.error(error);
+						this.$swal(
+							'Упс...',
+							'Что-то пошло не так!',
+							'error'
+						)
+					});
 			}
 		}
 	}
@@ -160,6 +194,9 @@
 			width: auto;
 		};
 		&__legend {
+			color: $white;
+		}
+		&__hint {
 			color: $white;
 		}
 		&__input-row {
@@ -228,10 +265,16 @@
 			 size: 70% 3.5rem;
 			 padding: 0 10px;
 			 margin: 0;
+			 .range-slider-fill {
+			 	transition: width .1s linear
+			 }
 			 .range-slider-knob {
 			 	cursor: grab;
-				&:focus {
-					cursor: grabbing;
+				@include MDShadow-2;
+				transition: left .1s linear,
+					box-shadow .3s ease-in-out;
+				&:active {
+					@include MDShadow-3;
 				}
 			 }
 		}

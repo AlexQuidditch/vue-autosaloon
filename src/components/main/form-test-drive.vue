@@ -3,11 +3,11 @@
 		<h2 class="testdrive__title">{{ title }}</h2>
 		<div class="container _flex-column _j-start _a-center">
 			<p v-html="description" class="testdrive__description"></p>
-			<form @submit.stop.prevent="testdrive()"
+			<form @submit.stop.prevent="send()"
 				class="testdrive-form">
 				<div class="testdrive-form__column">
 					<fieldset class="testdrive-form__fieldset">
-						<legend>Заполните поля и выберите дату:</legend>
+						<legend class="testdrive-form__legend">Заполните поля и выберите дату:</legend>
 						<label class="testdrive-form__input-row">
 							<i class="testdrive-form__icon material-icons">directions_car</i>
 							<v-select v-model="Form.selectedCar"
@@ -72,13 +72,13 @@
 	import vSelect from "vue-select";
 	import Datepicker from 'vuejs-datepicker';
 	import telegram from './telegram-token.js';
+	import { dateOptions } from '../requestOptions.js';
 
 	export default {
 		name: 'testdrive',
 		components: { vSelect , Datepicker },
 		data() {
 			return {
-				sliderValue: 12,
 				title: 'Запишитесь на тест-драйв!',
 				description: 'Отличная возможность испытать желаемую машину в действии! <br /> Оставьте заявку, и мы свяжемся с Вами.',
 				Placeholders: {
@@ -105,37 +105,34 @@
 			}
 		},
 		methods: {
-			testdrive() {
-				const dateOptions = {
-					day: 'numeric',
-					weekday: 'long',
-					month: 'long',
-					year: 'numeric'
-				};
+			send() {
 				const message =
 `Новая заявка на тест-драйв:
 
-Имя: ${ this.form.name }
-Дата: ${ this.form.date.toLocaleString('ru-RU', dateOptions) }
-Телефон: ${ this.form.phone }
-Модель авто: ${ this.form.car.selected }`;
+Имя: ${ this.Form.name }
+Телефон: ${ this.Form.phone }
+Модель авто: ${ this.Form.selectedCar }
+Дата: ${ this.Form.date.toLocaleString('ru-RU', dateOptions) }`;
 				let request = {
 					token: telegram.token,
 					chat_id: '173161597',
 					// chat_id: telegram.chat_id,
 					text: message
 				};
-				this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.text}`)
+				this.$store.dispatch( 'telegramMessage' , request )
 					.then( response => {
 						this.$swal(
 							'Заявка на тест-драйв отправлена!',
 							'С Вами свяжется менеджер, чтобы уточнить детали.',
 							'success'
 						);
-						this.form.name = '';
-						this.form.date = new Date();
-						this.form.phone = '';
-						this.form.car.value = ''
+						this.Form = {
+							selectedCar: null,
+							name: '',
+							phone: '',
+							date: new Date()
+						};
+						this.$store.dispatch('modalClose')
 					})
 					.catch( error => {
 						console.error(error);
@@ -158,7 +155,7 @@
 
 	.testdrive {
 		height: calc( 100vh - 60px );
-		padding: 40px 0;
+		padding: 50px 0;
 		background-image: url('../../../static/assets/img/test-drive.jpg');
 		background-position: center;
 		background-size: cover;
@@ -200,6 +197,9 @@
 				justify-content: center;
 				align-items: flex-start;
 			}
+		}
+		&__legend {
+			color: $white;
 		}
 		&__input-row {
 			display: flex;

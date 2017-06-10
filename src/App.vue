@@ -6,6 +6,7 @@
 		</transition>
 		<s-footer></s-footer>
 		<button-up></button-up>
+		<button-call></button-call>
 		<overlay></overlay>
 	</div>
 </template>
@@ -15,11 +16,20 @@
 	import sHeader from './components/header';
 	import sFooter from './components/footer';
 	import buttonUp from './components/button-up';
+	import buttonCall from './components/button-call';
 	import overlay from './components/overlay';
 
 	export default {
 		name: 'app',
-		components: { sHeader , sFooter , buttonUp , overlay }
+		components: { sHeader , sFooter , buttonUp , buttonCall , overlay },
+		created() {
+			this.$store.dispatch( 'fetchFromServer' , 'Cars' );
+			this.$store.dispatch( 'fetchFromServer' , 'Catalogue' );
+			this.$store.dispatch( 'fetchFromServer' , 'Filter' );
+			this.$store.dispatch( 'fetchFromServer' , 'Service' );
+			this.$store.dispatch( 'fetchFromServer' , 'Services' );
+			this.$store.dispatch( 'fetchFromServer' , 'TestDrive' );
+		}
 	}
 
 </script>
@@ -170,6 +180,11 @@
 				margin: 1% 0;
 			}
 		}
+	}
+
+	.ql-editor {
+		height: auto !important;
+		padding: 0 !important;
 	}
 
 </style>

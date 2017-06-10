@@ -17,6 +17,13 @@
 	&__image {
 		margin: 100px 0;
 	}
+	&__price-list {
+		@include MDButton( $white , $red ) {
+			size: 250px 3rem;
+			text-align: center;
+			line-height: 3rem;
+		};
+	}
 	@include MQ(Pp) {
 		&__title {
 			margin-top: 0;
@@ -29,6 +36,9 @@
 		&__image {
 			width: 100%;
 			margin: 50px 0;
+		}
+		&__price-list {
+			margin-top: 32px;
 		}
 	}
 }
@@ -114,6 +124,7 @@
 	padding-top: 1rem;
 	background-color: $whited;
 	@include MQ(Pp) {
+		z-index: inherit;
 		position: static;
 	}
 }

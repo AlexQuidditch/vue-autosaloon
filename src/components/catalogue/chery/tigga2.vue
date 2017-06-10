@@ -19,6 +19,9 @@
 						<p class="product-slider__slide-title">{{ slideItem.title }}</p>
 					</div>
 				</flickity>
+
+				<colors :Colors = "product.Colors" ></colors>
+
 				<table class="first-table" aria-label="Комплектация и цены">
 					<tr>
 						<th>Комплектация</th>
@@ -550,6 +553,8 @@
 
 				<mobile-notation></mobile-notation>
 
+				<a :href="product.priceList" class="product__price-list waves-effect waves-light" target="_blank" >Скачать прайс-лист</a>
+
 			</div>
 		</section>
 		<section class="gallery" aria-label="Галерея">
@@ -564,7 +569,6 @@
 				></youtube>
 
 			</div>
-
 		</section>
 
 		<transition name="fade">
@@ -581,12 +585,13 @@
 <script>
 
 	import Flickity from 'vue-flickity';
+	import colors from '../../templates/colors';
 	import mobileNotation from '../../templates/mobile-notation';
 	import galleryOverlay from '../../templates/gallery-overlay';
 
 	export default {
 		name: "tigga2",
-		components: { Flickity , mobileNotation , galleryOverlay },
+		components: { Flickity , mobileNotation , galleryOverlay , colors },
 		data() {
 			return {
 				Videos: [
@@ -600,7 +605,34 @@
 				product: {
 					title: 'ВАШ CHERY TIGGO 2',
 					subTitle: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.`,
-					img: '../../../../static/assets/img/tigga2/tigga2_big.jpg'
+					img: '../../../../static/assets/img/tigga2/tigga2_big.jpg',
+					priceList: 'http://www.chery.ru/media/upload/tiggo3_price.pdf',
+					Colors: [
+						{
+							title: 'Бежевый',
+							image: '../../../../static/assets/img/tigga2/colors/color_beige.jpg',
+						},
+						{
+							title: 'Синий',
+							image: '../../../../static/assets/img/tigga2/colors/color_blue.jpg'
+						},
+						{
+							title: 'Оранжевый',
+							image: '../../../../static/assets/img/tigga2/colors/color_orange.jpg'
+						},
+						{
+							title: 'Красный',
+							image: '../../../../static/assets/img/tigga2/colors/color_red.jpg'
+						},
+						{
+							title: 'Белый',
+							image: '../../../../static/assets/img/tigga2/colors/color_white.jpg'
+						},
+						{
+							title: 'Чёрный',
+							image: 	'../../../../static/assets/img/tigga2/colors/color_black.jpg'
+						}
+					]
 				},
 				Slides: [
 					{

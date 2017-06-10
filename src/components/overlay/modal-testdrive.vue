@@ -12,31 +12,42 @@
 		<div class="modal-testdrive-form__column">
 			<fieldset class="modal-testdrive-form__fieldset">
 				<legend>Заполните поля и выберите дату:</legend>
-				<v-select v-model="form.car.selected"
-					:options="Options"
-					:placeholder="form.car.placeholder"
-					class="modal-testdrive-form__select"
-					required
-				>
-				</v-select>
-				<input v-model="form.name"
-					:placeholder="form.namePlaceholder"
-					type="text"
-					autocomplete="name"
-					class="modal-testdrive-form__input"
-					required
-				/>
-				<input v-model="form.phone"
-					:placeholder="form.phonePlaceholder"
-					v-mask=" '\+7 (###) ###-##-##' "
-					type="phone"
-					autocomplete="phone"
-					class="modal-testdrive-form__input"
-					required
-				/>
+				<label class="testdrive-form__input-row">
+					<i class="testdrive-form__icon material-icons">directions_car</i>
+					<v-select v-model="Form.selectedCar"
+						:options="Options"
+						:placeholder="Placeholders.car"
+						class="testdrive-form__input"
+						required
+						>
+					</v-select>
+				</label>
+				<label for="name" class="testdrive-form__input-row">
+					<i class="testdrive-form__icon material-icons">person</i>
+					<input v-model="Form.name"
+						:placeholder="Placeholders.name"
+						class="testdrive-form__input"
+						type="text"
+						id="name"
+						autocomplete="name"
+						required
+					/>
+				</label>
+				<label for="phone" class="testdrive-form__input-row">
+					<i class="testdrive-form__icon material-icons">phone</i>
+					<input v-model="Form.phone"
+						:placeholder="Placeholders.phone"
+						v-mask=" '\+7 (###) ###-##-##' "
+						class="testdrive-form__input"
+						type="tel"
+						id="phone"
+						autocomplete="tel"
+						required
+					/>
+				</label>
 				<button	type="submit"
 					name="button"
-					class="modal-testdrive-form__submit"
+					class="testdrive-form__submit"
 					ripple-light
 					>
 					Отправить заявку
@@ -44,10 +55,9 @@
 			</fieldset>
 		</div>
 		<div class="modal-testdrive-form__column _flex">
-			<datepicker v-model="form.date"
-				:format="form.dateFormat"
-				:placeholder="form.datePlaceholder"
-				:disabled="form.dateDisabled"
+			<datepicker v-model="Form.date"
+				:format="Datepicker.format"
+				:disabled="Datepicker.disabled"
 				:monday-first="true"
 				:inline="true"
 				language="ru"
@@ -64,6 +74,7 @@
 	import vSelect from "vue-select";
 	import Datepicker from 'vuejs-datepicker';
 	import telegram from '../main/telegram-token.js';
+	import { dateOptions } from '../requestOptions.js';
 
 	export default {
 		name: 'modal-testdrive',
@@ -71,19 +82,20 @@
 		data() {
 			return {
 				title: 'Запись на тест-драйв',
-				form: {
+				Placeholders: {
+					car: 'Желаемая модель авто',
+					name: 'Ваше имя',
+					phone: '+7 (000) 000-00-00'
+				},
+				Form: {
+					selectedCar: null,
 					name: '',
 					phone: '',
-					date: new Date(),
-					dateFormat: 'D d MMM yyyy',
-					dateDisabled: { days: [ 0, 6 ] },
-					car: {
-						selected: null,
-						placeholder: 'Желаемая модель авто'
-					},
-					namePlaceholder: 'Ваше имя',
-					phonePlaceholder: '+7 (000) 000-00-00',
-					datePlaceholder: 'Выберите желаемую дату'
+					date: new Date()
+				},
+				Datepicker: {
+					format: 'D d MMM yyyy',
+					disabled: { days: [ 0, 6 ] }
 				}
 			}
 		},
@@ -100,36 +112,32 @@
 				this.$store.dispatch('modalClose')
 			},
 			send() {
-				const dateOptions = {
-					day: 'numeric',
-					weekday: 'long',
-					month: 'long',
-					year: 'numeric'
-				};
 				const message =
 `Новая заявка на тест-драйв:
 
-Имя: ${ this.form.name }
-Дата: ${ this.form.date.toLocaleString('ru-RU', dateOptions) }
-Телефон: ${ this.form.phone }
-Модель авто: ${ this.form.car.selected }`;
+Имя: ${ this.Form.name }
+Телефон: ${ this.Form.phone }
+Модель авто: ${ this.Form.selectedCar }
+Дата: ${ this.Form.date.toLocaleString('ru-RU', dateOptions) }`;
 				let request = {
 					token: telegram.token,
 					chat_id: '173161597',
 					// chat_id: telegram.chat_id,
 					text: message
 				};
-				this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.text}`)
+				this.$store.dispatch( 'telegramMessage' , request )
 					.then( response => {
 						this.$swal(
 							'Заявка на тест-драйв отправлена!',
 							'С Вами свяжется менеджер, чтобы уточнить детали.',
 							'success'
 						);
-						this.form.name = '';
-						this.form.date = new Date();
-						this.form.phone = '';
-						this.form.car.value = '';
+						this.Form = {
+							selectedCar: null,
+							name: '',
+							phone: '',
+							date: new Date()
+						};
 						this.$store.dispatch('modalClose')
 					})
 					.catch( error => {

@@ -5,6 +5,9 @@
 				<h1 class="product__title">{{ product.title }}</h1>
 				<img :src="product.img" :alt="product.title" class="product__image">
 				<h2 class="product__subtitle">{{ product.subTitle }}</h2>
+
+				<colors :Colors = "product.Colors" ></colors>
+
 				<table class="first-table _col-3" aria-label="Комплектация и цены">
 					<tr>
 						<td>Комплектация</td>
@@ -243,6 +246,8 @@
 					</tbody>
 				</table>
 
+				<mobile-notation></mobile-notation>
+
 			</div>
 		</section>
 		<section class="gallery" aria-label="Галерея">
@@ -258,7 +263,6 @@
 				</youtube>
 
 			</div>
-
 		</section>
 	</main>
 </template>
@@ -266,11 +270,12 @@
 <script>
 
 	import Flickity from 'vue-flickity';
-	import galleryOverlay from '../../templates/gallery-overlay';
+	import colors from '../../templates/colors';
+	import mobileNotation from '../../templates/mobile-notation';
 
 	export default {
 		name: "CS35",
-		components: { Flickity , galleryOverlay },
+		components: { Flickity , colors , mobileNotation },
 		data() {
 			return {
 				Videos: [
@@ -284,7 +289,25 @@
 				product: {
 					title: 'ВАШ BOLIGER',
 					subTitle: `Люксовый китайский внедорожник, способный удивлять.`,
-					img: '../../../../static/assets/img/boliger/bolinger_big.png'
+					img: '../../../../static/assets/img/boliger/bolinger_big.png',
+					Colors : [
+						{
+							title: 'Серый',
+							image: '../../../../static/assets/img/boliger/boliger_grey.png'
+						},
+						{
+							title: 'Красный',
+							image: '../../../../static/assets/img/boliger/boliger_red.png'
+						},
+						{
+							title: 'Белый',
+							image: '../../../../static/assets/img/boliger/boliger_white.png'
+						},
+						{
+							title: 'Черный',
+							image: '../../../../static/assets/img/boliger/bolinger_big.png'
+						}
+					]
 				},
 				Search: {
 					placeholder: 'Поиск по характеристикам...',

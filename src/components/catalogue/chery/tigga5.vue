@@ -19,6 +19,9 @@
 						<p class="product-slider__slide-title">{{ slideItem.title }}</p>
 					</div>
 				</flickity>
+
+				<colors :Colors = "product.Colors" ></colors>
+
 				<table class="first-table _col-5" aria-label="Комплектация и цены">
 					<tr>
 						<th>Комплектация</th>
@@ -830,6 +833,10 @@
 					</tbody>
 				</table>
 
+				<mobile-notation></mobile-notation>
+
+				<a :href="product.priceList" class="product__price-list waves-effect waves-light" target="_blank" >Скачать прайс-лист</a>
+
 			</div>
 		</section>
 		<section class="gallery" aria-label="Галерея">
@@ -863,11 +870,13 @@
 <script>
 
 	import Flickity from 'vue-flickity';
+	import colors from '../../templates/colors';
+	import mobileNotation from '../../templates/mobile-notation';
 	import galleryOverlay from '../../templates/gallery-overlay';
 
 	export default {
 		name: "tigga5",
-		components: { Flickity , galleryOverlay },
+		components: { Flickity , mobileNotation , galleryOverlay , colors },
 		data() {
 			return {
 				Videos: [
@@ -881,7 +890,42 @@
 				product: {
 					title: 'ВАШ CHERY TIGGO 5',
 					subTitle: `ОН СЛОВНО ТИГР, ГОТОВЫЙ В ЛЮБУЮ СЕКУНДУ \n СОРВАТЬСЯ С МЕСТА ДЛЯ ПОКОРЕНИЯ ГОРОДСКИХ ДЖУНГЛЕЙ`,
-					img: '../../../../static/assets/img/tigga5/tigga5_big.jpg'
+					img: '../../../../static/assets/img/tigga5/tigga5_big.jpg',
+					priceList: 'http://www.chery.ru/media/upload/tiggo5_new_price.pdf',
+					Colors: [
+						{
+							title: 'Чёрный',
+							image: '../../../../static/assets/img/tigga5/colors/color_black.jpg'
+						},
+						{
+							title: 'Акввамарин',
+							image: '../../../../static/assets/img/tigga5/colors/color_blue.jpg'
+						},
+						{
+							title: 'Синий',
+							image: '../../../../static/assets/img/tigga5/colors/color_blue2.jpg'
+						},
+						{
+							title: 'Коричневый',
+							image: '../../../../static/assets/img/tigga5/colors/color_brown.jpg'
+						},
+						{
+							title: 'Тёмно--вишнёвый',
+							image: '../../../../static/assets/img/tigga5/colors/color_darkcherry.jpg'
+						},
+						{
+							title: 'Серый',
+							image: '../../../../static/assets/img/tigga5/colors/color_grey.jpg'
+						},
+						{
+							title: 'Оранжевый',
+							image: '../../../../static/assets/img/tigga5/colors/color_orange.jpg'
+						},
+						{
+							title: 'Белый',
+							image: '../../../../static/assets/img/tigga5/colors/color_white.jpg'
+						}
+					]
 				},
 				Slides: [
 					{

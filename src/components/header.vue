@@ -1,6 +1,6 @@
 <template lang="html">
 	<header id="header" class="header">
-		<div class="container _wide _flex-row _a-center">
+		<nav class="container _wide _flex-row _a-center">
 			<div class="header-logo">
 				<router-link to="/" class="header-logo__link">
 					<img :src="logoSrc"
@@ -26,7 +26,7 @@
 					</ul>
 				</li>
 			</ul>
-			<div class="header-menu__mobile-button" :class="{ 'open' : mobileIsOpened }">
+			<div class="header-menu__mobile-button" :class="{ '_opened' : mobileIsOpened }">
 				<div v-show="!mobileIsOpened"
 					@click="openMobileMenu()"
 					class="header-menu__mobile-copy"
@@ -54,7 +54,7 @@
 						>Запись на тест-драйв</button>
 				</li>
 			</ul>
-		</div>
+		</nav>
 	</header>
 </template>
 
@@ -132,16 +132,12 @@
 									query: { select: 'credit' }
 								},
 								text: 'Авто-кредит'
-							},
-							{
-								route: '/services',
-								text: 'Кредит'
 							}
 						]
 					},
 					{
-						route: '/about',
-						text: 'О нас'
+						route: '/news',
+						text: 'Новости'
 					}
 				]
 			}
@@ -202,6 +198,7 @@
 			}
 		}
 		&__img {
+			display: block;
 			height: 100%;
 		}
 	}
@@ -265,7 +262,6 @@
 				}
 			}
 			&._buttons {
-
 				@include MDButton($white , $red) {
 					height: 40px;
 					margin: 10px 0;
@@ -280,27 +276,27 @@
 		&__mobile-button {
 			display: none;
 			@include MQ(Pp) {
+				overflow: hidden;
 				display: block;
 			    z-index: 900;
-				position: absolute 10px 10px auto auto;
+				position: absolute 10px 0 auto auto;
 			    size: 135px 40px;
 			    font-size: 1rem;
 			    color: $whited $red;
 			    border: none;
 			    cursor: pointer;
 				@include MDShadow-2;
-			    will-change: transform, top, left, right;
+			    will-change: transform, top, right;
 			    transition: .5s ease-in-out;
-				&.open {
-					overflow: hidden;
-					top: 50%;
+				&._opened {
+					top: 500%;
 					right: 50%;
 					size: 250px 310px;
-					background-color: #FAFAFA;
+					background-color: $white;
 					border-radius: 5px;
 					cursor: default;
 					transform: translate( 50% , -50% );
-					@include MDShadow-4;
+					@include MDShadow-5;
 					.header-menu._mobile {
 						opacity: 1;
 						transition: opacity 0.3s ease;

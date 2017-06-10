@@ -1,12 +1,17 @@
 <template lang="html">
-	<button	v-scroll-to="{
-			el: 'body',
-			offset: 0,
-			duration: 950
-		}"
-		id="button-up" class="button-up" ripple-light>
-  	   	<i class="button-up__icon material-icons">arrow_upward</i>
-	</button>
+	<nav id="bottom-nav" class="bottom-nav">
+		<button @click="stepBack()" class="button-up _back" type="button" ripple-light >
+			<i class="button-up__icon material-icons">arrow_back</i>
+		</button>
+		<button	v-scroll-to="{
+				el: 'body',
+				offset: 0,
+				duration: 950
+			}"
+			class="button-up" type="button" ripple-light >
+	  	   	<i class="button-up__icon material-icons">arrow_upward</i>
+		</button>
+	</nav>
 </template>
 
 <script>
@@ -17,14 +22,19 @@
       	},
 		created() {
 			window.onscroll = () => {
-				const buttonUp = document.getElementById('button-up');
+				const bottomNav = document.getElementById('bottom-nav');
 				let scrolled = window.pageYOffset || document.documentElement.scrollTop;
 				if (scrolled > 350) {
-					buttonUp.classList.add('_visible')
+					bottomNav.classList.add('_visible')
 				} else {
-					buttonUp.classList.remove('_visible')
+					bottomNav.classList.remove('_visible')
 				}
 			};
+		},
+		methods: {
+			stepBack() {
+				this.$router.go(-1)
+			}
 		}
 	}
 </script>
@@ -35,24 +45,39 @@
 	@import "../scss/partials/_mixins";
 	@import "../scss/partials/_variables";
 
+	.bottom-nav {
+		position: fixed auto 0 0 auto;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		transform: translateY( 100% );
+		transition: transform .6s ease-in-out;
+		&._visible {
+			transform: translateY(0);
+		}
+	}
+
 	.button-up {
 		$size: 75px;
 		@include MDButton( $whited , $red ) {
 			z-index: 900;
-			position: fixed auto 0 0 auto;
 			size: $size;
 			margin: 2vh;
-			transform: translateX( calc(100% + 3vh) );
 		}
 		@include MDShadow-3;
 		&:active {
 			@include MDShadow-4;
 		}
-		&._visible {
-			transform: translateX(0);
-		}
 		&__icon {
 			font-size: $size / 1.25;
+		}
+		&._back {
+			opacity: 0;
+			visibility: hidden;
+			@include MQ(Pp) {
+				opacity: 1;
+				visibility: visible;
+			};
 		}
 		@include MQ(Pp) {
 			margin: 18px;

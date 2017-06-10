@@ -1,6 +1,5 @@
 <template lang="html">
-	<article :class = "{ '_opened' : opened }"
-		class="post">
+	<article class="post">
 		<h2 class="post__title">{{ title }}</h2>
 		<h3 class="post__time">{{ time }}</h3>
 		<div v-html = "content"
@@ -12,17 +11,7 @@
 <script>
 	export default {
   		name: "post",
-		props: [ 'title' , 'time' , 'content' ],
-		data() {
-			return {
-				opened: false
-			}
-		},
-		methods: {
-			open() {
-				this.opened =! this.opened
-			}
-		}
+		props: [ 'title' , 'time' , 'content' ]
 	}
 </script>
 
@@ -48,9 +37,6 @@
 		}
 		.ql-align-center img {
 			max-width: 90%;
-		}
-		&._opened {
-			size: 100% auto
 		}
 		&__title {
 			width: 50%;

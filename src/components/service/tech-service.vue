@@ -1,10 +1,10 @@
 <template lang="html">
-	<section v-once id="tech-service" class="tech-service">
-		<h2 class="tech-service__title">{{ title }}</h2>
+	<section id="tech-service" class="tech-service">
+		<h2 class="tech-service__title">{{ Info.title }}</h2>
+		<h3 class="service-info__subTitle">{{ Info.subTitle }}</h3>
 		<div class="container _flex-row _j-between _a-start">
 			<article class="service-info">
-				<h3 class="service-info__title">{{ Info.title }}</h3>
-				<p v-html="Info.content" class="service-info__content"></p>
+				<div v-html="Info.content" class="service-info__content html ql-editor"></div>
 			</article>
 			<form @submit.stop.prevent="techService()"
 				class="service-form">
@@ -13,11 +13,10 @@
 						<legend class="service-form__legend">Заполните поля и выберите дату:</legend>
 						<label class="service-form__input-row">
 							<i class="service-form__icon material-icons">person</i>
-							<input v-model="form.name"
-								:placeholder="form.namePlaceholder"
+							<input v-model="Form.name"
+								:placeholder="Placeholders.name"
 								type="text"
 								autocomplete="name"
-								pattern="[A-Za-zА-Яа-яЁё]"
 								id="service-name"
 								class="service-form__input"
 								required
@@ -25,22 +24,21 @@
 						</label>
 						<label class="service-form__input-row">
 							<i class="service-form__icon material-icons">phone</i>
-							<input v-model="form.phone"
-								:placeholder="form.phonePlaceholder"
-								v-mask=" '+7 (###) ###-##-##' "
-								type="phone"
-								id="service-phone"
+							<input v-model="Form.phone"
+								:placeholder="Placeholders.phone"
+								v-mask=" '\+7 (###) ###-##-##' "
 								class="service-form__input"
+								type="tel"
+								id="phone"
 								autocomplete="tel"
 								required
-							>
+							/>
 						</label>
-						<label class="service-form__input-row">
+						<label for="service-build" class="service-form__input-row">
 							<i class="service-form__icon material-icons">build</i>
-							<textarea v-model="form.service.service"
-								:placeholder="form.service.servicePlaceholder"
+							<textarea v-model="Form.description"
+								:placeholder="Placeholders.description"
 								type="text"
-								autocomplete="name"
 								id="service-build"
 								class="service-form__textarea"
 								required
@@ -56,10 +54,9 @@
 					</fieldset>
 				</div>
 				<div class="service-form__column _flex">
-					<datepicker v-model="form.date"
-						:format="form.dateFormat"
-						:placeholder="form.datePlaceholder"
-						:disabled="form.dateDisabled"
+					<datepicker v-model="Form.date"
+						:format="Datepicker.format"
+						:disabled="Datepicker.disabled"
 						:monday-first="true"
 						:inline="true"
 						language="ru"
@@ -77,48 +74,43 @@
 
 	import Datepicker from 'vuejs-datepicker';
 	import telegram from '../main/telegram-token.js';
-
+	import { dateOptions } from '../requestOptions.js';
 
 	export default {
   		name: "tech-service",
 		components: { Datepicker },
       	data() {
 			return {
-				title: 'Запись на сервисное обслуживание',
-				Info: {
-					title: 'Ремонт и обслуживание любого авто.',
-					content: 'Быстрая и качественная диагностика. Команда профессионалов, индивидуальный подход.<br /> Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br /><br /> Doloremque eveniet facere, optio ex qui hic impedit. Deserunt expedita, commodi repudiandae, cum asperiores dolor autem numquam sed nam, provident, esse ad?'
+				Placeholders: {
+					name: 'Ваше имя',
+					phone: '+7 (000) 000-00-00',
+					description: 'Кратко опишите проблему'
 				},
-				form: {
+				Form: {
 					name: '',
 					phone: '',
 					date: new Date(),
-					dateFormat: 'D d MMM yyyy',
-					dateDisabled: {	days: [ 0, 6 ] },
-					service: {
-						service: '',
-						servicePlaceholder: 'Кратко опишите проблему'
-					},
-					namePlaceholder: 'Ваше имя',
-					phonePlaceholder: '+7 (000) 000-00-00',
-					datePlaceholder: 'Выберите желаемую дату'
+					description: ''
+				},
+				Datepicker: {
+					format: 'D d MMM yyyy',
+					disabled: { days: [ 0, 6 ] }
 				}
 			}
       	},
+		computed: {
+			Info() {
+				return this.$state.Service.techService
+			}
+		},
 		methods: {
 			techService() {
-				const dateOptions = {
-					day: 'numeric',
-					weekday: 'long',
-					month: 'long',
-					year: 'numeric'
-				};
 				const message = `
 	Новая заявка на тест-драйв:
 
-	Имя: ${ this.form.name }
-	Дата: ${ this.form.date.toLocaleString('ru-RU', dateOptions) }
-	Телефон: ${ this.form.phone }
+	Имя: ${ this.Form.name }
+	Дата: ${ this.Form.date.toLocaleString('ru-RU', dateOptions) }
+	Телефон: ${ this.Form.phone }
 	Причина обращения: ${ this.form.service.service }
 	`;
 				const request = {
@@ -127,17 +119,19 @@
 					// chat_id: telegram.chat_id,
 					text: message
 				};
-				this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.text}`)
+				this.$store.dispatch( 'telegramMessage' , request )
 					.then( response => {
 						this.$swal(
 							'Заявка на техобслуживание отправлена!',
 							'С Вами свяжется менеджер, чтобы уточнить детали.',
 							'success'
 						);
-						this.form.name = '';
-						this.form.date = new Date();
-						this.form.phone = '';
-						this.form.service.service = ''
+						this.Form = {
+							name: '',
+							phone: '',
+							date: new Date(),
+							description: ''
+						}
 					})
 					.catch( error => {
 						console.error(error);

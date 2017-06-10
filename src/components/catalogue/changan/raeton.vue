@@ -366,6 +366,8 @@
 					</tbody>
 				</table>
 
+				<mobile-notation></mobile-notation>
+
 			</div>
 		</section>
 		<section class="gallery" aria-label="Галерея">
@@ -399,11 +401,12 @@
 <script>
 
 	import Flickity from 'vue-flickity';
+	import mobileNotation from '../../templates/mobile-notation';
 	import galleryOverlay from '../../templates/gallery-overlay';
 
 	export default {
-		name: "CS35",
-		components: { Flickity , galleryOverlay },
+		name: 'RAETON',
+		components: { Flickity , galleryOverlay , mobileNotation },
 		data() {
 			return {
 				Videos: [

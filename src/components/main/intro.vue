@@ -2,44 +2,15 @@
 	<section id="Intro" class="intro">
 		<flickity ref="flickity"
 			:options="flickityOptions"
-			class="intro-slider"
-			>
-			<div class="intro-slider__slide"></div>
-    		<!-- <div class="intro-slider__slide">2</div>
-    		<div class="intro-slider__slide">3</div>
-    		<div class="intro-slider__slide">4</div>
-    		<div class="intro-slider__slide">5</div> -->
+			class="intro-slider">
+			<img v-for="slideItem in Slides" class="intro-slider__slide" :src="slideItem" />
 		</flickity>
 
 		<div class="intro__overlay">
-			<div class="container _flex-column _j-end _a-start">
-				<img src="../../../static/assets/img/logo_small.png"
-					alt="логотип автосалона Ангар"
-					 class="intro-image"
-					 />
+			<div class="container _flex-row _j-start">
 				<div class="intro-text">
 					<h1 class="intro-text__title">{{ title }}</h1>
 					<h2 class="intro-text__sub-title">{{ subtitle }}</h2>
-				</div>
-				<div class="intro-buttons">
-					<router-link tag = "button"
-						class="intro-buttons__button"
-						:to = "{ name: 'catalogue', query: { filter: 'all' } }"
-						ripple-dark
-						>
-						Каталог автомобилей
-					</router-link>
-					<button
-						v-scroll-to="{
-							el: '#Testdrive',
-							offset: -60,
-							duration: 950
-						}"
-						class="intro-buttons__button _alert"
-						ripple-light
-						>
-						Тест-драйв
-					</button>
 				</div>
 			</div>
 		</div>
@@ -57,9 +28,10 @@
 			return {
 				title: 'Автосалон Ангар',
 				subtitle: 'Официальный дилер марок Chery, Changan, Hawtai в г. Ачинске',
+				Slides: [ '../../../static/assets/img/slider/slide_1.jpg' , '../../../static/assets/img/slider/slide_2.jpg' , '../../../static/assets/img/slider/slide_3.jpg' , '../../../static/assets/img/slider/slide_4.png' ] ,
 				flickityOptions: {
 					selector: '.intro-slider__slide',
-					autoplay: 2500,
+					autoplay: 7500,
                 	prevNextButtons: 0,
                 	pageDots: 1,
                 	wrapAround: true
@@ -82,13 +54,12 @@
 		background-position: center center;
 		&__overlay {
 			position: absolute $headerHeight auto auto 0;
-			size: 100% calc( 100% - 70px );
+			size: 100% calc( 100% - 60px );
+			background-color: rgba( $blacked , 0.45 );
 			.container {
 				position: relative;
-				padding-bottom: 200px;
+				padding-bottom: 9vh;
 				@include MQ(Pp) {
-					padding: inherit;
-					padding-top: $headerHeight;
 					&._j-end {
 						justify-content: center;
 					}
@@ -98,29 +69,34 @@
 	}
 
 	.intro-text {
+		display: flex;
+		flex-flow: row wrap;
 		width: 50%;
-		@include MQ(Pp) {
-			width: 100%;
-			text-align: center;
-		}
+		margin-top: 2vh;
 		&__title {
 			font-size: 4rem;
 			color: $white;
 			text-shadow: 0 0 15px rgba($blacked, 0.75);
-			@include MQ(Pp) {
-				font-size: 3rem
-			}
 		}
 		&__sub-title {
+			align-self: flex-end;
 			margin-top: 1rem;
 			font-size: 2rem;
 			line-height: 1.5;
 			color: $white;
 			text-shadow: 0 0 15px rgba($blacked, 0.75);
-			@include MQ(Pp) {
+		}
+		@include MQ(Pp) {
+			size: 100%;
+			text-align: center;
+			&__title {
+				font-size: 3rem
+			}
+			&__sub-title {
+				margin: 0;
 				font-size: 1.35rem
 			}
-		}
+		};
 	}
 
 	.intro-image {
@@ -171,15 +147,12 @@
 		size: 100%;
 		background-color: $white;
 		&__slide {
-			position: relative;
-			display: flex;
-			justify-content: center;
-			align-items: center;
 			size: 100%;
-			padding: 20px;
-			font-size: 3rem;
-			background-image: url('../../../static/assets/img/main_intro.jpg');
-			background-position: center center;
+			object-fit: contain;
+			object-position: center;
+			@include MQ(Pp) {
+				object-fit: none;
+			};
 		}
 		.flickity-page-dots {
 			z-index: 100;

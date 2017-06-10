@@ -16,6 +16,7 @@
 						/>
 					</div>
 				</flickity>
+
 				<table class="first-table _col-5" aria-label="Комплектация и цены">
 					<tr>
 						<th>Комплектация</th>
@@ -726,6 +727,8 @@
 					</tbody>
 				</table>
 
+				<mobile-notation></mobile-notation>
+
 			</div>
 		</section>
 		<section class="gallery" aria-label="Галерея">
@@ -760,10 +763,11 @@
 
 	import Flickity from 'vue-flickity';
 	import galleryOverlay from '../../templates/gallery-overlay';
+	import mobileNotation from '../../templates/mobile-notation';
 
 	export default {
 		name: "CS35",
-		components: { Flickity , galleryOverlay },
+		components: { Flickity , galleryOverlay , mobileNotation },
 		data() {
 			return {
 				Videos: [

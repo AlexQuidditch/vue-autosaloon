@@ -1,9 +1,7 @@
 <template lang="html">
 	<section v-once id="repair" class="repair">
-		<h2 class="repair__title">{{ title }}</h2>
-		<div class="container">
-			<p class="repair__pre-message">Мы так же предлагаем запчасти и комплектующие для авто любых производителей.</p>
-		</div>
+		<h2 class="repair__title">{{ Info.title }}</h2>
+		<div v-html="Info.subTitle" class="container ql-content"></div>
 		<div class="container _flex-row _j-between">
 			<form @submit.stop.prevent = "send()"
 				class="repair-form"
@@ -89,7 +87,7 @@
 			</form>
 			<article class="repair-info">
 				<h3 class="repair-info__title">{{ Info.title }}</h3>
-				<p v-html="Info.content" class="repair-info__content"></p>
+				<div v-html="Info.content" class="repair-info__content html ql-editor"></div>
 			</article>
 		</div>
 	</section>
@@ -104,11 +102,6 @@
 		components: { vSelect },
       	data() {
 			return {
-				title: 'Автозапчасти, комплектующие',
-				Info: {
-					title: 'Оформите заявку!',
-					content: 'После этого с Вами свяжутся, и сообщат, есть ли искомое в наличии.<br /> Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br /><br /> Doloremque eveniet facere, optio ex qui hic impedit. Deserunt expedita, commodi repudiandae, cum asperiores dolor autem numquam sed nam, provident, esse ad?'
-				},
 				Form: {
 					detail: '',
 					detailPlaceholder: 'Название детали, которую Вы ищите...',
@@ -127,6 +120,11 @@
 				}
 			}
       	},
+		computed: {
+			Info() {
+				return this.$state.Service.repair
+			}
+		},
 		methods: {
 			send() {
 				const dateOptions = {

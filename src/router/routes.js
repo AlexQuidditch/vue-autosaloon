@@ -3,8 +3,7 @@ import main from '@/components/main.vue';
 const service = () => import( '@/components/service.vue' );
 const services = () => import( '@/components/services.vue' );
 const catalogue = () => import( '@/components/catalogue.vue' );
-const about = () => import( '@/components/about.vue' );
-const blog = () => import( '@/components/about/blog.vue' );
+const news = () => import( '@/components/news.vue' );
 
 const catalogueChery = () => import( '@/components/catalogue/filter/chery.vue' );
 const Tigga2 = () => import( '@/components/catalogue/chery/tigga2.vue' );
@@ -105,9 +104,9 @@ export default [
 		meta: { scrollToTop: true }
 	},
 	{
-		name: 'about',
-		path: '/about',
-		component: blog,
+		name: 'news',
+		path: '/news',
+		component: news,
 		meta: { scrollToTop: true }
 	},
 	{

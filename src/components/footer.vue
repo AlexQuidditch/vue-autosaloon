@@ -44,6 +44,12 @@
 				],
 				Buttons: [
 					{
+						link: 'tel: +7 (39151) 4-66-80',
+						title: 'Только со смартфона!',
+						icon: 'smartphone',
+						text: 'Позвонить в салон'
+					},
+					{
 						link: '//yandex.ru/maps/-/C6aGeDOU',
 						title: 'Откроется в новой вкладке',
 						icon: 'pin_drop',
@@ -127,6 +133,12 @@
 				size: 100% 3rem;
 				margin-bottom: 1rem;
 				padding: 0 1rem;
+			}
+			&:first-child {
+				display: none;
+				@include MQ(Pp) {
+					display: flex;
+				};
 			}
 		}
 		&__btn-icon {

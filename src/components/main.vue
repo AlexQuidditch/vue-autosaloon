@@ -1,13 +1,13 @@
 <template lang="html">
 	<main v-once id="main" class="main">
 
-		<Intro></Intro>
+		<intro></intro>
 
-		<Marks></Marks>
+		<marks></marks>
 
-		<Testdrive></Testdrive>
+		<test-drive></test-drive>
 
-		<Tabs></Tabs>
+		<about></about>
 
 	</main>
 </template>
@@ -16,12 +16,12 @@
 
 	import Intro from './main/intro';
 	import Marks from './main/marks.vue';
-	import Tabs from './main/tabs';
-	import Testdrive from './main/form-test-drive';
-	
+	import TestDrive from './main/form-test-drive';
+	import About from './main/about';
+
 	export default {
 		name: 'main',
-		components: { Intro , Marks , Testdrive , Tabs },
+		components: { Intro , Marks , TestDrive , About },
 		mounted() {
 			Waves.init();
 			Waves.attach('[ripple-dark]', ['waves-dark']);
