@@ -43,32 +43,37 @@
 			<button @click="closeForm()"
 				class="button-call__close"
 				type="button"
-				>Закрыть</button>
+				ripple-light
+				>Закрыть
+			</button>
 		</div>
 	</div>
 
 </template>
 
 <script>
+
+	import telegram from './main/telegram-token.js';
+
 	export default {
   		name: "button-call",
       	data() {
 			return {
 				isOpened: false,
-				Placeholders: {
-					name: 'Ваше имя',
-					phone: '+7 (000) 000-00-00'
-				},
 				Form: {
 					name: '',
 					phone: ''
+				},
+				Placeholders: {
+					name: 'Ваше имя',
+					phone: '+7 (000) 000-00-00'
 				}
 			}
       	},
 		created() {
 			window.addEventListener( 'keyup' , (e) => {
 				e.preventDefault;
-				if ( e.keyCode === 27 ) {
+				if ( e.keyCode == 27 ) {
 					this.closeForm()
 				}
 			});
@@ -88,15 +93,14 @@
 Телефон: ${ this.Form.phone }`;
 				let request = {
 					token: telegram.token,
-					chat_id: '173161597',
-					// chat_id: telegram.chat_id,
+					chat_id: telegram.receptionID,
 					text: message
 				};
-				this.$store.dispatch( 'testDrive' , request )
+				this.$store.dispatch( 'telegramMessage' , request )
 					.then( response => {
 						this.$swal(
-							'Заявка на тест-драйв отправлена!',
-							'С Вами свяжется менеджер, чтобы уточнить детали.',
+							'Просьба перезвонить отправлена!',
+							'С Вами свяжется менеджер.',
 							'success'
 						);
 						this.Form = {
@@ -141,14 +145,12 @@
 		};
 		&._opened {
 			overflow: hidden;
-			top: 50%;
-			left: 25%;
+			left: 15%;
 			size: 300px 290px;
 			padding: 9px 16px 0 16px;
 			background-color: $white;
 			border-radius: 5px;
 			cursor: default;
-			transform: translate( -50% , -50% );
 			@include MDShadow-5;
 			.button-call__content {
 				opacity: 1;
@@ -160,11 +162,12 @@
 			@include MQ(Pp) {
 				top: 50%;
 				left: 50%;
+				transform: translate( -50% , -50% );
 			}
 		}
 		@include MDShadow-3;
 		&:active {
-			transform: translate( -50% , -49% );
+			transform: translateY( -49% );
 			@include MDShadow-4;
 		}
 		&__button {

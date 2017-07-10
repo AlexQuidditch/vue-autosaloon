@@ -1,7 +1,7 @@
 <template lang="html">
 	<section id="tech-service" class="tech-service">
 		<h2 class="tech-service__title">{{ Info.title }}</h2>
-		<h3 class="service-info__subTitle">{{ Info.subTitle }}</h3>
+		<div v-html="Info.subTitle" class="tech-service__sub-title container html ql-editor"></div>
 		<div class="container _flex-row _j-between _a-start">
 			<article class="service-info">
 				<div v-html="Info.content" class="service-info__content html ql-editor"></div>
@@ -46,9 +46,7 @@
 							</textarea>
 						</label>
 						<button	type="submit"
-							name="button"
-							class="service-form__submit"
-							ripple-light
+							class="service-form__submit waves-effect waves-light"
 							>Отправить заявку
 						</button>
 					</fieldset>
@@ -100,29 +98,28 @@
       	},
 		computed: {
 			Info() {
-				return this.$state.Service.techService
+				return this.$state.content.Service.techService
 			}
 		},
 		methods: {
 			techService() {
 				const message = `
-	Новая заявка на тест-драйв:
+	Новая заявка на обслуживание:
 
 	Имя: ${ this.Form.name }
 	Дата: ${ this.Form.date.toLocaleString('ru-RU', dateOptions) }
 	Телефон: ${ this.Form.phone }
-	Причина обращения: ${ this.form.service.service }
+	Причина обращения: ${ this.Form.description }
 	`;
 				const request = {
 					token: telegram.token,
-					chat_id: '173161597',
-					// chat_id: telegram.chat_id,
+					chat_id: telegram.serviceID,
 					text: message
 				};
 				this.$store.dispatch( 'telegramMessage' , request )
 					.then( response => {
 						this.$swal(
-							'Заявка на техобслуживание отправлена!',
+							'Заявка на обслуживание отправлена!',
 							'С Вами свяжется менеджер, чтобы уточнить детали.',
 							'success'
 						);
@@ -159,6 +156,11 @@
 			font-size: 3rem;
 			color: $white;
 		}
+		&__sub-title {
+			margin-top: 16px;
+			color: $white;
+			font-size: 18px;
+		}
 		@include MQ(Pp) {
 			padding: 30px 0;
 			&__title {
@@ -186,6 +188,7 @@
 		}
 		@include MQ(Pp) {
 			width: auto;
+			margin-top: 32px;
 		};
 	}
 

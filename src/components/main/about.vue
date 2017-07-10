@@ -2,7 +2,7 @@
 	<section id="about" class="about">
 		<div class="container">
 			<h2 class="about__title">{{ About.title }}</h2>
-			<div v-html="About.content" class="about__content"></div>
+			<div v-html="content" class="about__content html ql-editor"></div>
 		</div>
 	</section>
 </template>
@@ -14,11 +14,15 @@
 		data() {
 			return {
 				About: {
-					title: 'Об автосалоне:',
-					content: '<h3>Автосалон "Ангар" - официальный дилер марок Chery, Changan, Hawtai.</h3><p>Описание, описание, описание, описание, описание, описание, описание, описание, описание, описание, описание, описание, описание,</p>'
+					title: 'Об автосалоне:'
 				}
 			}
-		}
+		},
+		computed: {
+			content() {
+				return this.$store.state.content.MainPage.description
+			}
+		},
 	};
 
 </script>

@@ -1,11 +1,10 @@
 <template lang="html">
-	<section v-once id="repair" class="repair">
+	<section id="repair" class="repair">
 		<h2 class="repair__title">{{ Info.title }}</h2>
-		<div v-html="Info.subTitle" class="container ql-content"></div>
+		<div v-html="Info.subTitle" class="repair__sub-title container html ql-editor"></div>
 		<div class="container _flex-row _j-between">
 			<form @submit.stop.prevent = "send()"
-				class="repair-form"
-				>
+				class="repair-form">
 				<fieldset>
 					<legend>Заполните форму ниже:</legend>
 					<div class="container _flex-column">
@@ -15,8 +14,8 @@
 								<div class="container _flex-row _j-between">
 									<label for="manufactor" class="detail__input-row">
 										<i class="detail__icon material-icons">home</i>
-										<input v-model = "Form.manufactor.selected"
-											:placeholder="Form.manufactor.placeholder"
+										<input v-model = "Form.manufactor"
+											:placeholder="Placeholders.manufactor"
 											class="detail__input _contact-me"
 											type="text"
 											id="manufactor"
@@ -25,8 +24,8 @@
 									</label>
 									<label for="car" class="detail__input-row">
 										<i class="detail__icon material-icons">directions_car</i>
-										<input v-model = "Form.car.selected"
-											:placeholder="Form.car.placeholder"
+										<input v-model = "Form.car"
+											:placeholder="Placeholders.car"
 											class="detail__input _contact-me"
 											type="text"
 											id="car"
@@ -40,7 +39,7 @@
 							<fieldset class="detail__fieldset">
 								<legend class="detail__legend">Введите искомую деталь:</legend>
 								<input v-model = "Form.detail"
-									:placeholder="Form.detailPlaceholder"
+									:placeholder="Placeholders.detail"
 									class="detail__input"
 									type="text"
 									id="detail"
@@ -55,7 +54,7 @@
 									<label for="name" class="detail__input-row">
 										<i class="detail__icon material-icons">person</i>
 										<input v-model = "Form.name"
-											:placeholder="Form.namePlaceholder"
+											:placeholder="Placeholders.name"
 											class="detail__input _contact-me"
 											type="text"
 											id="name"
@@ -66,7 +65,7 @@
 									<label for="phone" class="detail__input-row">
 										<i class="detail__icon material-icons">phone</i>
 										<input v-model = "Form.phone"
-											:placeholder="Form.phonePlaceholder"
+											:placeholder="Placeholders.phone"
 											v-mask=" '\+7 (###) ###-##-##' "
 											class="detail__input _contact-me"
 											type="tel"
@@ -86,78 +85,98 @@
 				</fieldset>
 			</form>
 			<article class="repair-info">
-				<h3 class="repair-info__title">{{ Info.title }}</h3>
 				<div v-html="Info.content" class="repair-info__content html ql-editor"></div>
 			</article>
+		</div>
+		<div class="offers container">
+			<h2 class="offers__title">Популярные аксессуары:</h2>
+			<ul class="offers-list">
+				<offer-card v-for="offerItem in Offers" :key="offerItem.title"
+					:Offer="offerItem"
+					>
+				</offer-card>
+			</ul>
 		</div>
 	</section>
 </template>
 
 <script>
 	import vSelect from "vue-select";
+	import offerCard from '../templates/offer-card.vue';
 	import telegram from '../main/telegram-token.js';
 
 	export default {
   		name: "repair",
-		components: { vSelect },
+		components: { vSelect , offerCard },
       	data() {
 			return {
 				Form: {
 					detail: '',
-					detailPlaceholder: 'Название детали, которую Вы ищите...',
 					name: '',
-					namePlaceholder: 'Ваше имя',
 					phone: '',
-					phonePlaceholder: '+7 (000) 000-00-00',
-					manufactor: {
-						selected: '',
-						placeholder: 'Производитель:'
-					},
-					car: {
-						selected: '',
-						placeholder: 'Модель авто:'
-					}
-				}
+					manufactor: '',
+					car: ''
+				},
+				Placeholders: {
+					detail: 'Название детали, которую Вы ищите...',
+					name: 'Ваше имя',
+					phone: '+7 (000) 000-00-00',
+					manufactor: 'Производитель:',
+					car: 'Модель авто:'
+				},
+				Offers: [
+                    {
+                        title: 'Крыша',
+                        descriptions: '<p>Lorem ipsum dolor sit amet, Lorem consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+                        slides: [
+                            '../../../static/assets/img/offers/krysha.jpg'
+                        ]
+                    },
+                    {
+                        title: 'Фаркоп',
+                        descriptions: '<p>Lorem ipsum dolor sit amet, Lorem consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+                        slides: [
+                            '../../../static/assets/img/offers/farkop.jpg'
+                        ]
+                    }
+                ]
 			}
       	},
 		computed: {
 			Info() {
-				return this.$state.Service.repair
+				return this.$state.content.Service.repair
 			}
 		},
 		methods: {
 			send() {
-				const dateOptions = {
-					day: 'numeric',
-					weekday: 'long',
-					month: 'long',
-					year: 'numeric'
-				};
 				const message =
-`Новая заявка на техобслуживание:
+`Новая заявка на деталь:
 
 Имя: ${ this.Form.name }
-Дата: ${ this.Form.date.toLocaleString('ru-RU', dateOptions) }
 Телефон: ${ this.Form.phone }
-Модель авто: ${ this.Form.car.value }
+Производитель авто: ${ this.Form.manufactor }
+Модель авто: ${ this.Form.car }
+Деталь для авто: ${ this.Form.detail }
 `;
 				const request = {
 					token: telegram.token,
-					chat_id: '173161597',
-					// chat_id: telegram.chat_id,
-					message
+					chat_id: telegram.repairID,
+					text: message
 				};
-				this.$http.post(`https://api.telegram.org/bot${request.token}/sendMessage?chat_id=${request.chat_id}&text=${request.message}`)
+				this.$store.dispatch( 'telegramMessage' , request )
 					.then( response => {
 						this.$swal(
-							'Заявка на тест-драйв отправлена!',
-							'С Вами свяжется менеджер, чтобы уточнить детали.',
+							'Заявка на деталь отправлена!',
+							'С Вами свяжется менеджер, чтобы уточнить наличие.',
 							'success'
 						);
-						this.Form.name = '';
-						this.Form.date = new Date();
-						this.Form.phone = '';
-						this.Form.car.value = ''
+						this.Form = {
+							detail: '',
+							name: '',
+							phone: '',
+							manufactor: '',
+							car: ''
+						}
 					})
 					.catch( error => {
 						console.error(response);
@@ -188,6 +207,11 @@
 			text-align: center;
 			font-size: 3rem;
 			color: $white;
+		}
+		&__sub-title {
+			margin-top: 16px;
+			color: $white;
+			font-size: 18px;
 		}
 		&__pre-message {
 			margin-top: 2rem;
@@ -311,6 +335,21 @@
 				box-shadow: none !important;
 			}
 		}
+	}
+
+	.offers {
+		&__title {
+			margin-top: 32px;
+			text-align: center;
+			font-size: 3rem;
+			color: $white;
+		}
+	}
+
+	.offers-list {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-around;
 	}
 
 </style>

@@ -58,6 +58,19 @@
 		&__content {
 			width: 100%;
 		}
+		@include MQ(Pp) {
+			&__title {
+				padding-bottom: 0;
+				font-size: 24px;
+			}
+			&__time {
+				text-align: right;
+				line-height: 2;
+			}
+			&__content {
+				padding: 0 16px 16px !important
+			}
+		}
 	}
 
 </style>

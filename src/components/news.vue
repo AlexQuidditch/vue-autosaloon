@@ -5,19 +5,17 @@
 				<div class="loader__spinner"></div>
 				<h2 class="loader__title">Загружаем посты...</h2>
 			</div>
-			<transition-group v-else
-				name="fade-fast"
-				tag = "div"
-				class="blog container"
-				>
-				<h2 class="blog__title" key="title" >Новости автосалона</h2>
-				<blog-post v-for = "blogItem in Blogs" :key="blogItem.time"
-					:title = "blogItem.title"
-					:time = "blogItem.time"
-					:content = "blogItem.content"
-					>
-				</blog-post>
-			</transition-group>
+			<div v-else key="title">
+				<h2 class="blog__title" >Новости автосалона</h2>
+				<transition-group name="fade-fast" tag = "div"
+					class="blog container">
+					<blog-post v-for = "blogItem in Blogs" :key="blogItem.title"
+						:title = "blogItem.title"
+						:time = "blogItem.time"
+						:content = "blogItem.content">
+					</blog-post>
+				</transition-group>
+			</div>
 		</transition>
 	</main>
 </template>
@@ -29,15 +27,19 @@
 	export default {
   		name: "news",
 		components: { blogPost },
+		data() {
+		    return {
+		        PostsIsLoaded: false
+		    }
+		},
 		created() {
-			this.$store.dispatch( 'getPosts' , 'Posts.json' );
+			this.$store.dispatch( 'getPosts' , 'Posts.json' )
+				.then( () => this.PostsIsLoaded = true )
+				.catch( () => console.error('Error') )
 		},
 		computed: {
 			Blogs() {
-				return this.$state.Posts
-			},
-			PostsIsLoaded() {
-				return this.$state.PostsIsLoaded
+				return this.$store.state.Posts
 			}
 		}
 	}

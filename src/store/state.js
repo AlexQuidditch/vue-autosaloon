@@ -1,8 +1,18 @@
+// import content from './autosaloondb.json';
+
 export default {
-	Catalogue: {},
-	Filter: {},
-	TestDrive: {},
-	Posts: {},
-	PostsIsLoaded: false,
-	Cars: {}
+	content: {
+		Catalogue: {},
+		Filter: [],
+		MainPage: {},
+		Service: {},
+		Services: {},
+		TestDrive: [],
+		Uploads: [],
+		Videos: []
+	},
+	Posts: [],
+	tempData: {
+		modalTestDrive: false
+	}
 };

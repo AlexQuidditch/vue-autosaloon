@@ -17,7 +17,9 @@ Vue.use(VueSweetAlert);
 Vue.use(YouTubeEmbed);
 
 import data from './data.json';
+
 Vue.http.options.root = data.root;
+
 Vue.prototype.$state = store.state;
 
 new Vue({ router , store , ...App }).$mount('#wrapper');

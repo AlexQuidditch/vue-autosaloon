@@ -49,12 +49,14 @@
 		position: fixed auto 0 0 auto;
 		display: flex;
 		justify-content: space-between;
-		width: 100%;
 		transform: translateY( 100% );
 		transition: transform .6s ease-in-out;
 		&._visible {
 			transform: translateY(0);
 		}
+		@include MQ(Pp) {
+			width: 100%;
+		};
 	}
 
 	.button-up {

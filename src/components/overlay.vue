@@ -13,13 +13,13 @@
 		components: { modalTestdrive },
       	computed: {
       		isVisible() {
-      			return this.$state.TestDrive.isOpened
+      			return this.$store.state.tempData.modalTestDrive
       		}
       	},
 		created() {
 			window.addEventListener( 'keyup' , (e) => {
 				e.preventDefault;
-				if ( e.keyCode === 27 && this.$store.state.TestDrive.isOpened === true ) {
+				if ( e.keyCode === 27 && this.isVisible === true ) {
 					this.$store.dispatch('modalClose');
 				}
 			})

@@ -4,6 +4,7 @@ const service = () => import( '@/components/service.vue' );
 const services = () => import( '@/components/services.vue' );
 const catalogue = () => import( '@/components/catalogue.vue' );
 const news = () => import( '@/components/news.vue' );
+const promotions = () => import( '@/components/promotions.vue' );
 
 const catalogueChery = () => import( '@/components/catalogue/filter/chery.vue' );
 const Tigga2 = () => import( '@/components/catalogue/chery/tigga2.vue' );
@@ -101,6 +102,12 @@ export default [
 		name: 'boliger',
 		path: '/catalogue/hawtai/boliger',
 		component: boliger,
+		meta: { scrollToTop: true }
+	},
+	{
+		name: 'promotions',
+		path: '/promotions',
+		component: promotions,
 		meta: { scrollToTop: true }
 	},
 	{

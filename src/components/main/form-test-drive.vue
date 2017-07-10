@@ -101,7 +101,7 @@
 		},
 		computed: {
 			Options() {
-				return this.$state.TestDrive.options
+				return this.$store.state.content.TestDrive
 			}
 		},
 		methods: {
@@ -115,8 +115,7 @@
 Дата: ${ this.Form.date.toLocaleString('ru-RU', dateOptions) }`;
 				let request = {
 					token: telegram.token,
-					chat_id: '173161597',
-					// chat_id: telegram.chat_id,
+					chat_id: telegram.receptionID,
 					text: message
 				};
 				this.$store.dispatch( 'telegramMessage' , request )
@@ -132,7 +131,6 @@
 							phone: '',
 							date: new Date()
 						};
-						this.$store.dispatch('modalClose')
 					})
 					.catch( error => {
 						console.error(error);

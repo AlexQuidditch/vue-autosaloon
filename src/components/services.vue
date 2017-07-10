@@ -8,7 +8,8 @@
 					:to = "{ query: { select: buttonItem.component } }"
 					class="tabs-container__button _services waves-effect waves-light"
 					type="button"
-					>{{ buttonItem.name }}</router-link>
+					>{{ buttonItem.name }}
+				</router-link>
 			</div>
 		</div>
 

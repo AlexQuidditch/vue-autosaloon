@@ -1,6 +1,6 @@
 <template lang="html">
 	<main id="main" class="main _margin">
-		<Filters/>
+		<Filters></Filters>
 	</main>
 </template>
 
@@ -49,6 +49,7 @@
 			margin-top: 1rem;
 		}
 		&__list-item {
+			position: relative;
 			display: flex;
 			flex-flow: row wrap;
 			size: 350px auto;
@@ -62,6 +63,14 @@
 		}
 		&__list-item-title {
 			line-height: 3.5rem;
+		}
+		&__list-item-available {
+			position: absolute 10px 0 auto auto;
+			size: 100px auto;
+			color: $whited $blue;
+			text-align: center;
+			line-height: 35px;
+			@include MDShadow-1;
 		}
 		&__list-item-image {
 			size: 100% 200px;

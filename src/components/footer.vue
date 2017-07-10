@@ -9,15 +9,23 @@
 			<div class="footer-contacts">
 				<p v-for = "contactsItem in Contacts"
 					class="footer-information__contacts"
-					>{{ contactsItem }}</p>
+					>{{ contactsItem }}
+				</p>
 			</div>
 			<div class="footer-adress">
+				<a href = "//vk.com/angar_achinsk" target="_blank"
+					title = "Наша группа во Вконтакте"
+					class = "footer-adress__btn _vk"
+					ripple-light >
+					<span>Мы Вконтакте</span>
+				</a>
 				<a v-for = "buttonItem in Buttons"
 					:href = "buttonItem.link" target="_blank"
-					class = "footer-adress__btn"
 					:title = "buttonItem.title"
+					class = "footer-adress__btn"
 					ripple-light >
-					<i class="footer-adress__btn-icon material-icons">{{ buttonItem.icon }}</i>{{ buttonItem.text }}
+					<i class="footer-adress__btn-icon material-icons">{{ buttonItem.icon }}</i>
+					<span>{{ buttonItem.text }}</span>
 				</a>
 			</div>
 		</div>
@@ -34,11 +42,11 @@
 					'Официальный дилер марок Chery, Changan, Hawtai',
 					'ИНН/ОГРН:' , '2443042412 / 1132443001393',
 					'Адрес:' , '662150, Красноярский край, г.Ачинск, Южная промзона, квартал 1, строение 7.',
-					'График работы:' , ' Пн-Сб, 10:00 - 19:00'
+					'График работы:' , ' Пн-Сб: 9:00 - 19:00, Вс: 10-00 до 16-00'
 				],
 				Contacts: [
-					'Телефон отдела продаж:' , '+7 (39151) 4-66-80',
-					'Сотовый:' , '+7 (983) 209-60-80',
+					'Телефон автосалона:' , '+7 (39151) 4-66-80',
+					'Телефон отдела продаж:' , '+7 (983) 209-60-80',
 					'Запись на ТО, отдел запчастей:' , '+7 (923) 375-50-31',
 					'E-mail:' , 'angar240@mail.ru'
 				],
@@ -56,7 +64,7 @@
 						text:'Показать на карте'
 					},
 					{
-						link: '',
+						link: 'mailto:angar240@mail.ru',
 						title: 'Написать электронное письмо',
 						icon: 'email',
 						text:'Напишите нам'
@@ -127,14 +135,17 @@
 		}
 		&__btn {
 			@include MDButton($white, $red) {
+				position: relative;
 				display: flex;
-				flex-flow: column wrap;
 				justify-content: center;
+				align-items: center;
 				size: 100% 3rem;
 				margin-bottom: 1rem;
-				padding: 0 1rem;
 			}
-			&:first-child {
+			&._vk {
+				background-color: #45668e
+			}
+			&:nth-child(2) {
 				display: none;
 				@include MQ(Pp) {
 					display: flex;
@@ -142,8 +153,9 @@
 			}
 		}
 		&__btn-icon {
-			align-self: flex-start;
+			position: absolute 0 auto auto 1rem;
 			font-size: 2rem;
+			line-height: 3rem;
 			text-shadow:
 		            0 4px 5px rgba($blacked, 0.14),
 		            0 1px 10px rgba($blacked, 0.12),

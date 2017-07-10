@@ -46,14 +46,7 @@
 					</li>
 				</ul>
 			</div>
-			<ul class="header-menu _buttons">
-				<li class="header-menu__item">
-					<button @click="callTestDrive()"
-						class="header-menu__link _buttons"
-						ripple-light
-						>Запись на тест-драйв</button>
-				</li>
-			</ul>
+			<img :src="YearSrc" alt="Car of the Year" class="header-menu__car-of-year" />
 		</nav>
 	</header>
 </template>
@@ -64,6 +57,7 @@
 		data() {
 			return {
 				logoSrc: '../../static/assets/svg/logo.svg',
+				YearSrc: '../../static/assets/img/car2017.png',
 				mobileIsOpened: false,
 				headerMenu: [
 					{
@@ -108,14 +102,14 @@
 									path: '/service',
 			                    	query: { select: 'sService' }
 								},
-								text: 'ТО и ремонт'
+								text: 'Запись на ТО и ремонт'
 							},
 							{
 								route: {
 									path: '/service',
 									query: { select: 'sRepair' }
 								},
-								text: 'Запчасти'
+								text: 'Запчасти и аксессуары'
 							}
 						]
 					},
@@ -136,6 +130,10 @@
 						]
 					},
 					{
+						route: '/promotions',
+						text: 'Акции'
+					},
+					{
 						route: '/news',
 						text: 'Новости'
 					}
@@ -143,16 +141,6 @@
 			}
 		},
 		methods: {
-			callTestDrive() {
-				this.$store.commit('modalOpen')
-			},
-			callContacts() {
-				this.$swal(
-					'Тут будет вызвана модалка с тест-драйвом',
-					'И прочее бла-бла-бла...',
-					'question'
-				)
-			},
 			openMobileMenu() {
 				this.mobileIsOpened = true;
 			},
@@ -173,7 +161,7 @@
 		z-index: 900;
 		position: fixed 0 auto auto 0;
 		size: 100% $headerHeight;
-		@include gradient( 125deg , $white );
+		background-color: $white;
 		@include MDShadow-4;
 		@include MQ(Pp) {
 			position: static;
@@ -210,10 +198,6 @@
 		@include MQ(Pp) {
 			display: none;
 		}
-		&._buttons {
-			position: absolute;
-			right: 0;
-		}
 		&._mobile {
 			display: none;
 			@include MQ(Pp) {
@@ -226,6 +210,7 @@
 			}
 		}
 		&__item {
+			position: relative;
 			height: 100%;
 			&._mobile {
 				display: none;
@@ -249,6 +234,7 @@
 			size: auto 100%;
 			padding: 0 22px;
 			font-size: 1.15rem;
+			font-weight: 500;
 			color: $black;
 			cursor: pointer;
 			transition: color .1s ease-in-out;
@@ -259,13 +245,6 @@
 				display: none;
 				@include MQ(Pp) {
 					display: block;
-				}
-			}
-			&._buttons {
-				@include MDButton($white , $red) {
-					height: 40px;
-					margin: 10px 0;
-					padding: 0 1rem;
 				}
 			}
 			&._close {
@@ -291,7 +270,7 @@
 				&._opened {
 					top: 500%;
 					right: 50%;
-					size: 250px 310px;
+					size: 250px 375px;
 					background-color: $white;
 					border-radius: 5px;
 					cursor: default;
@@ -316,11 +295,12 @@
 			}
 		}
 		&__submenu {
-			z-index: -10;
+			z-index: 10;
 			opacity: 0;
 			visibility: hidden;
-			@include MDShadow-4;
-			transform: translateX(-25%);
+			position: absolute 60px 0 0 50%;
+			width: 175px;
+			transform: translateX( -75% );
 			transition:
 				opacity .3s ease-in-out,
 				transform .3s ease-in-out,
@@ -329,14 +309,15 @@
 			&:hover {
 				opacity: 1;
 				visibility: visible;
-				transform: translateX(0);
+				transform: translateX( -50% );
 			}
 		}
 		&__submenu-item {}
 		&__submenu-link {
-			display: inline-block;
-			size: 100%;
+			display: block;
+			size: 175px 100%;
 			padding: 10px 20px;
+			text-align: center;
 			color: $black $white;
 			cursor: pointer;
 			transition: background-color .3s ease-in-out;
@@ -344,5 +325,9 @@
 				background-color: mix($black , $white , 5%);
 			}
 		}
+		&__car-of-year {
+			position: absolute 10px 0 auto auto;
+		}
 	}
+
 </style>

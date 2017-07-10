@@ -1,12 +1,12 @@
 <template lang="html">
-	<div v-once class="mobile-notation">
+	<div class="mobile-notation">
 		<h5 class="mobile-notation__title">Важно!</h5>
 		<p class="mobile-notation__text">Полное описание комплектации доступно на больших экранах, например, на компьютере. На маленьком экране всё не поместится :)<br />Вы можете связаться с менеджером, который ответит на Ваши вопросы по данному автомобилю.</p>
-		<form @submit.stop="sendCallback()" class="callback-form">
+		<form @submit.stop.prevent="sendCallback()" class="callback-form">
 			<label for="name" class="callback-form__input-row">
 				<i class="callback-form__icon material-icons">person</i>
 				<input v-model = "Form.name"
-					:placeholder="Form.namePlaceholder"
+					:placeholder="Placeholders.name"
 					class="callback-form__input _contact-me"
 					type="text"
 					id="name"
@@ -17,7 +17,7 @@
 			<label for="phone" class="callback-form__input-row">
 				<i class="callback-form__icon material-icons">phone</i>
 				<input v-model = "Form.phone"
-					:placeholder="Form.phonePlaceholder"
+					:placeholder="Placeholders.phone"
 					v-mask=" '\+7 (###) ###-##-##' "
 					class="callback-form__input _contact-me"
 					type="tel"
@@ -35,21 +35,55 @@
 
 <script>
 
+	import telegram from '../main/telegram-token.js';
+
 	export default {
 		name: "mobile-notation",
 		data() {
 			return {
 				Form: {
 					name: '',
-					namePlaceholder: 'Ваше имя',
 					phone: '',
-					phonePlaceholder: '+7 (000) 000-00-00'
+				},
+				Placeholders: {
+					name: 'Ваше имя',
+					phone: '+7 (000) 000-00-00'
 				}
 			}
 		},
 		methods: {
 			sendCallback() {
-				console.log(this.Form);
+				const message =
+`Новая просьба перезвонить:
+
+Имя: ${ this.Form.name }
+Телефон: ${ this.Form.phone }
+Страница авто: ${ this.$root.$route.name.toUpperCase() }`;
+				let request = {
+					token: telegram.token,
+					chat_id: telegram.receptionID,
+					text: message
+				};
+				this.$store.dispatch( 'telegramMessage' , request )
+					.then( response => {
+						this.$swal(
+							'Просьба перезвонить отправлена!',
+							'С Вами свяжется менеджер.',
+							'success'
+						);
+						this.Form = {
+							name: '',
+							phone: ''
+						};
+					})
+					.catch( error => {
+						console.error(error);
+						this.$swal(
+							'Упс...',
+							'Что-то пошло не так!',
+							'error'
+						)
+					});
 			}
 		}
 	}

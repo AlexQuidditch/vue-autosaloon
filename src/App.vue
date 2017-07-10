@@ -1,34 +1,32 @@
 <template lang="html">
 	<div id="wrapper" class="wrapper">
 		<s-header></s-header>
-		<transition name="fade-slow" mode="out-in" appear class="main">
+		<transition name="fade-slow" mode="out-in" appear
+			class="main">
 			<router-view></router-view>
 		</transition>
 		<s-footer></s-footer>
 		<button-up></button-up>
 		<button-call></button-call>
+		<button-testdrive></button-testdrive>
 		<overlay></overlay>
 	</div>
 </template>
 
 <script>
 
-	import sHeader from './components/header';
-	import sFooter from './components/footer';
-	import buttonUp from './components/button-up';
-	import buttonCall from './components/button-call';
-	import overlay from './components/overlay';
+	import sHeader from '@/components/header';
+	import sFooter from '@/components/footer';
+	import buttonUp from '@/components/button-up';
+	import buttonCall from '@/components/button-call';
+	import buttonTestdrive from '@/components/button-testdrive';
+	import overlay from '@/components/overlay';
 
 	export default {
-		name: 'app',
-		components: { sHeader , sFooter , buttonUp , buttonCall , overlay },
-		created() {
-			this.$store.dispatch( 'fetchFromServer' , 'Cars' );
-			this.$store.dispatch( 'fetchFromServer' , 'Catalogue' );
-			this.$store.dispatch( 'fetchFromServer' , 'Filter' );
-			this.$store.dispatch( 'fetchFromServer' , 'Service' );
-			this.$store.dispatch( 'fetchFromServer' , 'Services' );
-			this.$store.dispatch( 'fetchFromServer' , 'TestDrive' );
+		name: 'autosaloon-auto',
+		components: { sHeader , sFooter , buttonUp , buttonCall  , buttonTestdrive , overlay },
+		beforeMount() {
+			this.$store.dispatch( 'fetchFromServer' , 'content' );
 		}
 	}
 
@@ -173,7 +171,7 @@
 	    &__button {
 	    	@include MDButton($white , $red) {
 				size: 200px 40px;
-				line-height: 40px;
+				line-height: 38px;
 	    	};
 			@include MQ(Pp) {
 				size: 49% 40px;

@@ -101,10 +101,10 @@
 		},
 		computed: {
 			Options() {
-				return this.$state.TestDrive.options
+				return this.$store.state.content.TestDrive
 			},
 			isOpened() {
-				return this.$state.TestDrive.isOpened
+      			return this.$store.state.tempData.modalTestDrive
 			}
 		},
 		methods: {
@@ -121,8 +121,7 @@
 Дата: ${ this.Form.date.toLocaleString('ru-RU', dateOptions) }`;
 				let request = {
 					token: telegram.token,
-					chat_id: '173161597',
-					// chat_id: telegram.chat_id,
+					chat_id: telegram.receptionID,
 					text: message
 				};
 				this.$store.dispatch( 'telegramMessage' , request )
@@ -162,21 +161,24 @@
 	.modal-testdrive-form {
 		opacity: 0;
 		visibility: hidden;
-		position: fixed;
-		@include center(xy);
+		position: fixed 50% 0 0 50%;
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
-		size: 60% auto;
-		margin-top: 3rem;
+		size: 800px auto;
 		padding: 30px;
-		padding-top: 10px;
+		padding-top: 0;
 		background-color: $white;
 		@include MDShadow-5;
-		transition: opacity .3s ease-in-out, visibility .3s ease-in-out;
+		transform: translate( -50% , -50% ) scale(0.75);
+		transition:
+			transform .3s ease-in-out,
+			opacity .3s ease-in-out,
+			visibility .3s ease-in-out;
 		&._opened {
 			opacity: 1;
 			visibility: visible;
+			transform: translate( -50% , -50% ) scale(1);
 		}
 		&__title {
 			width: 100%;

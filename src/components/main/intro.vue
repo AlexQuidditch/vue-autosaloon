@@ -1,10 +1,9 @@
 <template lang="html">
 	<section id="Intro" class="intro">
-		<flickity ref="flickity"
-			:options="flickityOptions"
+		<vue-flickity ref="flickity" :options="flickityOptions"
 			class="intro-slider">
 			<img v-for="slideItem in Slides" class="intro-slider__slide" :src="slideItem" />
-		</flickity>
+		</vue-flickity>
 
 		<div class="intro__overlay">
 			<div class="container _flex-row _j-start">
@@ -19,19 +18,20 @@
 
 <script>
 
-	import Flickity from 'vue-flickity';
+	import Flickity from 'flickity';
+	import vueFlickity from 'vue-flickity';
 
 	export default {
 		name: 'intro',
-		components: { Flickity },
+		components: { vueFlickity },
 		data() {
 			return {
 				title: 'Автосалон Ангар',
 				subtitle: 'Официальный дилер марок Chery, Changan, Hawtai в г. Ачинске',
-				Slides: [ '../../../static/assets/img/slider/slide_1.jpg' , '../../../static/assets/img/slider/slide_2.jpg' , '../../../static/assets/img/slider/slide_3.jpg' , '../../../static/assets/img/slider/slide_4.png' ] ,
+				Slides: [ '/static/uploads/slide_1.jpg' , '/static/uploads/slide_2.jpg' , '/static/uploads/slide_3.jpg' , '/static/uploads/slide_4.png' ],
 				flickityOptions: {
 					selector: '.intro-slider__slide',
-					autoplay: 7500,
+					atoPlay: 7500,
                 	prevNextButtons: 0,
                 	pageDots: 1,
                 	wrapAround: true
@@ -39,6 +39,7 @@
 			}
 		}
 	}
+
 </script>
 
 <style lang="scss">
@@ -55,7 +56,7 @@
 		&__overlay {
 			position: absolute $headerHeight auto auto 0;
 			size: 100% calc( 100% - 60px );
-			background-color: rgba( $blacked , 0.45 );
+			background-color: rgba( $blacked , 0.25 );
 			.container {
 				position: relative;
 				padding-bottom: 9vh;

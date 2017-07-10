@@ -1,5 +1,5 @@
 <template lang="html">
-	<main v-once id="main" class="main">
+	<main id="main" class="main">
 
 		<intro></intro>
 

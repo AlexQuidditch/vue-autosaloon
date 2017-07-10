@@ -5,28 +5,19 @@
 			<transition-group tag="ul"
 				class="tab-auto__list"
 				>
-				<catalogue-item	v-for = "cheryItem in Chery" :key = "cheryItem.model"
-					:model = "cheryItem.model"
-					:image = "cheryItem.image"
-					:description = "cheryItem.description"
-					:price = "cheryItem.price"
-					:route = "cheryItem.route"
+				<catalogue-item	v-for = "cheryItem in Chery"
+					:key = "cheryItem.model"
+					:Car = "cheryItem"
 					>
 				</catalogue-item>
-				<catalogue-item	v-for = "hawtaiItem in Hawtai" :key = "hawtaiItem.model"
-					:model = "hawtaiItem.model"
-					:image = "hawtaiItem.image"
-					:description = "hawtaiItem.description"
-					:price = "hawtaiItem.price"
-					:route = "hawtaiItem.route"
+				<catalogue-item	v-for = "hawtaiItem in Hawtai"
+					:key = "hawtaiItem.model"
+					:Car = "hawtaiItem"
 					>
 				</catalogue-item>
-				<catalogue-item	v-for = "changanItem in Changan" :key = "changanItem.model"
-					:model = "changanItem.model"
-					:image = "changanItem.image"
-					:description = "changanItem.description"
-					:price = "changanItem.price"
-					:route = "changanItem.route"
+				<catalogue-item	v-for = "changanItem in Changan"
+					:key = "changanItem.model"
+					:Car = "changanItem"
 					>
 				</catalogue-item>
 			</transition-group>
@@ -44,13 +35,13 @@
 		components: { catalogueItem },
 		computed: {
 			Chery() {
-				return this.$state.Catalogue.chery
+				return this.$store.state.content.Catalogue.chery
 			},
 			Hawtai() {
-				return this.$state.Catalogue.hawtai
+				return this.$store.state.content.Catalogue.hawtai
 			},
 			Changan() {
-				return this.$state.Catalogue.changan
+				return this.$store.state.content.Catalogue.changan
 			}
 		}
 	}

@@ -6,10 +6,10 @@
 				<router-link v-for = "buttonItem in Buttons" :key = "buttonItem.name"
 					tag = "button"
 					:to = "{ query: { select: buttonItem.component } }"
-					class="tabs-container__button _service"
+					class="tabs-container__button _service waves-effect waves-light"
 					type="button"
-					ripple-light
-					>{{ buttonItem.name }}</router-link>
+					>{{ buttonItem.name }}
+				</router-link>
 			</div>
 		</div>
 
@@ -43,11 +43,6 @@
 					}
 				]
 			}
-		},
-		mounted() {
-			Waves.init();
-			Waves.attach('[ripple-dark]', ['waves-dark']);
-			Waves.attach('[ripple-light]', ['waves-light']);
 		}
 	}
 

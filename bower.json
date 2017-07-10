@@ -18,6 +18,10 @@
   "devDependencies": {
     "normalize-css": "^5.0.0",
     "Waves": "waves#^0.7.5",
-    "flickity": "^2.0.5",
+    "flickity": "^2.0.5"
+  },
+  "dependencies": {
+    "material-design-icons": "^3.0.1",
+    "quill": "1.2.6"
   }
 }

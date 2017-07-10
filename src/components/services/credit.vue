@@ -1,7 +1,7 @@
 <template lang="html">
 	<section id="credit" class="credit">
 		<h1 class="credit__title">{{ Content.title }}</h1>
-		<h3 v-html="Content.subTitle" class="credit-info__title html ql-editor"></h3>
+		<div v-html="Content.subTitle" class="credit__sub-title container html ql-editor"></div>
 		<div class="container _flex-row _j-between">
 			<article class="credit-info">
 				<div v-html="Content.content" class="credit-info__content html ql-editor"></div>
@@ -58,11 +58,13 @@
 					<button	type="submit"
 						name="button"
 						class="credit-form__submit waves-effect waves-light"
-						>Отправить заявку</button>
+						>Отправить заявку
+					</button>
 				</fieldset>
 
 			</form>
 		</div>
+
 	</section>
 </template>
 
@@ -95,10 +97,10 @@
 		},
 		computed: {
 			Options() {
-				return this.$state.TestDrive.options
+				return this.$state.content.TestDrive.options
 			},
 			Content() {
-				return this.$state.Services.credit
+				return this.$state.content.Services.credit
 			}
 		},
 		methods: {
@@ -112,8 +114,7 @@
 Перезвонить в: ${ this.Form.time }:00`;
 				let request = {
 					token: telegram.token,
-					chat_id: '173161597',
-					// chat_id: telegram.chat_id,
+					chat_id: telegram.receptionID,
 					text: message
 				};
 				this.$store.dispatch( 'telegramMessage' , request )
@@ -156,6 +157,11 @@
 			font-size: 3rem;
 			color: $white;
 		}
+		&__sub-title {
+			margin-top: 16px;
+			color: $white;
+			font-size: 18px;
+		}
 		@include MQ(Pp) {
 			padding: 30px 0;
 			&__title {
@@ -183,6 +189,7 @@
 		}
 		@include MQ(Pp) {
 			width: auto;
+			margin-top: 32px;
 		};
 	}
 
