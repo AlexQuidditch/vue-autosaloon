@@ -1,14 +1,9 @@
 <template lang="html">
 	<main id="main" class="main">
-
 		<intro></intro>
-
 		<marks></marks>
-
 		<test-drive></test-drive>
-
 		<about></about>
-
 	</main>
 </template>
 
@@ -23,9 +18,11 @@
 		name: 'main',
 		components: { Intro , Marks , TestDrive , About },
 		mounted() {
-			Waves.init();
-			Waves.attach('[ripple-dark]', ['waves-dark']);
-			Waves.attach('[ripple-light]', ['waves-light']);
+			this.$nextTick( () => {
+				Waves.init();
+				Waves.attach('[ripple-dark]', ['waves-dark']);
+				Waves.attach('[ripple-light]', ['waves-light']);
+			})
 		}
 	}
 

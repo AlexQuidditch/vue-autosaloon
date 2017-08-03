@@ -1,27 +1,28 @@
 <template lang="html">
     <li class="offers-item">
         <div class="slider">
-            <flickity ref="slider" :options="flickityOptions" class="offers-slider" >
+            <flickity ref="slider" :options="flickityOptions"
+				class="offers-slider" >
                 <div v-for="offersItem in Offer.slides"
                     class="offers-slider__slide">
                     <img :src="offersItem"
-                        class="offers-slider__slide-image"
-                    />
+                        class="offers-slider__slide-image" />
                 </div>
             </flickity>
             <div class="controls">
                 <button v-for="( offersItem , index ) in Offer.slides"
                     @click="selectSlide( index )"
                     class="offers-slider__control-button"
-                    type="button"
-                    >
+                    type="button">
                     <img :src="offersItem" class="offers-slider__control-image" />
                 </button>
             </div>
         </div>
         <div class="details _offers-item">
             <h3 class="details__title _offers-item">{{ Offer.title }}</h3>
-            <div v-html="Offer.descriptions" class="details__description _offers-item html ql-editor"></div>
+            <div v-html="Offer.descriptions"
+					class="details__description _offers-item html ql-editor">
+			</div>
         </div>
     </li>
 </template>
